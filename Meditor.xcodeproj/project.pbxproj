@@ -1,0 +1,323 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6BA4E14A1BD3318B004CE715 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E1491BD3318B004CE715 /* main.swift */; settings = {ASSET_TAGS = (); }; };
+		6BA4E14C1BD334E0004CE715 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA4E14B1BD334E0004CE715 /* MainMenu.xib */; settings = {ASSET_TAGS = (); }; };
+		6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */; };
+		6BCD56711BCC52BB0024D09F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCD56701BCC52BB0024D09F /* Assets.xcassets */; };
+		6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */; settings = {ASSET_TAGS = (); }; };
+		6BCD56861BCC58CF0024D09F /* MeditorDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56851BCC58CF0024D09F /* MeditorDoc.swift */; settings = {ASSET_TAGS = (); }; };
+		6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56891BD089D20024D09F /* Tagger.swift */; settings = {ASSET_TAGS = (); }; };
+		6BCD568F1BD089D20024D09F /* AppDelegate1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD568B1BD089D20024D09F /* AppDelegate1.swift */; settings = {ASSET_TAGS = (); }; };
+		6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */; settings = {ASSET_TAGS = (); }; };
+		6BCD56931BD08A7A0024D09F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56911BD08A7A0024D09F /* Store.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6BA4E1491BD3318B004CE715 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		6BA4E14B1BD334E0004CE715 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
+		6BCD566B1BCC52BB0024D09F /* Meditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6BCD56701BCC52BB0024D09F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6BCD56751BCC52BB0024D09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorTextView.swift; sourceTree = "<group>"; };
+		6BCD56851BCC58CF0024D09F /* MeditorDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorDoc.swift; sourceTree = "<group>"; };
+		6BCD56891BD089D20024D09F /* Tagger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagger.swift; sourceTree = "<group>"; };
+		6BCD568B1BD089D20024D09F /* AppDelegate1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate1.swift; sourceTree = "<group>"; };
+		6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManger.swift; sourceTree = "<group>"; };
+		6BCD56911BD08A7A0024D09F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6BCD56681BCC52BB0024D09F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6BCD56621BCC52BB0024D09F = {
+			isa = PBXGroup;
+			children = (
+				6BCD566D1BCC52BB0024D09F /* Meditor */,
+				6BCD566C1BCC52BB0024D09F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6BCD566C1BCC52BB0024D09F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD566B1BCC52BB0024D09F /* Meditor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6BCD566D1BCC52BB0024D09F /* Meditor */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD56871BD089AF0024D09F /* API */,
+				6BCD56841BCC57680024D09F /* Models */,
+				6BCD56831BCC56310024D09F /* UI */,
+				6BCD56701BCC52BB0024D09F /* Assets.xcassets */,
+				6BA4E14B1BD334E0004CE715 /* MainMenu.xib */,
+				6BCD56751BCC52BB0024D09F /* Info.plist */,
+			);
+			path = Meditor;
+			sourceTree = "<group>";
+		};
+		6BCD56831BCC56310024D09F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */,
+				6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */,
+				6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */,
+				6BA4E1491BD3318B004CE715 /* main.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		6BCD56841BCC57680024D09F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD56851BCC58CF0024D09F /* MeditorDoc.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6BCD56871BD089AF0024D09F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */,
+				6BCD56911BD08A7A0024D09F /* Store.swift */,
+				6BCD56891BD089D20024D09F /* Tagger.swift */,
+				6BCD568B1BD089D20024D09F /* AppDelegate1.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6BCD566A1BCC52BB0024D09F /* Meditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6BCD56781BCC52BB0024D09F /* Build configuration list for PBXNativeTarget "Meditor" */;
+			buildPhases = (
+				6BCD56671BCC52BB0024D09F /* Sources */,
+				6BCD56681BCC52BB0024D09F /* Frameworks */,
+				6BCD56691BCC52BB0024D09F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Meditor;
+			productName = Meditor;
+			productReference = 6BCD566B1BCC52BB0024D09F /* Meditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6BCD56631BCC52BB0024D09F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Meditor;
+				TargetAttributes = {
+					6BCD566A1BCC52BB0024D09F = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Meditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6BCD56621BCC52BB0024D09F;
+			productRefGroup = 6BCD566C1BCC52BB0024D09F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6BCD566A1BCC52BB0024D09F /* Meditor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6BCD56691BCC52BB0024D09F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BCD56711BCC52BB0024D09F /* Assets.xcassets in Resources */,
+				6BA4E14C1BD334E0004CE715 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6BCD56671BCC52BB0024D09F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BCD56931BD08A7A0024D09F /* Store.swift in Sources */,
+				6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */,
+				6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */,
+				6BA4E14A1BD3318B004CE715 /* main.swift in Sources */,
+				6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */,
+				6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */,
+				6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */,
+				6BCD56861BCC58CF0024D09F /* MeditorDoc.swift in Sources */,
+				6BCD568F1BD089D20024D09F /* AppDelegate1.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6BCD56761BCC52BB0024D09F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6BCD56771BCC52BB0024D09F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6BCD56791BCC52BB0024D09F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Meditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6BCD567A1BCC52BB0024D09F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Meditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Meditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BCD56761BCC52BB0024D09F /* Debug */,
+				6BCD56771BCC52BB0024D09F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6BCD56781BCC52BB0024D09F /* Build configuration list for PBXNativeTarget "Meditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BCD56791BCC52BB0024D09F /* Debug */,
+				6BCD567A1BCC52BB0024D09F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6BCD56631BCC52BB0024D09F /* Project object */;
+}
