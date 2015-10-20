@@ -24,8 +24,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let controller: NSWindowController
     
     override init() {
+
         controller = NSWindowController(window: window)
         super.init()
+        
+        // Window
         let screenSize = screenResolution()
         window = NSWindow(contentRect: NSMakeRect(100, 100, screenSize.width - 200, screenSize.height - 200), styleMask: NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask, backing: NSBackingStoreType.Buffered, `defer`: false)
         window.minSize = NSMakeSize(textWidth + 100.0, minTextHeight)
@@ -38,6 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
 
+        // Scroll View
         scrollView = NSScrollView()
         scrollView.borderType = NSBorderType.NoBorder
         scrollView.hasVerticalScroller = true
@@ -45,30 +49,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         scrollView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         window.contentView?.addSubview(scrollView)
 
+        // Text View
         meditorTextView = MeditorTextView()
-        meditorTextView.maxSize = NSMakeSize(textWidth, CGFloat(FLT_MAX))
         meditorTextView.verticallyResizable = true
         meditorTextView.horizontallyResizable = false
-        meditorTextView.textContainer!.containerSize = NSMakeSize(textWidth, CGFloat(FLT_MAX))
         meditorTextView.textContainer!.widthTracksTextView = true
+        meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         meditorTextView.delegate = meditorTextView
         meditorTextView.setup()
         scrollView.documentView = meditorTextView
 
+        // Positioning
         let frame = (window.contentView?.frame)!
         scrollView.frame.size = NSSize(width: frame.size.width, height: frame.size.height)
-        scrollView.contentView.frame.size = NSSize(width: frame.size.width, height: frame.size.height)
-        meditorTextView.frame = NSMakeRect(0, 0, scrollView.contentSize.width, scrollView.contentSize.height)
+        meditorTextView.frame.size = NSSize(width: frame.size.width, height: frame.size.height)
         reposition()
         
-        window.makeFirstResponder(meditorTextView)
-        
+        // Toolbar
         toolbarTabsIdentifierArray =  [NSToolbarFlexibleSpaceItemIdentifier, "PublishButtonIdentifier"]
         toolbar = NSToolbar(identifier:"MeditorToolbarIdentifier")
         toolbar.allowsUserCustomization = true
         toolbar.delegate = self
         window.toolbar = toolbar
         window.makeKeyAndOrderFront(nil);
+        window.makeFirstResponder(meditorTextView)
     }
     
     func reposition() {
