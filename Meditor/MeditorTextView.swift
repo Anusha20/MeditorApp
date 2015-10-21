@@ -18,7 +18,20 @@ class MeditorTextView: NSTextView {
     
     func setup(app : AppDelegate) {
         self.app = app
-        resetTitle()
+        
+        // Loading File from disc
+        LoadFileList()
+        let currentId = getCurrentMeditorDocId()
+        if (currentId.isEmpty) {
+            meditorDoc = MeditorDoc()
+            updateFileList(meditorDoc.id, title: getTitle())
+             resetTitle()
+        } else {
+            meditorDoc = MeditorDoc(id:currentId)
+            isEmpty = false
+            changeTitle( meditorDoc.body, selectedRange: NSRange(location: 0,length: 0), selectedAlpha: 0.7)
+        }
+       
         continuousSpellCheckingEnabled = false;
         formatMarkdown()
         updateInfo()
@@ -120,6 +133,14 @@ class MeditorTextView: NSTextView {
         
         updateInfo()
         formatMarkdown();
+        saveInfo()
+        
+    }
+    
+    func saveInfo(){
+        meditorDoc.title = getTitle()
+        meditorDoc.body = string!
+        meditorDoc.persist()
     }
     
     func updateInfo() {

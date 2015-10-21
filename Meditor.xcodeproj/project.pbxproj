@@ -17,9 +17,9 @@
 		6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */; settings = {ASSET_TAGS = (); }; };
 		6BCD56861BCC58CF0024D09F /* MeditorDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56851BCC58CF0024D09F /* MeditorDoc.swift */; settings = {ASSET_TAGS = (); }; };
 		6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56891BD089D20024D09F /* Tagger.swift */; settings = {ASSET_TAGS = (); }; };
-		6BCD568F1BD089D20024D09F /* AppDelegate1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD568B1BD089D20024D09F /* AppDelegate1.swift */; settings = {ASSET_TAGS = (); }; };
 		6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */; settings = {ASSET_TAGS = (); }; };
 		6BCD56931BD08A7A0024D09F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56911BD08A7A0024D09F /* Store.swift */; settings = {ASSET_TAGS = (); }; };
+		885E1BC81BD8139300C8A043 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885E1BC71BD8139300C8A043 /* FileList.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +35,10 @@
 		6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorTextView.swift; sourceTree = "<group>"; };
 		6BCD56851BCC58CF0024D09F /* MeditorDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorDoc.swift; sourceTree = "<group>"; };
 		6BCD56891BD089D20024D09F /* Tagger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagger.swift; sourceTree = "<group>"; };
-		6BCD568B1BD089D20024D09F /* AppDelegate1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate1.swift; sourceTree = "<group>"; };
 		6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManger.swift; sourceTree = "<group>"; };
 		6BCD56911BD08A7A0024D09F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Meditor.xcodeproj; sourceTree = "<group>"; };
+		885E1BC71BD8139300C8A043 /* FileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		6BCD56621BCC52BB0024D09F = {
 			isa = PBXGroup;
 			children = (
+				885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */,
 				6BCD566D1BCC52BB0024D09F /* Meditor */,
 				6BCD566C1BCC52BB0024D09F /* Products */,
 			);
@@ -104,12 +106,17 @@
 		6BCD56871BD089AF0024D09F /* API */ = {
 			isa = PBXGroup;
 			children = (
+				885E1BC71BD8139300C8A043 /* FileList.swift */,
 				6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */,
 				6BCD56911BD08A7A0024D09F /* Store.swift */,
 				6BCD56891BD089D20024D09F /* Tagger.swift */,
-				6BCD568B1BD089D20024D09F /* AppDelegate1.swift */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		885E1BC51BD8137300C8A043 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +164,12 @@
 			mainGroup = 6BCD56621BCC52BB0024D09F;
 			productRefGroup = 6BCD566C1BCC52BB0024D09F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 885E1BC51BD8137300C8A043 /* Products */;
+					ProjectRef = 885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6BCD566A1BCC52BB0024D09F /* Meditor */,
@@ -190,8 +203,8 @@
 				6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */,
 				6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */,
 				6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */,
+				885E1BC81BD8139300C8A043 /* FileList.swift in Sources */,
 				6BCD56861BCC58CF0024D09F /* MeditorDoc.swift in Sources */,
-				6BCD568F1BD089D20024D09F /* AppDelegate1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
