@@ -11,15 +11,17 @@ import Cocoa
 class MeditorTextView: NSTextView {
 
     var meditorDoc = MeditorDoc()
+    var app : AppDelegate!
     
     var isEmpty = true
     let placeholder = "# Title\nTell your story...";
     
-    func setup() {
+    func setup(app : AppDelegate) {
+        self.app = app
         resetTitle()
         continuousSpellCheckingEnabled = false;
         formatMarkdown()
-        setupSampleDoc()
+        updateInfo()
     }
 
     func resetTitle() {
@@ -101,14 +103,7 @@ class MeditorTextView: NSTextView {
         setSelectedRange(tempRange)
     }
     
-    func setupSampleDoc() {
-        meditorDoc = MeditorDoc(title: "Sample Title", body: "Sample Body")
-    }
-}
-
-extension MeditorTextView: NSTextViewDelegate {
-    
-    func textDidChange(notification: NSNotification) {
+    func textChanged () {
         if(!isEmpty) {
             if(string == "") {
                 isEmpty = true
@@ -123,7 +118,58 @@ extension MeditorTextView: NSTextViewDelegate {
             }
         }
         
+        updateInfo()
         formatMarkdown();
+    }
+    
+    func updateInfo() {
+        let wordsCount = wordCount()
+        app.infoField.showIdle(shorten(getTitle(), count: 40), words: wordsCount, mins: minsCount(wordsCount), message: "Editing Draft")
+    }
+
+    func getTitle () -> String {
+        var title : String
+        if(isEmpty) {
+            return "Untitled"
+        } else {
+            if((string?.rangeOfString("\n")) != nil) {
+                title = (string?.substringToIndex((string?.rangeOfString("\n")?.startIndex)!))!
+            } else {
+                title = string!
+            }
+        }
+        return title.stringByReplacingOccurrencesOfString("# ", withString: "")
+    }
+    
+    func shorten(text : String, count : Int) -> String {
+        if(text.characters.count <= count) {
+            return text
+        } else {
+            return text.substringToIndex(text.startIndex.advancedBy(count)) + "..."
+        }
+    }
+
+    func wordCount () -> Int {
+        if(isEmpty) {
+            return 0;
+        } else {
+            return (string?.componentsSeparatedByString(" ").count)!
+        }
+    }
+    
+    func minsCount (wordsCount : Int) -> Int {
+        return Int(round(Double(wordsCount) / 220.0))
+    }
+    
+    func setupSampleDoc() {
+        meditorDoc = MeditorDoc(title: "Sample Title", body: "Sample Body")
+    }
+}
+
+extension MeditorTextView: NSTextViewDelegate {
+    
+    func textDidChange(notification: NSNotification) {
+        textChanged()
     }
     
     func textViewDidChangeSelection(notification: NSNotification) {

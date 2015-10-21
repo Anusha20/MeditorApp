@@ -40,7 +40,7 @@ class AppDelegate1: NSObject, NSApplicationDelegate {
         let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
         
         
-        RestAPIManger.sharedInstance.publishDraft(authorId,params: params)
+        RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: nil)
         
     }
     

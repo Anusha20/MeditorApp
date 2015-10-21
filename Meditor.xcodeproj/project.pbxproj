@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B6C42B41BD7EB030003C47A /* MeditorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C42B31BD7EB030003C47A /* MeditorButton.swift */; settings = {ASSET_TAGS = (); }; };
 		6BA4E14A1BD3318B004CE715 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E1491BD3318B004CE715 /* main.swift */; settings = {ASSET_TAGS = (); }; };
 		6BA4E14C1BD334E0004CE715 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA4E14B1BD334E0004CE715 /* MainMenu.xib */; settings = {ASSET_TAGS = (); }; };
 		6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		6BBA2D3A1BD6E5B500AB7FEF /* InfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */; settings = {ASSET_TAGS = (); }; };
 		6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */; };
 		6BCD56711BCC52BB0024D09F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCD56701BCC52BB0024D09F /* Assets.xcassets */; };
 		6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -21,9 +23,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B6C42B31BD7EB030003C47A /* MeditorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorButton.swift; sourceTree = "<group>"; };
 		6BA4E1491BD3318B004CE715 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6BA4E14B1BD334E0004CE715 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
+		6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextField.swift; sourceTree = "<group>"; };
 		6BCD566B1BCC52BB0024D09F /* Meditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BCD56701BCC52BB0024D09F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 				6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */,
 				6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */,
 				6BA4E1491BD3318B004CE715 /* main.swift */,
+				6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */,
+				6B6C42B31BD7EB030003C47A /* MeditorButton.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -176,9 +182,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BCD56931BD08A7A0024D09F /* Store.swift in Sources */,
+				6BBA2D3A1BD6E5B500AB7FEF /* InfoTextField.swift in Sources */,
 				6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */,
 				6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */,
 				6BA4E14A1BD3318B004CE715 /* main.swift in Sources */,
+				6B6C42B41BD7EB030003C47A /* MeditorButton.swift in Sources */,
 				6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */,
 				6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */,
 				6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */,

@@ -82,7 +82,7 @@ class RestAPIManger: NSObject{
     
     }
     
-    func publishDraft(authorId:String,params:NSDictionary ) {
+    func publishDraft(authorId:String,params:NSDictionary, app : AppDelegate?) {
         
         //1a2f581be073047a8b566b329a877473d6e48cf641bac164b841710b4d5ddcd39
         let publishEndpoint: String = "https://api.medium.com/v1/users/"+authorId+"/posts"
@@ -107,10 +107,11 @@ class RestAPIManger: NSObject{
             else // no error returned by URL request
             {
                 print(response)
-                let post = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                print("The post is: " + post.description)
-                NSWorkspace.sharedWorkspace().openURL(NSURL(string: (post["data"]?["url"] as? String)!)!)
+                let lastPost = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                print("The post is: " + lastPost.description)
                 
+                app!.infoField.showProgress("Published Draft to medium.com", progressValue: 1)
+                app?.postPublish(lastPost)
             }
         })
         task.resume()

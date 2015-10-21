@@ -10,23 +10,28 @@ import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
+    // Elements
     var window: NSWindow!
-
+    var newButton: MeditorButton!
+    var infoField: InfoTextField!
+    var publishButton: MeditorButton!
     var scrollView: NSScrollView!
     var meditorTextView: MeditorTextView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
     
+    // Position constants
     var textWidth: CGFloat = 700.0;
     var minTextHeight: CGFloat = 500.0;
     var minInsetHeight: CGFloat = 50.0;
-    
-    let controller: NSWindowController
+    var progressHeight: CGFloat = 2.0;
     
     override init() {
-
-        controller = NSWindowController(window: window)
         super.init()
+        initElements()
+    }
+    
+    func initElements() {
         
         // Window
         let screenSize = screenResolution()
@@ -37,10 +42,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.titleVisibility = NSWindowTitleVisibility.Hidden
         window.movableByWindowBackground = true
         window.delegate = self
-    }
-    
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
-
+        
+        // New Button
+        newButton = MeditorButton(frame: NSRect(x:0, y:0, width: 40, height: 35), app: self)
+        newButton.image = NSImage(named: NSImageNameAddTemplate)
+        newButton.toolTip = "Clear workspace and start over"
+        newButton.setButtonType(NSButtonType.MomentaryLightButton)
+        newButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
+        newButton.target = self
+        newButton.action = Selector("newClicked:")
+        
+        // Info Field
+        infoField = InfoTextField(frame: NSRect(x:0, y:0, width: 500, height: 25))
+        infoField.bezelStyle = NSTextFieldBezelStyle.RoundedBezel
+        infoField.editable = false
+        infoField.textColor = NSColor.blackColor()
+        infoField.font = NSFont(name: infoField.font!.familyName!, size: 11)
+        
+        // Publish Button
+        publishButton = MeditorButton(frame: NSRect(x:0, y:0, width: 40, height: 35), app: self)
+        publishButton.image = NSImage(named: NSImageNameShareTemplate)
+        publishButton.toolTip = "Publish as Draft and Open the draft in medium.com"
+        publishButton.setButtonType(NSButtonType.MomentaryLightButton)
+        publishButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
+        publishButton.target = self
+        publishButton.action = Selector("publishClicked:")
+        
+        
         // Scroll View
         scrollView = NSScrollView()
         scrollView.borderType = NSBorderType.NoBorder
@@ -48,7 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         scrollView.hasHorizontalScroller = false
         scrollView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         window.contentView?.addSubview(scrollView)
-
+        
         // Text View
         meditorTextView = MeditorTextView()
         meditorTextView.verticallyResizable = true
@@ -56,8 +84,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         meditorTextView.textContainer!.widthTracksTextView = true
         meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         meditorTextView.delegate = meditorTextView
-        meditorTextView.setup()
+        meditorTextView.setup(self)
         scrollView.documentView = meditorTextView
+    }
+    
+    func applicationDidFinishLaunching(aNotification: NSNotification) {
 
         // Positioning
         let frame = (window.contentView?.frame)!
@@ -66,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         reposition()
         
         // Toolbar
-        toolbarTabsIdentifierArray =  [NSToolbarFlexibleSpaceItemIdentifier, "PublishButtonIdentifier"]
+        toolbarTabsIdentifierArray =  [NSToolbarFlexibleSpaceItemIdentifier, "NewIdentifier", "InfoBarIdentifier", "PublishButtonIdentifier", NSToolbarFlexibleSpaceItemIdentifier]
         toolbar = NSToolbar(identifier:"MeditorToolbarIdentifier")
         toolbar.allowsUserCustomization = true
         toolbar.delegate = self
@@ -109,57 +140,41 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // Insert code here to tear down your application
     }
 
-}
+} 
 
 extension AppDelegate:NSToolbarDelegate {
 
     func toolbar(toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem?
     {
         
-        if(itemIdentifier == "PublishButtonIdentifier") {
+        if (itemIdentifier == "NewIdentifier") {
             let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
-            toolbarItem.toolTip = "Publishes the article as Draft and opens the article in Medium"
-            
-            let publishButton = NSButton(frame: NSRect(x:0, y:0, width: 200, height: 35))
-            //publishButton.image = NSImage(named: "CloudWI")
-            publishButton.title = "Open in Medium.com"
-            publishButton.setButtonType(NSButtonType.MomentaryLightButton)
-            publishButton.bezelStyle = NSBezelStyle.RoundedBezelStyle
-            publishButton.target = self
-            publishButton.action = Selector("publishClicked:")
-
-            toolbarItem.view = publishButton
-
-            //        toolbarItem.setMinSize(NSMakeSize(100,NSHeight(searchFieldOutlet.frame)));
-            //        toolbarItem.setMaxSize(NSMakeSize(400,NSHeight(searchFieldOutlet.frame)));
-            //
-            //        // Create the custom menu
-            //        NSMenu *submenu=[[[NSMenu alloc] init] autorelease];
-            //        NSMenuItem *submenuItem=[[[NSMenuItem alloc] initWithTitle: @"Search Panel"
-            //        action:@selector(searchUsingSearchPanel:)
-            //        keyEquivalent: @""] autorelease];
-            //        NSMenuItem *menuFormRep=[[[NSMenuItem alloc] init] autorelease];
-            //
-            //        [submenu addItem: submenuItem];
-            //        [submenuItem setTarget:self];
-            //        [menuFormRep setSubmenu:submenu];
-            //        [menuFormRep setTitle:[toolbarItem label]];
-            //        [toolbarItem setMenuFormRepresentation:menuFormRep];
-        
+            toolbarItem.view = newButton
             return toolbarItem
-        }
-        else {
+        } else if (itemIdentifier == "InfoBarIdentifier") {
+            let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+            toolbarItem.view = infoField
+            return toolbarItem
+        } else if(itemIdentifier == "PublishButtonIdentifier") {
+            let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+            toolbarItem.view = publishButton
+            return toolbarItem
+        } else {
             return nil;
         }
 
     }
     
+    @IBAction func newClicked(sender: NSButton){
+        meditorTextView.string = ""
+        meditorTextView.textChanged()
+    }
+    
     @IBAction func publishClicked(sender: NSButton){
-        NSLog("Publish Clicked");
         
+        infoField.showProgress("Publishing Draft to medium.com", progressValue: 0.5)
         setUserId("Shiva")
         setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");
-        
         RestAPIManger.sharedInstance.getUserDetails()
         getName()
         getUserName()
@@ -167,20 +182,21 @@ extension AppDelegate:NSToolbarDelegate {
         getImageUrl()
         
         let authorId = getAuthorId()
-        let title = prepareTitle(meditorTextView.string!)
+        let title = meditorTextView.getTitle()
         let content = prepareContent(meditorTextView.string!)
         let tags:[String] = []
         let contentFormat = "markdown"
         let publishStat = "draft"
         let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
         
-        RestAPIManger.sharedInstance.publishDraft(authorId,params: params)
+        RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
     }
     
-    func prepareTitle(text: String) -> String {
-        return text.stringByReplacingOccurrencesOfString("# ", withString: "")
+    func postPublish(lastPost : NSDictionary) {
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: (lastPost["data"]?["url"] as? String)!)!)
+        infoField.showProgress("Published Draft to medium.com", progressValue: 0)
     }
-    
+
     func prepareContent(text: String) -> String {
         return text.stringByReplacingOccurrencesOfString("\n", withString: "\n\n")
     }
