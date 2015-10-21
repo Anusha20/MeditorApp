@@ -32,15 +32,18 @@ class AppDelegate1: NSObject, NSApplicationDelegate {
         
         
         let authorId = getAuthorId()
-        let title = "Meditor Test 5"
-        let content = "# Meditor Test 4  \n\n -This is a test"
+        let title = "test"
+        let content = "# Meditor Test -body  \n\n -This is a test"
         let tags:[String] = ["test", "editor", "siv"]
         let contentFormat = "markdown"
         let publishStat = "draft"
-        let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
+      //  let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
         
+        let doc:MeditorDoc = MeditorDoc.init(title:title,body:content)
+        doc.persist()
+        doc.load(title)
         
-        RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: nil)
+        // RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: nil)
         
     }
     

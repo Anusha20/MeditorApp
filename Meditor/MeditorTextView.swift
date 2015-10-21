@@ -63,7 +63,7 @@ class MeditorTextView: NSTextView {
         
         for match in matches {
             let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "MyriadPro-Semibold", size: 36)!, range: matchRange)
+            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
             let style = NSMutableParagraphStyle();
             style.lineSpacing = -10;
             style.lineHeightMultiple = 1.2
@@ -83,7 +83,7 @@ class MeditorTextView: NSTextView {
         
         for match in matches {
             let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "MyriadPro-Semibold", size: 36)!, range: matchRange)
+            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
             let style = NSMutableParagraphStyle();
             style.lineSpacing = -10;
             style.lineHeightMultiple = 1.2

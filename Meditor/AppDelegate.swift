@@ -189,6 +189,10 @@ extension AppDelegate:NSToolbarDelegate {
         let publishStat = "draft"
         let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
         
+        let doc:MeditorDoc = MeditorDoc.init(title:title,body:content)
+        doc.persist()
+        doc.load(title)
+        
         RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
     }
     

@@ -22,7 +22,14 @@ struct defaultsKeys {
     static let imageUrl = "imageUrl"
     
     static let profileUrl = "profileUrl"
+    
+    
+    
+    
 }
+
+
+
 //Setting AuthorId
 
 func setAuthorId( value:String){
