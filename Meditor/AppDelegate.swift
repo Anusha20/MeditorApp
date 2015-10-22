@@ -46,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // New Button
         newButton = MeditorButton(frame: NSRect(x:0, y:0, width: 40, height: 35), app: self)
         newButton.image = NSImage(named: NSImageNameAddTemplate)
-        newButton.toolTip = "Clear workspace and start over"
+        newButton.toolTip = "Clear workspace and Start over"
         newButton.setButtonType(NSButtonType.MomentaryLightButton)
         newButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         newButton.target = self
@@ -171,7 +171,28 @@ extension AppDelegate:NSToolbarDelegate {
         meditorTextView.meditorDoc = MeditorDoc()
         updateFileList(meditorTextView.meditorDoc.id, title: meditorTextView.getTitle())
 
-       
+        if(meditorTextView.isEmpty) {
+            return
+        } else {
+            if(dialogOKCancel("Clear workspace and Start over", text: "Are you sure you want to clear the contents. It is not reversible")) {
+                meditorTextView.string = ""
+                meditorTextView.textChanged()
+            }
+        }
+    }
+    
+    func dialogOKCancel(question: String, text: String) -> Bool {
+        let myPopup: NSAlert = NSAlert()
+        myPopup.messageText = question
+        myPopup.informativeText = text
+        myPopup.alertStyle = NSAlertStyle.InformationalAlertStyle
+        myPopup.addButtonWithTitle("OK")
+        myPopup.addButtonWithTitle("Cancel")
+        let res = myPopup.runModal()
+        if res == NSAlertFirstButtonReturn {
+            return true
+        }
+        return false
     }
     
     @IBAction func publishClicked(sender: NSButton){

@@ -24,14 +24,14 @@ func setFileList(jo: Dictionary<String,AnyObject>){
     ]*/
     let userDefaults = NSUserDefaults.standardUserDefaults()
     userDefaults.setObject(jo, forKey: keyFileList)
-    var isOk = userDefaults.synchronize()
+    userDefaults.synchronize()
 }
 
 func LoadFileList(){
     let userDefaults = NSUserDefaults.standardUserDefaults()
     if let res = userDefaults.dictionaryForKey(keyFileList){
         if !res.isEmpty{
-            fileList = res as! Dictionary
+            fileList = res 
         }
     }
    

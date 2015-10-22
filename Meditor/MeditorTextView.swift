@@ -18,6 +18,7 @@ class MeditorTextView: NSTextView {
     
     func setup(app : AppDelegate) {
         self.app = app
+        continuousSpellCheckingEnabled = false;
         
         // Loading File from disc
         LoadFileList()
@@ -25,14 +26,13 @@ class MeditorTextView: NSTextView {
         if (currentId.isEmpty) {
             meditorDoc = MeditorDoc()
             updateFileList(meditorDoc.id, title: getTitle())
-             resetTitle()
+            resetTitle()
         } else {
             meditorDoc = MeditorDoc(id:currentId)
             isEmpty = false
             changeTitle( meditorDoc.body, selectedRange: NSRange(location: 0,length: 0), selectedAlpha: 0.7)
         }
        
-        continuousSpellCheckingEnabled = false;
         formatMarkdown()
         updateInfo()
     }
@@ -124,6 +124,7 @@ class MeditorTextView: NSTextView {
             } else {
                 changeTitle(string!, selectedRange: selectedRange(), selectedAlpha: 0.7)
             }
+            saveInfo()
         } else {
             if((string?.rangeOfString(placeholder)) != nil) {
                 isEmpty = false
@@ -133,7 +134,6 @@ class MeditorTextView: NSTextView {
         
         updateInfo()
         formatMarkdown();
-        saveInfo()
         
     }
     
