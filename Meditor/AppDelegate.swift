@@ -34,6 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var titleHeight: CGFloat = 38.0;
     
     var storyListSize : CGFloat = 0.0;
+    var storySummaryHeight : CGFloat = 50.0;
 
     override init() {
         super.init()
@@ -118,13 +119,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // Text View
         meditorTextView = MeditorTextView(frame: scrollView.frame)
+        meditorTextView.setup(self, story: Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()))
         meditorTextView.verticallyResizable = true
         meditorTextView.horizontallyResizable = false
         meditorTextView.textContainer!.widthTracksTextView = true
         meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         meditorTextView.delegate = meditorTextView
-        meditorTextView.setup(self)
         scrollView.documentView = meditorTextView
+        
+        tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
     }
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
@@ -225,22 +228,35 @@ extension AppDelegate: NSSplitViewDelegate {
 extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return 5
+        return Stories.sharedInstance.list.count
     }
     
     func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 50
+        return storySummaryHeight + 20.0
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        var cellView = tableView.makeViewWithIdentifier("cell", owner: self)
+        let cellView = tableView.makeViewWithIdentifier("cell", owner: self)
+        var storySummary : SummaryTextView
         if(cellView == nil) {
-            cellView = NSTableCellView()
+            storySummary = SummaryTextView()
+            storySummary.setup(self)
+            storySummary.frame.size.height = storySummaryHeight
+            storySummary.textContainerInset = NSSize(width: 10.0, height: 10.0)
+        } else {
+            storySummary = (cellView as! SummaryTextView)
         }
         
-        (cellView as! NSTableCellView).textField?.stringValue = "Test"
-        return cellView
+        storySummary.string = Stories.sharedInstance.getSummary(row)
+        return storySummary
+    }
+    
+    func tableViewSelectionDidChange(notification: NSNotification) {
+        Stories.sharedInstance.setCurrentStory(tableView.selectedRow)
+        let story = Stories.sharedInstance.getStory(tableView.selectedRow)
+        meditorTextView.story = story
+        meditorTextView.storyChanged()
     }
 }
 
@@ -283,17 +299,12 @@ extension AppDelegate: NSToolbarDelegate {
     }
     
     func newClicked(sender: NSButton){
-        meditorTextView.string = ""
-        meditorTextView.textChanged()
-        meditorTextView.meditorDoc = MeditorDoc()
-        updateFileList(meditorTextView.meditorDoc.id, title: meditorTextView.getTitle())
-
-        if(meditorTextView.isEmpty) {
-            return
-        } else {
-            meditorTextView.string = ""
-            meditorTextView.textChanged()
-        }
+        let newStory = Story()
+        newStory.save()
+        Stories.sharedInstance.addStory(newStory)
+        tableView.reloadData()
+        tableView.selectRowIndexes(NSIndexSet(index: 0), byExtendingSelection: false)
+        window.makeFirstResponder(meditorTextView)
     }
     
     func dialogOKCancel(question: String, text: String) -> Bool {
@@ -322,7 +333,7 @@ extension AppDelegate: NSToolbarDelegate {
         getImageUrl()
         
         let authorId = getAuthorId()
-        let title = meditorTextView.getTitle()
+        let title = meditorTextView.story.getTitle()
         let content = prepareContent(meditorTextView.string!)
         let tags:[String] = []
         let contentFormat = "markdown"
