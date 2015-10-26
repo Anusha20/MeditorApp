@@ -8,6 +8,8 @@
 
 import Cocoa
 
+
+
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     // Elements
@@ -19,16 +21,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var meditorTextView: MeditorTextView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
+     
+    
+    var popOverController:PopOverController!
     
     // Position constants
     var textWidth: CGFloat = 700.0;
     var minTextHeight: CGFloat = 500.0;
     var minInsetHeight: CGFloat = 50.0;
     var progressHeight: CGFloat = 2.0;
+  //   var preferences : AccountDelegate!
     
     override init() {
         super.init()
         initElements()
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
     }
     
     func initElements() {
@@ -67,6 +74,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         publishButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         publishButton.target = self
         publishButton.action = Selector("publishClicked:")
+        
+       popOverController = PopOverController(nibName: "PopOverController", bundle: nil)
+        popOverController.setUp(self)
         
         
         // Scroll View
@@ -174,11 +184,21 @@ extension AppDelegate:NSToolbarDelegate {
        
     }
     
-    @IBAction func publishClicked(sender: NSButton){
+  
+    
+    
+    
+            
+   
+    
         
+   
+    
+    func callPublishAPI(){
+        if(!getAuthId().isEmpty){
         infoField.showProgress("Publishing Draft to medium.com", progressValue: 0.5)
-        setUserId("Shiva")
-        setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");
+        /* setUserId("Shiva")
+        setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
         RestAPIManger.sharedInstance.getUserDetails()
         getName()
         getUserName()
@@ -196,6 +216,18 @@ extension AppDelegate:NSToolbarDelegate {
         
         
         RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
+        }
+    }
+    
+    
+    @IBAction func publishClicked(sender: NSButton){
+        if(getAuthId().isEmpty){
+            popOverController.showPopover(sender)
+        }else{
+            callPublishAPI()
+        }
+        
+     
     }
     
     func postPublish(lastPost : NSDictionary) {
