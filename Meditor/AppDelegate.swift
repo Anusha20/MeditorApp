@@ -14,10 +14,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     // Elements
     var window: NSWindow!
-    var newButton: MeditorButton!
+    var collapseButton: NSButton!
+    var newButton: NSButton!
     var infoField: InfoTextField!
-    var publishButton: MeditorButton!
+    var publishButton: NSButton!
+    var splitView:NSSplitView!
+    var tableView: NSTableView!
     var scrollView: NSScrollView!
+    var tableScrollView: NSScrollView!
     var meditorTextView: MeditorTextView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
@@ -26,12 +30,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var popOverController:PopOverController!
     
     // Position constants
-    var textWidth: CGFloat = 700.0;
+    var minTableWidth: CGFloat = 250.0;
+    var minTextWidth: CGFloat = 700.0;
     var minTextHeight: CGFloat = 500.0;
     var minInsetHeight: CGFloat = 50.0;
+    var minInsetWidth: CGFloat = 50.0;
     var progressHeight: CGFloat = 2.0;
-  //   var preferences : AccountDelegate!
+    var titleHeight: CGFloat = 38.0;
+
     
+    var storyListSize : CGFloat = 0.0;
+    var storySummaryHeight : CGFloat = 50.0;
+
     override init() {
         super.init()
         initElements()
@@ -42,42 +52,74 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // Window
         let screenSize = screenResolution()
-        window = NSWindow(contentRect: NSMakeRect(100, 100, screenSize.width - 200, screenSize.height - 200), styleMask: NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask, backing: NSBackingStoreType.Buffered, `defer`: false)
-        window.minSize = NSMakeSize(textWidth + 100.0, minTextHeight)
+        window = NSWindow(contentRect: NSMakeRect(100, 100, screenSize.width - 200, screenSize.height - 200), styleMask: NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask | NSFullSizeContentViewWindowMask, backing: NSBackingStoreType.Buffered, `defer`: false)
+        window.minSize = NSMakeSize(minTableWidth + minTextWidth + (minInsetWidth * 2), minTextHeight)
         window.opaque = false;
         window.backgroundColor = NSColor.whiteColor();
         window.titleVisibility = NSWindowTitleVisibility.Hidden
         window.movableByWindowBackground = true
         window.delegate = self
-        
+
+        // Collapse Button
+        collapseButton = NSButton(frame: NSRect(x:0, y:0, width: 40, height: 35))
+        collapseButton.image = NSImage(named: NSImageNameListViewTemplate)
+        collapseButton.setButtonType(NSButtonType.MomentaryLightButton)
+        collapseButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
+        collapseButton.target = self
+        collapseButton.action = Selector("collapseClicked:")
+
         // New Button
-        newButton = MeditorButton(frame: NSRect(x:0, y:0, width: 40, height: 35), app: self)
-        newButton.image = NSImage(named: NSImageNameAddTemplate)
-        newButton.toolTip = "Clear workspace and start over"
+        newButton = NSButton(frame: NSRect(x:0, y:0, width: 75, height: 35))
+        newButton.title = "New Story"
         newButton.setButtonType(NSButtonType.MomentaryLightButton)
         newButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         newButton.target = self
         newButton.action = Selector("newClicked:")
         
         // Info Field
-        infoField = InfoTextField(frame: NSRect(x:0, y:0, width: 500, height: 25))
+        infoField = InfoTextField(frame: NSRect(x:0, y:0, width: 450, height: 25))
         infoField.bezelStyle = NSTextFieldBezelStyle.RoundedBezel
         infoField.editable = false
         infoField.textColor = NSColor.blackColor()
         infoField.font = NSFont(name: infoField.font!.familyName!, size: 11)
         
         // Publish Button
-        publishButton = MeditorButton(frame: NSRect(x:0, y:0, width: 40, height: 35), app: self)
-        publishButton.image = NSImage(named: NSImageNameShareTemplate)
-        publishButton.toolTip = "Publish as Draft and Open the draft in medium.com"
+        publishButton = NSButton(frame: NSRect(x:0, y:0, width: 150, height: 35))
+        publishButton.title = "Export to medium.com"
         publishButton.setButtonType(NSButtonType.MomentaryLightButton)
         publishButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         publishButton.target = self
         publishButton.action = Selector("publishClicked:")
+
+        // Split View
+        splitView = NSSplitView()
+        splitView.dividerStyle = NSSplitViewDividerStyle.Thin
+        splitView.vertical = true;
+        splitView.delegate = self
+        splitView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
+        window.contentView?.addSubview(splitView)
         
+
        popOverController = PopOverController(nibName: "PopOverController", bundle: nil)
         popOverController.setUp(self)
         
+        // Table Scroll View
+        tableScrollView = NSScrollView()
+        tableScrollView.identifier = "tableScrollView"
+        tableScrollView.borderType = NSBorderType.NoBorder
+        tableScrollView.hasVerticalScroller = true
+        tableScrollView.hasHorizontalScroller = false
+        tableScrollView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
+        splitView.addSubview(tableScrollView)
+
+        // Table View
+        tableView = NSTableView(frame: tableScrollView.frame)
+        tableView.setDelegate(self)
+        tableView.setDataSource(self)
+        tableView.addTableColumn(NSTableColumn(identifier: "col1"))
+        tableView.headerView = nil
+        tableScrollView.documentView = tableView
+
         
         // Scroll View
         scrollView = NSScrollView()
@@ -85,29 +127,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
         scrollView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
-        window.contentView?.addSubview(scrollView)
+        splitView.addSubview(scrollView)
         
         // Text View
-        meditorTextView = MeditorTextView()
+        meditorTextView = MeditorTextView(frame: scrollView.frame)
+        meditorTextView.setup(self, story: Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()))
         meditorTextView.verticallyResizable = true
         meditorTextView.horizontallyResizable = false
         meditorTextView.textContainer!.widthTracksTextView = true
         meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         meditorTextView.delegate = meditorTextView
-        meditorTextView.setup(self)
         scrollView.documentView = meditorTextView
+        
+        tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
     }
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
 
         // Positioning
         let frame = (window.contentView?.frame)!
-        scrollView.frame.size = NSSize(width: frame.size.width, height: frame.size.height)
-        meditorTextView.frame.size = NSSize(width: frame.size.width, height: frame.size.height)
+        splitView.frame.size = NSSize(width: frame.width, height: frame.height - titleHeight)
+        tableScrollView.frame.size = NSSize(width: minTableWidth, height: splitView.frame.size.height)
+        scrollView.frame.origin.x = minTableWidth
+        scrollView.frame.size = NSSize(width: splitView.frame.size.width - minTableWidth, height: splitView.frame.size.height)
+        
         reposition()
         
         // Toolbar
-        toolbarTabsIdentifierArray =  [NSToolbarFlexibleSpaceItemIdentifier, "NewIdentifier", "InfoBarIdentifier", "PublishButtonIdentifier", NSToolbarFlexibleSpaceItemIdentifier]
+        toolbarTabsIdentifierArray =  ["CollapseIdentifier", "NewIdentifier", NSToolbarFlexibleSpaceItemIdentifier, "InfoBarIdentifier", NSToolbarFlexibleSpaceItemIdentifier, "PublishButtonIdentifier"]
         toolbar = NSToolbar(identifier:"MeditorToolbarIdentifier")
         toolbar.allowsUserCustomization = true
         toolbar.delegate = self
@@ -117,7 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func reposition() {
-        meditorTextView.textContainerInset = NSSize(width: (scrollView.contentSize.width - textWidth) / 2, height: minInsetHeight)
+        meditorTextView.textContainerInset = NSSize(width: (scrollView.contentSize.width - minTextWidth) / 2, height: minInsetHeight)
     }
     
     func windowDidResize(notification: NSNotification) {
@@ -150,14 +197,90 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // Insert code here to tear down your application
     }
 
-} 
+}
 
-extension AppDelegate:NSToolbarDelegate {
+extension AppDelegate: NSSplitViewDelegate {
+    
+    func splitViewDidResizeSubviews(notification: NSNotification) {
+        if(isStoryListCollapsed()) {
+            storyListSize = minTableWidth
+        } else {
+            storyListSize = tableView.frame.size.width
+        }
+        window.minSize = NSMakeSize(storyListSize + minTextWidth + (minInsetWidth * 2), minTextHeight)
+        reposition()
+    }
+    
+    func splitView(splitView: NSSplitView, constrainMaxCoordinate proposedMaximumPosition: CGFloat, ofSubviewAt dividerIndex: Int) -> CGFloat {
+        return self.splitView.frame.width - (minTextWidth + (minInsetWidth * 2))
+    }
+    
+    func splitView(splitView: NSSplitView, constrainMinCoordinate proposedMinimumPosition: CGFloat, ofSubviewAt dividerIndex: Int) -> CGFloat {
+        return minTableWidth
+    }
+    
+    func splitView(splitView: NSSplitView, shouldAdjustSizeOfSubview view: NSView) -> Bool {
+        if(view.identifier == "tableScrollView") {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func splitView(splitView: NSSplitView, canCollapseSubview subview: NSView) -> Bool {
+        if(subview.identifier == "tableScrollView") {
+            return true
+        } else {
+            return false
+        }
+    }
+
+}
+
+extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
+    
+    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+        return Stories.sharedInstance.list.count
+    }
+    
+    func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return storySummaryHeight + 20.0
+    }
+    
+    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        let cellView = tableView.makeViewWithIdentifier("cell", owner: self)
+        var storySummary : SummaryTextView
+        if(cellView == nil) {
+            storySummary = SummaryTextView()
+            storySummary.setup(self)
+            storySummary.frame.size.height = storySummaryHeight
+            storySummary.textContainerInset = NSSize(width: 10.0, height: 10.0)
+        } else {
+            storySummary = (cellView as! SummaryTextView)
+        }
+        
+        storySummary.string = Stories.sharedInstance.getSummary(row)
+        return storySummary
+    }
+    
+    func tableViewSelectionDidChange(notification: NSNotification) {
+        Stories.sharedInstance.setCurrentStory(tableView.selectedRow)
+        let story = Stories.sharedInstance.getStory(tableView.selectedRow)
+        meditorTextView.story = story
+        meditorTextView.storyChanged()
+    }
+}
+
+extension AppDelegate: NSToolbarDelegate {
 
     func toolbar(toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem?
     {
-        
-        if (itemIdentifier == "NewIdentifier") {
+        if (itemIdentifier == "CollapseIdentifier") {
+            let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+            toolbarItem.view = collapseButton
+            return toolbarItem
+        } else if (itemIdentifier == "NewIdentifier") {
             let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
             toolbarItem.view = newButton
             return toolbarItem
@@ -175,22 +298,42 @@ extension AppDelegate:NSToolbarDelegate {
 
     }
     
-    @IBAction func newClicked(sender: NSButton){
-        meditorTextView.string = ""
-        meditorTextView.textChanged()
-        meditorTextView.meditorDoc = MeditorDoc()
-        updateFileList(meditorTextView.meditorDoc.id, title: meditorTextView.getTitle())
-
-       
+    func isStoryListCollapsed() -> Bool {
+        return splitView.isSubviewCollapsed(tableScrollView)
     }
     
-  
+    func collapseClicked(sender: NSButton){
+        if(isStoryListCollapsed()) {
+            splitView.setPosition(storyListSize, ofDividerAtIndex: 0)
+        } else {
+            splitView.setPosition(0.0, ofDividerAtIndex: 0)
+        }
+    }
     
+    func newClicked(sender: NSButton){
+        let newStory = Story()
+        newStory.save()
+        Stories.sharedInstance.addStory(newStory)
+        tableView.reloadData()
+        tableView.selectRowIndexes(NSIndexSet(index: 0), byExtendingSelection: false)
+        window.makeFirstResponder(meditorTextView)
+    }
+
+    func dialogOKCancel(question: String, text: String) -> Bool {
+        let myPopup: NSAlert = NSAlert()
+        myPopup.messageText = question
+        myPopup.informativeText = text
+        myPopup.alertStyle = NSAlertStyle.InformationalAlertStyle
+        myPopup.addButtonWithTitle("OK")
+        myPopup.addButtonWithTitle("Cancel")
+        let res = myPopup.runModal()
+        if res == NSAlertFirstButtonReturn {
+            return true
+        }
+        return false
+    }
     
-    
-            
-   
-    
+
         
    
     
@@ -206,14 +349,12 @@ extension AppDelegate:NSToolbarDelegate {
         getImageUrl()
         
         let authorId = getAuthorId()
-        let title = meditorTextView.getTitle()
+        let title = meditorTextView.story.getTitle()
         let content = prepareContent(meditorTextView.string!)
         let tags:[String] = []
         let contentFormat = "markdown"
         let publishStat = "draft"
         let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
-        
-        
         
         RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
         }

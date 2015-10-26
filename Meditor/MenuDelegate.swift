@@ -25,7 +25,14 @@ class MenuDelegate: NSMenu {
                 NSMenuItem(title: "Quit",  action: "terminate:", keyEquivalent:"q"),
             ],
             "Edit": [
+                NSMenuItem(title: "Undo",  action: "undo:", keyEquivalent:"z"),
+                NSMenuItem(title: "Redo",  action: "redo:", keyEquivalent:"Z"),
+                NSMenuItem.separatorItem(),
+                NSMenuItem(title: "Cut",  action: "cut:", keyEquivalent:"x"),
                 NSMenuItem(title: "Copy",  action: "copy:", keyEquivalent:"c"),
+                NSMenuItem(title: "Paste",  action: "paste:", keyEquivalent:"v"),
+                NSMenuItem.separatorItem(),
+                NSMenuItem(title: "Select All",  action: "selectall:", keyEquivalent:"a"),
             ],
         ]
 
