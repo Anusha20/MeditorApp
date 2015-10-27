@@ -8,6 +8,8 @@
 
 import Cocoa
 
+
+
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // Elements
@@ -23,6 +25,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var meditorTextView: MeditorTextView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
+     
+    
+    var popOverController:PopOverController!
     
     // Position constants
     var minTableWidth: CGFloat = 250.0;
@@ -32,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var minInsetWidth: CGFloat = 50.0;
     var progressHeight: CGFloat = 2.0;
     var titleHeight: CGFloat = 38.0;
+
     
     var storyListSize : CGFloat = 0.0;
     var storySummaryHeight : CGFloat = 70.0;
@@ -40,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     override init() {
         super.init()
         initElements()
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
     }
     
     func initElements() {
@@ -93,6 +100,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         splitView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         window.contentView?.addSubview(splitView)
         
+
+       popOverController = PopOverController(nibName: "PopOverController", bundle: nil)
+        popOverController.setUp(self)
+        
         // Table Scroll View
         tableScrollView = NSScrollView()
         tableScrollView.identifier = "tableScrollView"
@@ -109,6 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         tableView.addTableColumn(NSTableColumn(identifier: "col1"))
         tableView.headerView = nil
         tableScrollView.documentView = tableView
+
         
         // Scroll View
         scrollView = NSScrollView()
@@ -348,7 +360,7 @@ extension AppDelegate: NSToolbarDelegate {
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         window.makeFirstResponder(meditorTextView)
     }
-    
+
     func dialogOKCancel(question: String, text: String) -> Bool {
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = question
@@ -363,11 +375,15 @@ extension AppDelegate: NSToolbarDelegate {
         return false
     }
     
-    func publishClicked(sender: NSButton){
+
         
+   
+    
+    func callPublishAPI(){
+        if(!getAuthId().isEmpty){
         infoField.showProgress("Publishing Draft to medium.com", progressValue: 0.5)
-        setUserId("Shiva")
-        setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");
+        /* setUserId("Shiva")
+        setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
         RestAPIManger.sharedInstance.getUserDetails()
         getName()
         getUserName()
@@ -383,6 +399,18 @@ extension AppDelegate: NSToolbarDelegate {
         let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
         
         RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
+        }
+    }
+    
+    
+    @IBAction func publishClicked(sender: NSButton){
+        if(getAuthId().isEmpty){
+            popOverController.showPopover(sender)
+        }else{
+            callPublishAPI()
+        }
+        
+     
     }
     
     func postPublish(lastPost : NSDictionary) {

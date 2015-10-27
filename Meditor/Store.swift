@@ -24,8 +24,6 @@ struct defaultsKeys {
     static let profileUrl = "profileUrl"
     
     
-    
-    
 }
 
 
@@ -61,7 +59,7 @@ func setAuthId( value:String){
 //Getting AuthorId
 func getAuthId()->String{
     let defaults = NSUserDefaults.standardUserDefaults()
-    var res = "empty"
+    var res = ""
     if let stringOne = defaults.stringForKey(defaultsKeys.authId+getUserId()) {
         print(stringOne) // Some String Value
         res = stringOne
@@ -79,13 +77,13 @@ func setUserId( value:String){
 }
 //Getting AuthorId
 func getUserId()->String{
-    let defaults = NSUserDefaults.standardUserDefaults()
+   /* let defaults = NSUserDefaults.standardUserDefaults()
     var res = "empty"
     if let stringOne = defaults.stringForKey(defaultsKeys.userId) {
         print("UserId:"+stringOne) // Some String Value
         res = stringOne
-    }
-    return res
+    }*/
+   return   NSHost.currentHost().localizedName!
     
 }
 
