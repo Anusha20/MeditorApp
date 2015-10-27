@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
             endingLineNumber = "247"
-            landmarkName = "tableView(_:viewForTableColumn:row:)"
+            landmarkName = "numberOfRowsInTableView(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "347"
             endingLineNumber = "347"
-            landmarkName = "newClicked(_:)"
+            landmarkName = "collapseClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
