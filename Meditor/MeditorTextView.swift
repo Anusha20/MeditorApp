@@ -72,9 +72,6 @@ class MeditorTextView: NSTextView {
         story.save()
         Stories.sharedInstance.updateStory(Stories.sharedInstance.getCurrentStory(), story: story)
         (app.tableView.viewAtColumn(0, row: Stories.sharedInstance.getCurrentStory(), makeIfNecessary: false)  as! SummaryTextView).string = Stories.sharedInstance.getSummary(Stories.sharedInstance.getCurrentStory())
-
-//        app.tableView.reloadData()
-//        app.tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
     }
     
     // Markdown

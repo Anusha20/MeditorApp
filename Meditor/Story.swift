@@ -14,6 +14,7 @@ class Story: NSObject {
 
     var body: String
     var id : String
+    var mediumURL : String!
     
     let titleLength = 40
         
@@ -44,7 +45,11 @@ class Story: NSObject {
     }
     
     func getSummary() -> [String:AnyObject] {
-        return ["id": id, "summary": shorten(body, count: 100)]
+        if(mediumURL == nil) {
+            return ["id": id, "summary": shorten(body, count: 100)]
+        } else {
+            return ["id": id, "summary": shorten(body, count: 100), "mediumURL" : mediumURL]
+        }
     }
     
     func getTitle() -> String {

@@ -9,7 +9,7 @@
 import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
-
+    
     // Elements
     var window: NSWindow!
     var collapseButton: NSButton!
@@ -34,8 +34,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var titleHeight: CGFloat = 38.0;
     
     var storyListSize : CGFloat = 0.0;
-    var storySummaryHeight : CGFloat = 50.0;
-
+    var storySummaryHeight : CGFloat = 70.0;
+    var storyHeaderHeight : CGFloat = 25.0;
+    
     override init() {
         super.init()
         initElements()
@@ -52,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.titleVisibility = NSWindowTitleVisibility.Hidden
         window.movableByWindowBackground = true
         window.delegate = self
-
+        
         // Collapse Button
         collapseButton = NSButton(frame: NSRect(x:0, y:0, width: 40, height: 35))
         collapseButton.image = NSImage(named: NSImageNameListViewTemplate)
@@ -60,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         collapseButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         collapseButton.target = self
         collapseButton.action = Selector("collapseClicked:")
-
+        
         // New Button
         newButton = NSButton(frame: NSRect(x:0, y:0, width: 75, height: 35))
         newButton.title = "New Story"
@@ -83,7 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         publishButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         publishButton.target = self
         publishButton.action = Selector("publishClicked:")
-
+        
         // Split View
         splitView = NSSplitView()
         splitView.dividerStyle = NSSplitViewDividerStyle.Thin
@@ -100,7 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         tableScrollView.hasHorizontalScroller = false
         tableScrollView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         splitView.addSubview(tableScrollView)
-
+        
         // Table View
         tableView = NSTableView(frame: tableScrollView.frame)
         tableView.setDelegate(self)
@@ -119,19 +120,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // Text View
         meditorTextView = MeditorTextView(frame: scrollView.frame)
-        meditorTextView.setup(self, story: Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()))
         meditorTextView.verticallyResizable = true
         meditorTextView.horizontallyResizable = false
         meditorTextView.textContainer!.widthTracksTextView = true
         meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         meditorTextView.delegate = meditorTextView
         scrollView.documentView = meditorTextView
-        
-        tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
+
+        if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
+            meditorTextView.setup(self, story: story)
+            tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
+        }
     }
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-
+        
         // Positioning
         let frame = (window.contentView?.frame)!
         splitView.frame.size = NSSize(width: frame.width, height: frame.height - titleHeight)
@@ -184,7 +187,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
-
+    
 }
 
 extension AppDelegate: NSSplitViewDelegate {
@@ -222,7 +225,7 @@ extension AppDelegate: NSSplitViewDelegate {
             return false
         }
     }
-
+    
 }
 
 extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
@@ -232,36 +235,75 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return storySummaryHeight + 20.0
+        if(isHeader(row)) {
+            return storyHeaderHeight
+        } else {
+            return storySummaryHeight
+        }
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let cellView = tableView.makeViewWithIdentifier("cell", owner: self)
-        var storySummary : SummaryTextView
-        if(cellView == nil) {
-            storySummary = SummaryTextView()
-            storySummary.setup(self)
-            storySummary.frame.size.height = storySummaryHeight
-            storySummary.textContainerInset = NSSize(width: 10.0, height: 10.0)
+        if(isHeader(row)) {
+            let cellView = tableView.makeViewWithIdentifier("headerView", owner: self)
+            var storyHeader : NSTextView
+            if(cellView == nil) {
+                storyHeader = NSTextView()
+                storyHeader.frame.size.height = storyHeaderHeight
+                storyHeader.editable = false
+                storyHeader.backgroundColor = NSColor(CGColor: CGColorCreateGenericRGB(256.0, 256.0, 256.0, 0.1))!
+                storyHeader.textContainerInset = NSSize(width: 10.0, height: 5.0)
+            } else {
+                storyHeader = (cellView as! SummaryTextView)
+            }
+            
+            storyHeader.string = Stories.sharedInstance.getSummary(row)
+            return storyHeader
         } else {
-            storySummary = (cellView as! SummaryTextView)
+            let cellView = tableView.makeViewWithIdentifier("summaryView", owner: self)
+            var storySummary : SummaryTextView
+            if(cellView == nil) {
+                storySummary = SummaryTextView()
+                storySummary.setup(self)
+                storySummary.frame.size.height = storySummaryHeight
+                storySummary.textContainerInset = NSSize(width: 10.0, height: 10.0)
+            } else {
+                storySummary = (cellView as! SummaryTextView)
+            }
+            
+            storySummary.string = Stories.sharedInstance.getSummary(row)
+            return storySummary
         }
-        
-        storySummary.string = Stories.sharedInstance.getSummary(row)
-        return storySummary
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {
         Stories.sharedInstance.setCurrentStory(tableView.selectedRow)
-        let story = Stories.sharedInstance.getStory(tableView.selectedRow)
-        meditorTextView.story = story
-        meditorTextView.storyChanged()
+        if let story = Stories.sharedInstance.getStory(tableView.selectedRow) {
+            meditorTextView.story = story
+            meditorTextView.storyChanged()
+        } else {
+            tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
+        }
+    }
+    
+    func tableView(tableView: NSTableView, isGroupRow row: Int) -> Bool {
+        return isHeader(row)
+    }
+    
+    func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return !isHeader(row)
+    }
+    
+    func isHeader(row: Int) -> Bool {
+        if (Stories.sharedInstance.list[row]["id"] as? String == "heading") {
+            return true
+        }
+        return false
     }
 }
 
 extension AppDelegate: NSToolbarDelegate {
-
+    
     func toolbar(toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem?
     {
         if (itemIdentifier == "CollapseIdentifier") {
@@ -283,7 +325,7 @@ extension AppDelegate: NSToolbarDelegate {
         } else {
             return nil;
         }
-
+        
     }
     
     func isStoryListCollapsed() -> Bool {
@@ -303,7 +345,7 @@ extension AppDelegate: NSToolbarDelegate {
         newStory.save()
         Stories.sharedInstance.addStory(newStory)
         tableView.reloadData()
-        tableView.selectRowIndexes(NSIndexSet(index: 0), byExtendingSelection: false)
+        tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         window.makeFirstResponder(meditorTextView)
     }
     
@@ -344,14 +386,21 @@ extension AppDelegate: NSToolbarDelegate {
     }
     
     func postPublish(lastPost : NSDictionary) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: (lastPost["data"]?["url"] as? String)!)!)
-        infoField.showProgress("Published Draft to medium.com", progressValue: 0)
+        dispatch_async(dispatch_get_main_queue()) {
+            let mediumURL = (lastPost["data"]?["url"] as? String)!
+            NSWorkspace.sharedWorkspace().openURL(NSURL(string: mediumURL)!)
+            self.infoField.showProgress("Published Draft to medium.com", progressValue: 0)
+            Stories.sharedInstance.markCurrentPublished(mediumURL)
+            self.tableView.reloadData()
+            self.tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
+            self.window.makeFirstResponder(self.meditorTextView)
+        }
     }
-
+    
     func prepareContent(text: String) -> String {
         return text.stringByReplacingOccurrencesOfString("\n", withString: "\n\n")
     }
-
+    
     
     func toolbarDefaultItemIdentifiers(toolbar: NSToolbar) -> [String]
     {

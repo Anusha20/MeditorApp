@@ -15,25 +15,72 @@ class Stories: NSObject {
     
     let userDefaults = NSUserDefaults.standardUserDefaults()
     
-    let keyStoryList = "storyList"
+    let keyDraftList = "draftList"
+    let keyExportedList = "exportedList"
     var list:[[String:AnyObject]] = []
+
+    var draftListheading = 0;
+    var exportedListheading = 1;
+    var headingsCount = 2;
     
     override init() {
-        if let storyList = userDefaults.arrayForKey(keyStoryList) as? [[String:AnyObject]] {
-            if (!storyList.isEmpty) {
-                list = storyList
-            }
+        super.init()
+        
+        // Cleaning lists
+        userDefaults.removeObjectForKey(keyDraftList)
+        userDefaults.removeObjectForKey(keyExportedList)
+        userDefaults.removeObjectForKey(keyCurrentStory)
+        
+        // Adding Headings
+        draftListheading = 0;
+        list.append(["id": "heading", "summary": "LOCAL DRAFTS"])
+        if let draftList = userDefaults.arrayForKey(keyDraftList) as? [[String:AnyObject]] {
+            list.appendContentsOf(draftList)
         }
+        
+        exportedListheading = list.count;
+        list.append(["id": "heading", "summary": "EXPORTED TO MEDIUM.COM"])
+        if let exportedList = userDefaults.arrayForKey(keyExportedList) as? [[String:AnyObject]] {
+            list.appendContentsOf(exportedList)
+        }
+        
+        if(list.count == headingsCount) {
+            let newStory = Story()
+            newStory.save()
+            addStory(newStory)
+        }
+
     }
     
     func save() {
-        userDefaults.setObject(list, forKey: keyStoryList)
+
+        var draftList = list
+        draftList.removeRange(exportedListheading..<list.count)
+        draftList.removeAtIndex(draftListheading)
+        userDefaults.setObject(draftList, forKey: keyDraftList)
+        
+        var exportedList = list
+        exportedList.removeRange(0..<(exportedListheading + 1))
+        userDefaults.setObject(exportedList, forKey: keyExportedList)
+
         userDefaults.synchronize()
     }
     
     func addStory(story: Story) {
-        list.insert(story.getSummary(), atIndex: 0)
+        list.insert(story.getSummary(), atIndex: draftListheading + 1)
+        exportedListheading++;
+        setCurrentStory(draftListheading + 1)
         save()
+    }
+    
+    func markCurrentPublished(mediumURL: String) {
+        let story = getStory(getCurrentStory())
+        story?.mediumURL = mediumURL
+        exportedListheading--;
+        list.removeAtIndex(getCurrentStory())
+        list.insert((story?.getSummary())!, atIndex: exportedListheading + 1)
+        save()
+        setCurrentStory(exportedListheading + 1)
     }
     
     func updateStory(i: Int, story: Story) {
@@ -41,8 +88,12 @@ class Stories: NSObject {
         save()
     }
     
-    func getStory(i: Int) -> Story {
-        return Story(id: (list[i]["id"] as? String)!)
+    func getStory(i: Int) -> Story? {
+        if(i < 0 || i == draftListheading || i == exportedListheading || i >= list.count) {
+            return nil
+        } else {
+            return Story(id: (list[i]["id"] as? String)!)
+        }
     }
     
     func getSummary(i: Int) -> String {
