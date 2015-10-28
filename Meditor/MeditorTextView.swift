@@ -13,6 +13,7 @@ class MeditorTextView: NSTextView {
     var story : Story!
     var app : AppDelegate!
     
+    
     let placeholder = "# Title\nTell your story...";
     
     func setup(app : AppDelegate, story: Story) {
@@ -85,7 +86,7 @@ class MeditorTextView: NSTextView {
         
         // Header
         
-        var regex = try! NSRegularExpression(pattern: "^(# +)(.*)", options: [])
+        /*var regex = try! NSRegularExpression(pattern: "^(# +)(.*)", options: [])
         var range = NSMakeRange(0, (string?.characters.count)!)
         var matches = regex.matchesInString(string!, options: [], range: range)
         
@@ -124,7 +125,9 @@ class MeditorTextView: NSTextView {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
             }
             
-        }
+        }*/
+        
+        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,story:story)
         
         let tempRange = selectedRange()
         textStorage!.setAttributedString(attributedText.copy() as! NSAttributedString)
