@@ -34,6 +34,7 @@ class MarkDownFormatter : NSObject{
         var syntaxRangeIndex:[Int] = []
         var italics: NSNumber = 0
         var color: NSColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
+        var isBullet:Bool = false
         
         
     }
@@ -41,7 +42,7 @@ class MarkDownFormatter : NSObject{
     func  H1init(){
         h1 = Attribute()
         h1.font = NSFont(name: "HelveticaNeue-Bold", size: 36)!
-        h1.regex = try! NSRegularExpression(pattern: "((\\n|^)#\\s+)(.*)", options: [])
+        h1.regex = try! NSRegularExpression(pattern: "((\\n|^)# +)(.*)", options: [])
         h1.syntaxRangeIndex = [1]
         h1.para = getDefaultParagrahStyle()
     }
@@ -50,7 +51,7 @@ class MarkDownFormatter : NSObject{
     func  H2Init(){
         h2 = Attribute()
         h2.font = NSFont(name: "HelveticaNeue-Bold", size: 30)!
-        h2.regex = try! NSRegularExpression(pattern: "((\\n|^)##\\s+)(.*)", options: [])
+        h2.regex = try! NSRegularExpression(pattern: "((\\n|^)## +)(.*)", options: [])
         h2.syntaxRangeIndex = [1]
         h2.para = getDefaultParagrahStyle()
         
@@ -78,17 +79,19 @@ class MarkDownFormatter : NSObject{
     func UnOrderedListInit(){
         UnOrderedList = Attribute()
         UnOrderedList.font = NSFont(name: "Charter", size: 20.5)!
-        UnOrderedList.regex = try! NSRegularExpression(pattern: "((\\n|^)\\s*(\\*|-|\\+)\\s)(.*)", options: [])
+        UnOrderedList.regex = try! NSRegularExpression(pattern: "((\\n|^)(\\s*)(\\*|-|\\+)\\s)(.*)", options: [])
         UnOrderedList.syntaxRangeIndex = []
         UnOrderedList.para = getListParagraphStyle()
+        UnOrderedList.isBullet = true
     }
     
     func OrderedListInit(){
         OrderedList = Attribute()
         OrderedList.font = NSFont(name: "Charter", size: 20.5)!
-        OrderedList.regex = try! NSRegularExpression(pattern: "((\\n|^)\\s*([0-9]+\\.)\\s)(.*)", options: [])
+        OrderedList.regex = try! NSRegularExpression(pattern: "((\\n|^)(\\s*)([0-9]+\\.)\\s)(.*)", options: [])
         OrderedList.syntaxRangeIndex = []
         OrderedList.para = getListParagraphStyle()
+        OrderedList.isBullet = true
     }
     
     func linkInit(){
@@ -152,11 +155,12 @@ class MarkDownFormatter : NSObject{
     
     
     
-    func formatText( attributedText:NSMutableAttributedString!,format : Attribute,string : String?,isEmpty:Bool)  {
-        
+    func formatText( attributedText:NSMutableAttributedString!,format : Attribute, string : String?,isEmpty:Bool) -> Bool  {
+        var matched:Bool = false
         let range = NSMakeRange(0, (string?.characters.count)!)
         let matches = format.regex.matchesInString(string!, options: [], range: range)
         for match in matches {
+            matched = true
             let matchRange = match.range
             attributedText.addAttribute(NSFontAttributeName, value: format.font, range: matchRange)
             attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
@@ -172,7 +176,7 @@ class MarkDownFormatter : NSObject{
                 formatMarkDownSyntax(attributedText,range: match.rangeAtIndex(index))
             }
         }
-        
+        return matched;
     }
     
     func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,isEmpty:Bool) {
@@ -181,9 +185,10 @@ class MarkDownFormatter : NSObject{
         formatText(attributedText,format:h2,string : string,isEmpty:isEmpty)
         formatText(attributedText,format:emphasis,string : string,isEmpty:isEmpty)
         formatText(attributedText,format:strongemphasis,string : string,isEmpty:isEmpty)
-        formatText(attributedText,format:UnOrderedList,string : string,isEmpty:isEmpty)
-        formatText(attributedText,format:OrderedList,string : string,isEmpty:isEmpty)
+        var isUnOrderedlist = formatText(attributedText,format:UnOrderedList,string : string,isEmpty:isEmpty)
+        var isOrderedlist = formatText(attributedText,format:OrderedList,string : string,isEmpty:isEmpty)
         formatText(attributedText,format:link,string : string,isEmpty:isEmpty)
+        
         
     }
     
