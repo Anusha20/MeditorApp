@@ -45,7 +45,7 @@ class MeditorTextView: NSTextView {
     }
     
     func textChanged() {
-        if(story.body.isEmpty) {
+        if(story.isEmpty()) {
             showStory(placeholder, selectedRange: NSRange(location: 0,length: 0), selectedAlpha: 0.3)
             app.publishButton.enabled = false
             refreshInfo("Editing Draft")
@@ -82,7 +82,7 @@ class MeditorTextView: NSTextView {
     }
     
     func updateStory() {
-        if(story.body.isEmpty) {
+        if(story.isEmpty()) {
             story.body = string!.substringToIndex(string!.rangeOfString(placeholder)!.startIndex)
         } else {
             story.body = string!
@@ -99,12 +99,7 @@ class MeditorTextView: NSTextView {
     func formatMarkdown() {
         
         let attributedText = attributedString().mutableCopy() as! NSMutableAttributedString
-        
-        var isEmpty :Bool = false
-        if(story.body.isEmpty){
-            isEmpty = true
-        }
-        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,isEmpty:isEmpty)
+        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,lowAlpha: story.isEmpty() || story.isExported())
         
         let tempRange = selectedRange()
         textStorage!.setAttributedString(attributedText.copy() as! NSAttributedString)
@@ -121,7 +116,7 @@ extension MeditorTextView: NSTextViewDelegate {
     }
     
     func textViewDidChangeSelection(notification: NSNotification) {
-        if(story.body.isEmpty && string == placeholder && (selectedRange().location != 0 || selectedRange().length != 0)) {
+        if(story.isEmpty() && string == placeholder && (selectedRange().location != 0 || selectedRange().length != 0)) {
             setSelectedRange(NSRange(location: 0,length: 0))
         }
     }

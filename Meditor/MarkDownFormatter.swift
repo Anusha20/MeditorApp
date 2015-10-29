@@ -15,7 +15,7 @@ class MarkDownFormatter : NSObject{
     
     
     static let sharedInstance = MarkDownFormatter()
-    var placeHolderColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
+    var lowAlphaColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
     
     var h1:Attribute!
     var h2:Attribute!
@@ -155,7 +155,7 @@ class MarkDownFormatter : NSObject{
     
     
     
-    func formatText( attributedText:NSMutableAttributedString!,format : Attribute, string : String?,isEmpty:Bool) -> Bool  {
+    func formatText( attributedText:NSMutableAttributedString!,format : Attribute, string : String?,lowAlpha:Bool) -> Bool  {
         var matched:Bool = false
         let range = NSMakeRange(0, (string?.characters.count)!)
         let matches = format.regex.matchesInString(string!, options: [], range: range)
@@ -167,8 +167,8 @@ class MarkDownFormatter : NSObject{
             if(format.para != nil){
                 attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
             }
-            if(isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: placeHolderColor, range: matchRange)
+            if(lowAlpha) {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: lowAlphaColor, range: matchRange)
             } else {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: format.color, range: matchRange)
             }
@@ -179,15 +179,15 @@ class MarkDownFormatter : NSObject{
         return matched;
     }
     
-    func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,isEmpty:Bool) {
+    func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,lowAlpha:Bool) {
         
-        formatText(attributedText,format:h1,string : string,isEmpty:isEmpty)
-        formatText(attributedText,format:h2,string : string,isEmpty:isEmpty)
-        formatText(attributedText,format:emphasis,string : string,isEmpty:isEmpty)
-        formatText(attributedText,format:strongemphasis,string : string,isEmpty:isEmpty)
-        var isUnOrderedlist = formatText(attributedText,format:UnOrderedList,string : string,isEmpty:isEmpty)
-        var isOrderedlist = formatText(attributedText,format:OrderedList,string : string,isEmpty:isEmpty)
-        formatText(attributedText,format:link,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:h1,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:h2,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:emphasis,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:strongemphasis,string : string,lowAlpha:lowAlpha)
+        var isUnOrderedlist = formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
+        var isOrderedlist = formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha)
         
         
     }

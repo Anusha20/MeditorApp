@@ -20,12 +20,11 @@
 		6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56891BD089D20024D09F /* Tagger.swift */; };
 		6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */; };
 		6BCD56931BD08A7A0024D09F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56911BD08A7A0024D09F /* Store.swift */; };
-		885DABE71BDEEA6800CAE17B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE61BDEEA6800CAE17B /* Story.swift */; settings = {ASSET_TAGS = (); }; };
-		885DABE91BDEEA9900CAE17B /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE81BDEEA9900CAE17B /* Stories.swift */; settings = {ASSET_TAGS = (); }; };
-		885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */; settings = {ASSET_TAGS = (); }; };
-		885DABEE1BE07EC000CAE17B /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885DABED1BE07EC000CAE17B /* AppKit.framework */; };
-		88B855FC1BDDD16A00455C0D /* PopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B855FA1BDDD16A00455C0D /* PopOverController.swift */; settings = {ASSET_TAGS = (); }; };
-		88B855FD1BDDD16A00455C0D /* PopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88B855FB1BDDD16A00455C0D /* PopOverController.xib */; settings = {ASSET_TAGS = (); }; };
+		885DABE71BDEEA6800CAE17B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE61BDEEA6800CAE17B /* Story.swift */; };
+		885DABE91BDEEA9900CAE17B /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE81BDEEA9900CAE17B /* Stories.swift */; };
+		885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */; };
+		88B855FC1BDDD16A00455C0D /* PopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B855FA1BDDD16A00455C0D /* PopOverController.swift */; };
+		88B855FD1BDDD16A00455C0D /* PopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88B855FB1BDDD16A00455C0D /* PopOverController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +57,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				885DABEE1BE07EC000CAE17B /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
