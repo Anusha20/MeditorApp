@@ -47,21 +47,38 @@ class MeditorTextView: NSTextView {
     func textChanged() {
         if(story.body.isEmpty) {
             showStory(placeholder, selectedRange: NSRange(location: 0,length: 0), selectedAlpha: 0.3)
+            app.publishButton.enabled = false
+            refreshInfo("Editing Draft")
+        } else if(story.isExported()) {
+            showStory(story.body, selectedRange: selectedRange(), selectedAlpha: 0.3)
+            app.publishButton.enabled = false
+            refreshInfo("Exported to medium.com")
         } else {
             showStory(story.body, selectedRange: selectedRange(), selectedAlpha: 0.7)
+            app.publishButton.enabled = true
+            refreshInfo("Editing Draft")
         }
         formatMarkdown();
-        refreshInfo()
     }
 
     func storyChanged() {
         setSelectedRange(NSRange(location: 0,length: 0))
         textChanged()
+        if(story.isExported()) {
+            editable = false
+            selectable = false
+            backgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.03)
+        } else {
+            editable = true
+            selectable = true
+            backgroundColor = NSColor.clearColor()
+        }
+
     }
     
-    func refreshInfo() {
+    func refreshInfo(message : String) {
         let wordsCount = story.wordCount()
-        app.infoField.showIdle(story.shorten(story.getTitle(), count: 40), words: wordsCount, mins: story.minsCount(wordsCount), message: "Editing Draft")
+        app.infoField.showIdle(story.shorten(story.getTitle(), count: 30), words: wordsCount, mins: story.minsCount(wordsCount), message: message)
     }
     
     func updateStory() {
@@ -72,7 +89,9 @@ class MeditorTextView: NSTextView {
         }
         story.save()
         Stories.sharedInstance.updateStory(Stories.sharedInstance.getCurrentStory(), story: story)
-        (app.tableView.viewAtColumn(0, row: Stories.sharedInstance.getCurrentStory(), makeIfNecessary: false)  as! SummaryTextView).string = Stories.sharedInstance.getSummary(Stories.sharedInstance.getCurrentStory())
+        if let view = app.tableView.viewAtColumn(0, row: Stories.sharedInstance.getCurrentStory(), makeIfNecessary: false) {
+            (view  as! SummaryTextView).string = Stories.sharedInstance.getSummary(Stories.sharedInstance.getCurrentStory())
+        }
     }
     
     // Markdown

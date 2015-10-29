@@ -22,31 +22,37 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var tableView: NSTableView!
     var scrollView: NSScrollView!
     var tableScrollView: NSScrollView!
+    var exportedStoryView: ExportedStoryView!
+    var titleTextView: NSTextView!
+    var mediumButton: NSButton!
+    var localButton: NSButton!
     var meditorTextView: MeditorTextView!
+    var storyView : NSView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
-     
+    
     
     var popOverController:PopOverController!
     
     // Position constants
-    var minTableWidth: CGFloat = 250.0;
+    var minTableWidth: CGFloat = 215.0;
     var minTextWidth: CGFloat = 700.0;
     var minTextHeight: CGFloat = 500.0;
     var minInsetHeight: CGFloat = 50.0;
     var minInsetWidth: CGFloat = 50.0;
+    var currentInsetWidth : CGFloat = 0.0;
     var progressHeight: CGFloat = 2.0;
     var titleHeight: CGFloat = 38.0;
-
     
     var storyListSize : CGFloat = 0.0;
     var storySummaryHeight : CGFloat = 70.0;
     var storyHeaderHeight : CGFloat = 25.0;
     
+    var exportedBarHeight : CGFloat = 65.0;
+    
     override init() {
         super.init()
         initElements()
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
     }
     
     func initElements() {
@@ -100,8 +106,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         splitView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         window.contentView?.addSubview(splitView)
         
-
-       popOverController = PopOverController(nibName: "PopOverController", bundle: nil)
+        
+        popOverController = PopOverController(nibName: "PopOverController", bundle: nil)
         popOverController.setUp(self)
         
         // Table Scroll View
@@ -120,7 +126,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         tableView.addTableColumn(NSTableColumn(identifier: "col1"))
         tableView.headerView = nil
         tableScrollView.documentView = tableView
-
+        
+        // Story View
+        storyView = NSView()
+        storyView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
+        splitView.addSubview(storyView)
+        
+        // Exported Story View
+        exportedStoryView = ExportedStoryView(frame: storyView.frame)
+        exportedStoryView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
+        storyView.addSubview(exportedStoryView)
         
         // Scroll View
         scrollView = NSScrollView()
@@ -128,7 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
         scrollView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
-        splitView.addSubview(scrollView)
+        storyView.addSubview(scrollView)
         
         // Text View
         meditorTextView = MeditorTextView(frame: scrollView.frame)
@@ -138,11 +153,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
         meditorTextView.delegate = meditorTextView
         scrollView.documentView = meditorTextView
-
-        if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
-            meditorTextView.setup(self, story: story)
-            tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-        }
+        
     }
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
@@ -151,9 +162,50 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let frame = (window.contentView?.frame)!
         splitView.frame.size = NSSize(width: frame.width, height: frame.height - titleHeight)
         tableScrollView.frame.size = NSSize(width: minTableWidth, height: splitView.frame.size.height)
-        scrollView.frame.origin.x = minTableWidth
-        scrollView.frame.size = NSSize(width: splitView.frame.size.width - minTableWidth, height: splitView.frame.size.height)
+        storyView.frame.origin.x = minTableWidth
+        storyView.frame.size = NSSize(width: splitView.frame.size.width - minTableWidth, height: splitView.frame.size.height)
         
+        if let story = Stories.sharedInstance.getStory(tableView.selectedRow) {
+            if(story.isExported()) {
+                scrollView.frame.size.height = storyView.frame.size.height - exportedBarHeight
+                exportedStoryView.frame.origin.y = storyView.frame.size.height - exportedBarHeight
+                exportedStoryView.frame.size.height = exportedBarHeight
+            } else {
+                scrollView.frame.size.height = storyView.frame.size.height
+                exportedStoryView.frame.size.height = 0
+            }
+        }
+        
+        titleTextView = NSTextView(frame : NSRect(x: currentInsetWidth, y: exportedStoryView.frame.size.height - 50, width: 540, height: 25))
+        titleTextView.backgroundColor = NSColor.clearColor()
+        titleTextView.editable = false
+        titleTextView.linkTextAttributes = [
+            NSForegroundColorAttributeName : NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4),
+            NSCursorAttributeName: NSCursor.pointingHandCursor(),
+            NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
+        ]
+        exportedStoryView.addSubview(titleTextView)
+        
+        mediumButton = NSButton(frame: NSRect(x: currentInsetWidth + 540, y: exportedStoryView.frame.size.height - 50, width: 50, height: 35))
+        mediumButton.title = "Edit"
+        mediumButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
+        mediumButton.target = self
+        mediumButton.action = Selector("mediumClicked:")
+        exportedStoryView.addSubview(mediumButton)
+        
+        localButton = NSButton(frame: NSRect(x: currentInsetWidth + 595, y: exportedStoryView.frame.size.height - 50, width: 100, height: 35))
+        localButton.title = "Make a Copy"
+        localButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
+        localButton.target = self
+        localButton.action = Selector("localClicked:")
+        exportedStoryView.addSubview(localButton)
+        
+        if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
+            meditorTextView.setup(self, story: story)
+            setExportedView(story)
+            tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
+        }
+
         reposition()
         
         // Toolbar
@@ -167,7 +219,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func reposition() {
-        meditorTextView.textContainerInset = NSSize(width: (scrollView.contentSize.width - minTextWidth) / 2, height: minInsetHeight)
+        currentInsetWidth = (scrollView.contentSize.width - minTextWidth) / 2
+        meditorTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
+        if(titleTextView != nil) {
+            titleTextView.frame.origin.x = currentInsetWidth
+            mediumButton.frame.origin.x = currentInsetWidth + 540
+            localButton.frame.origin.x = currentInsetWidth + 595
+        }
+        exportedStoryView.frame.origin.y = storyView.frame.size.height - exportedBarHeight
+        exportedStoryView.frame.size.height = exportedBarHeight
     }
     
     func windowDidResize(notification: NSNotification) {
@@ -198,6 +258,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+    }
+    
+    func setExportedView(story: Story) {
+        
+        if(titleTextView != nil && story.mediumURL != nil) {
+            let myAttributedstring = NSMutableAttributedString(string: "Exported to medium.com",
+                attributes: [
+                    NSFontAttributeName : NSFont(name: "HelveticaNeue", size: 15)!,
+                    NSLinkAttributeName : NSURL(string: story.mediumURL)!,
+                ]
+            )
+            titleTextView.textStorage?.setAttributedString(myAttributedstring)
+        }
     }
     
 }
@@ -291,8 +364,14 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
     func tableViewSelectionDidChange(notification: NSNotification) {
         Stories.sharedInstance.setCurrentStory(tableView.selectedRow)
         if let story = Stories.sharedInstance.getStory(tableView.selectedRow) {
+            if(story.isExported()) {
+                scrollView.frame.size.height = storyView.frame.size.height - exportedBarHeight
+            } else {
+                scrollView.frame.size.height = storyView.frame.size.height
+            }
             meditorTextView.story = story
             meditorTextView.storyChanged()
+            setExportedView(story)
         } else {
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         }
@@ -361,6 +440,20 @@ extension AppDelegate: NSToolbarDelegate {
         window.makeFirstResponder(meditorTextView)
     }
 
+    func localClicked(sender: NSButton) {
+        let newStory = Story()
+        newStory.body = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory())!.body
+        newStory.save()
+        Stories.sharedInstance.addStory(newStory)
+        tableView.reloadData()
+        tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
+        window.makeFirstResponder(meditorTextView)
+    }
+
+    func mediumClicked(sender: NSButton) {
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory())!.mediumURL + "/edit")!)
+    }
+    
     func dialogOKCancel(question: String, text: String) -> Bool {
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = question
@@ -375,30 +468,26 @@ extension AppDelegate: NSToolbarDelegate {
         return false
     }
     
-
-        
-   
-    
     func callPublishAPI(){
         if(!getAuthId().isEmpty){
-        infoField.showProgress("Publishing Draft to medium.com", progressValue: 0.5)
-        /* setUserId("Shiva")
-        setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
-        RestAPIManger.sharedInstance.getUserDetails()
-        getName()
-        getUserName()
-        getProfileUrl()
-        getImageUrl()
-        
-        let authorId = getAuthorId()
-        let title = meditorTextView.story.getTitle()
-        let content = prepareContent(meditorTextView.string!)
-        let tags:[String] = []
-        let contentFormat = "markdown"
-        let publishStat = "draft"
-        let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
-        
-        RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
+            infoField.showProgress("Exporting to medium.com", progressValue: 0.5)
+            /* setUserId("Shiva")
+            setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
+            RestAPIManger.sharedInstance.getUserDetails()
+            getName()
+            getUserName()
+            getProfileUrl()
+            getImageUrl()
+            
+            let authorId = getAuthorId()
+            let title = meditorTextView.story.getTitle()
+            let content = prepareContent(meditorTextView.string!)
+            let tags:[String] = []
+            let contentFormat = "markdown"
+            let publishStat = "draft"
+            let params:NSDictionary = RestAPIManger.sharedInstance.constructParams(title,contentFormat:contentFormat ,content:content, tags:tags,  publishStatus:publishStat)
+            
+            RestAPIManger.sharedInstance.publishDraft(authorId,params: params, app: self)
         }
     }
     
@@ -410,14 +499,14 @@ extension AppDelegate: NSToolbarDelegate {
             callPublishAPI()
         }
         
-     
+        
     }
     
     func postPublish(lastPost : NSDictionary) {
         dispatch_async(dispatch_get_main_queue()) {
             let mediumURL = (lastPost["data"]?["url"] as? String)!
             NSWorkspace.sharedWorkspace().openURL(NSURL(string: mediumURL)!)
-            self.infoField.showProgress("Published Draft to medium.com", progressValue: 0)
+            self.infoField.showProgress("Exported to medium.com", progressValue: 0)
             Stories.sharedInstance.markCurrentPublished(mediumURL)
             self.tableView.reloadData()
             self.tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)

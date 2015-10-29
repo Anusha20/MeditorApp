@@ -30,6 +30,11 @@ class Story: NSObject {
         let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
         self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
     }
+    
+    convenience init(id: String, mediumURL: String) {
+        self.init(id: id)
+        self.mediumURL = mediumURL
+    }
  
     func save(){
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
@@ -72,6 +77,10 @@ class Story: NSObject {
     
     func isEmpty() -> Bool {
         return body.isEmpty
+    }
+    
+    func isExported() -> Bool {
+        return mediumURL != nil
     }
     
     //Uitls

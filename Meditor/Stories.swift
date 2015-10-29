@@ -27,9 +27,9 @@ class Stories: NSObject {
         super.init()
         
         // Cleaning lists
-        userDefaults.removeObjectForKey(keyDraftList)
-        userDefaults.removeObjectForKey(keyExportedList)
-        userDefaults.removeObjectForKey(keyCurrentStory)
+//        userDefaults.removeObjectForKey(keyDraftList)
+//        userDefaults.removeObjectForKey(keyExportedList)
+//        userDefaults.removeObjectForKey(keyCurrentStory)
         
         // Adding Headings
         draftListheading = 0;
@@ -91,6 +91,8 @@ class Stories: NSObject {
     func getStory(i: Int) -> Story? {
         if(i < 0 || i == draftListheading || i == exportedListheading || i >= list.count) {
             return nil
+        } else if (i > exportedListheading) {
+            return Story(id: (list[i]["id"] as? String)!, mediumURL: (list[i]["mediumURL"] as? String)!)
         } else {
             return Story(id: (list[i]["id"] as? String)!)
         }

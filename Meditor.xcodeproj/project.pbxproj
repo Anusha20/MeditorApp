@@ -13,6 +13,7 @@
 		6BA4E14C1BD334E0004CE715 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA4E14B1BD334E0004CE715 /* MainMenu.xib */; };
 		6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */; };
 		6BBA2D3A1BD6E5B500AB7FEF /* InfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */; };
+		6BBB94811BE13BAC00F224F7 /* ExportedStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBB94801BE13BAC00F224F7 /* ExportedStoryView.swift */; };
 		6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */; };
 		6BCD56711BCC52BB0024D09F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCD56701BCC52BB0024D09F /* Assets.xcassets */; };
 		6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */; };
@@ -34,6 +35,7 @@
 		6BA4E14B1BD334E0004CE715 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 		6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextField.swift; sourceTree = "<group>"; };
+		6BBB94801BE13BAC00F224F7 /* ExportedStoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportedStoryView.swift; sourceTree = "<group>"; };
 		6BCD566B1BCC52BB0024D09F /* Meditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BCD56701BCC52BB0024D09F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */,
+				6BBB94801BE13BAC00F224F7 /* ExportedStoryView.swift */,
 				6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */,
 				6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */,
 				6BA4E1491BD3318B004CE715 /* main.swift */,
@@ -225,6 +228,7 @@
 				885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */,
 				6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */,
 				6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */,
+				6BBB94811BE13BAC00F224F7 /* ExportedStoryView.swift in Sources */,
 				88B855FC1BDDD16A00455C0D /* PopOverController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
