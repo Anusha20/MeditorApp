@@ -15,216 +15,176 @@ class MarkDownFormatter : NSObject{
     
     
     static let sharedInstance = MarkDownFormatter()
+    var placeHolderColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
     
-        // Markdown
+    var h1:Attribute!
+    var h2:Attribute!
+    var emphasis:Attribute!
+    var strongemphasis:Attribute!
+    var UnOrderedList:Attribute!
+    var OrderedList:Attribute!
+    var link:Attribute!
+    
+
+    
+    class Attribute{
+        var font:NSFont!
+        var regex:NSRegularExpression!
+        var para:NSMutableParagraphStyle!
+        var syntaxRangeIndex:[Int] = []
+        var italics: NSNumber = 0
+        var color: NSColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
+        
+        
+    }
+    
+    func  H1init(){
+        h1 = Attribute()
+        h1.font = NSFont(name: "HelveticaNeue-Bold", size: 36)!
+        h1.regex = try! NSRegularExpression(pattern: "((\\n|^)#\\s+)(.*)", options: [])
+        h1.syntaxRangeIndex = [1]
+        h1.para = getDefaultParagrahStyle()
+    }
+    
+    
+    func  H2Init(){
+        h2 = Attribute()
+        h2.font = NSFont(name: "HelveticaNeue-Bold", size: 30)!
+        h2.regex = try! NSRegularExpression(pattern: "((\\n|^)##\\s+)(.*)", options: [])
+        h2.syntaxRangeIndex = [1]
+        h2.para = getDefaultParagrahStyle()
+        
+    }
+    
+    func strongEmphasisInit(){
+        strongemphasis = Attribute()
+        strongemphasis.font = NSFont(name: "Charter-Bold", size: 20.5)!
+        strongemphasis.regex = try! NSRegularExpression(pattern: "(\\*\\*|__)(.*?)(\\*\\*|__)", options: [])
+        strongemphasis.syntaxRangeIndex = [1,3]
+        
+        
+        
+    }
+    
+    func emphasisInit(){
+        emphasis = Attribute()
+        emphasis.font = NSFont(name: "Charter", size: 20.5)!
+        emphasis.regex = try! NSRegularExpression(pattern: "(\\*|_)(.*?)(\\*|_)", options: [])
+        emphasis.syntaxRangeIndex = [1,3]
+        emphasis.italics = 0.20
+        
+    }
+    
+    func UnOrderedListInit(){
+        UnOrderedList = Attribute()
+        UnOrderedList.font = NSFont(name: "Charter", size: 20.5)!
+        UnOrderedList.regex = try! NSRegularExpression(pattern: "((\\n|^)\\s*(\\*|-|\\+)\\s)(.*)", options: [])
+        UnOrderedList.syntaxRangeIndex = []
+        UnOrderedList.para = getListParagraphStyle()
+    }
+    
+    func OrderedListInit(){
+        OrderedList = Attribute()
+        OrderedList.font = NSFont(name: "Charter", size: 20.5)!
+        OrderedList.regex = try! NSRegularExpression(pattern: "((\\n|^)\\s*([0-9]+\\.)\\s)(.*)", options: [])
+        OrderedList.syntaxRangeIndex = []
+        OrderedList.para = getListParagraphStyle()
+    }
+    
+    func linkInit(){
+        link = Attribute()
+        link.font = NSFont(name: "Charter", size: 20.5)!
+        link.regex = try! NSRegularExpression(pattern: "(\\[)([^\\[]+)(\\]\\()([^\\)]+)(\\))", options: [])
+        link.syntaxRangeIndex = [1,3,5]
+        link.color = NSColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.9)
+        
+        
+    }
+    
+    //\[([^\[]+)\]\(([^\)]+)\)
+    //((\n|^)\s*([0-9]+\.)\s)(.*)
+    
+    // Markdown
     ///(#+)(.*)/
     
-    func heading1(attributedText:NSMutableAttributedString!,string : String?,story:Story) {
-        var regex = try! NSRegularExpression(pattern: "^(#\\s+)(.*)", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-        }
+    func  setup(){
+        
+        H1init()
+        H2Init()
+        strongEmphasisInit()
+        emphasisInit()
+        UnOrderedListInit()
+        OrderedListInit()
+        linkInit()
         
     }
-    
-    func heading2(attributedText:NSMutableAttributedString!,string : String?,story:Story){
-        var regex = try! NSRegularExpression(pattern: "(##\\s+)(.*)", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 30)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-        }
+    func formatMarkDownSyntax(attributedText:NSMutableAttributedString,range : NSRange){
+        attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.07), range: range)
     }
     
-    
-    
-    
-    func strongemphasis(attributedText:NSMutableAttributedString!,string : String?,story:Story){
-        var regex = try! NSRegularExpression(pattern: "(\\*\\*|__)(.*?)\\1", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 20.5)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-        }
+    func getDefaultParagrahStyle() -> NSMutableParagraphStyle{
+        let style = NSMutableParagraphStyle();
+        style.lineSpacing = -10;
+        style.lineHeightMultiple = 1.2
+        style.paragraphSpacing = 5
+        style.paragraphSpacingBefore = 30
+        return style
     }
     
-    //"(\\*([^\\*]*)\\*)"
-    func emphasis(attributedText:NSMutableAttributedString!,string : String?,story:Story){
-        var regex = try! NSRegularExpression(pattern: "(\\*|_)(.*?)\\1", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        for match in matches {
-            let matchRange = match.range
-             let numberWithFloat:NSNumber = 0.20
-            attributedText.addAttribute(NSObliquenessAttributeName, value: numberWithFloat, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-        }
-    }
-    
-  /*  func blockQuote (attributedText:NSMutableAttributedString!,string : String?,story:Story){
-        var regex = try! NSRegularExpression(pattern: "(\\*\\*|__)(.*?)\\1", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 20.5)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-        }
-    }*/
-
-    func unOrderedList(attributedText:NSMutableAttributedString!,string : String?,story:Story){
-        var regex = try! NSRegularExpression(pattern: "(^\\s*(\\*|-)\\s)(.*)", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        
-        var tabs:NSTextTab = NSTextTab.init(textAlignment: NSTextAlignment.Left,location:1.0, options:[:])
+    func getListParagraphStyle() -> NSMutableParagraphStyle {
+        //let tabs:NSTextTab = NSTextTab.init(textAlignment: NSTextAlignment.Left,location:1.0, options:[:])
         let paraStyle = NSMutableParagraphStyle()
-      //  paraStyle.setTabStops
-       // paraStyle.firstLineHeadIndent = 15.0
-//paraStyle.paragraphSpacingBefore = 10.0
-        
-        paraStyle.defaultTabInterval = 2.0
+        //  paraStyle.setTabStops
+        paraStyle.defaultTabInterval = 5.0
         paraStyle.firstLineHeadIndent = 0.0
         //[para setHeaderLevel:0];
         paraStyle.headIndent = 1.0
-        paraStyle.paragraphSpacing = 3
-        paraStyle.paragraphSpacingBefore = 3
+        paraStyle.paragraphSpacing = 1
+        paraStyle.paragraphSpacingBefore = 1.5
+        paraStyle.lineSpacing = -5;
+        paraStyle.lineHeightMultiple = 1.2
         
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: paraStyle, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-        }
+        return paraStyle
     }
     
     
-    func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,story:Story) {
+   
+    
+    
+    
+    func formatText( attributedText:NSMutableAttributedString!,format : Attribute,string : String?,isEmpty:Bool)  {
         
-        heading1(attributedText,string : string,story:story)
-        heading2(attributedText,string : string,story:story)
-        emphasis(attributedText,string : string,story:story)
-        strongemphasis(attributedText,string : string,story:story)
-        unOrderedList(attributedText,string : string,story:story)
-        
-       /// let attributedText = attributedString().mutableCopy() as! NSMutableAttributedString
-        
-        //let attributedTextRange = NSMakeRange(0, attributedText.length)
-        //attributedText.removeAttribute(NSBackgroundColorAttributeName, range: attributedTextRange)
-        
-        // Header
-        
-/*        var regex = try! NSRegularExpression(pattern: "^(# +)(.*)", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        
+        let range = NSMakeRange(0, (string?.characters.count)!)
+        let matches = format.regex.matchesInString(string!, options: [], range: range)
         for match in matches {
             let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
+            attributedText.addAttribute(NSFontAttributeName, value: format.font, range: matchRange)
+            attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
+            if(format.para != nil){
+                attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
+            }
+            if(isEmpty) {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: placeHolderColor, range: matchRange)
             } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: format.color, range: matchRange)
+            }
+            for index in format.syntaxRangeIndex{
+                formatMarkDownSyntax(attributedText,range: match.rangeAtIndex(index))
             }
         }
         
-        regex = try! NSRegularExpression(pattern: "(\\n# +)(.*)", options: [])
-        range = NSMakeRange(0, (string?.characters.count)!)
-        matches = regex.matchesInString(string!, options: [], range: range)
+    }
+    
+    func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,isEmpty:Bool) {
         
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-            
-        }
+        formatText(attributedText,format:h1,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:h2,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:emphasis,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:strongemphasis,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:UnOrderedList,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:OrderedList,string : string,isEmpty:isEmpty)
+        formatText(attributedText,format:link,string : string,isEmpty:isEmpty)
         
-        let tempRange = selectedRange()
-        textStorage!.setAttributedString(attributedText.copy() as! NSAttributedString)
-        setSelectedRange(tempRange) */
     }
     
     

@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func initElements() {
-        
+        MarkDownFormatter.sharedInstance.setup()
         // Window
         let screenSize = screenResolution()
         window = NSWindow(contentRect: NSMakeRect(100, 100, screenSize.width - 200, screenSize.height - 200), styleMask: NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask | NSFullSizeContentViewWindowMask, backing: NSBackingStoreType.Buffered, `defer`: false)

@@ -81,53 +81,11 @@ class MeditorTextView: NSTextView {
         
         let attributedText = attributedString().mutableCopy() as! NSMutableAttributedString
         
-        //let attributedTextRange = NSMakeRange(0, attributedText.length)
-        //attributedText.removeAttribute(NSBackgroundColorAttributeName, range: attributedTextRange)
-        
-        // Header
-        
-        /*var regex = try! NSRegularExpression(pattern: "^(# +)(.*)", options: [])
-        var range = NSMakeRange(0, (string?.characters.count)!)
-        var matches = regex.matchesInString(string!, options: [], range: range)
-        
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
+        var isEmpty :Bool = false
+        if(story.body.isEmpty){
+            isEmpty = true
         }
-        
-        regex = try! NSRegularExpression(pattern: "(\\n# +)(.*)", options: [])
-        range = NSMakeRange(0, (string?.characters.count)!)
-        matches = regex.matchesInString(string!, options: [], range: range)
-        
-        for match in matches {
-            let matchRange = match.range
-            attributedText.addAttribute(NSFontAttributeName, value: NSFont(name: "HelveticaNeue-Bold", size: 36)!, range: matchRange)
-            let style = NSMutableParagraphStyle();
-            style.lineSpacing = -10;
-            style.lineHeightMultiple = 1.2
-            style.paragraphSpacing = 5
-            style.paragraphSpacingBefore = 30
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: style, range: matchRange)
-            if(story.body.isEmpty) {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3), range: matchRange)
-            } else {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9), range: matchRange)
-            }
-            
-        }*/
-        
-        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,story:story)
+        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,isEmpty:isEmpty)
         
         let tempRange = selectedRange()
         textStorage!.setAttributedString(attributedText.copy() as! NSAttributedString)
