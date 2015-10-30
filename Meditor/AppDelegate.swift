@@ -53,7 +53,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     override init() {
         super.init()
         initElements()
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
+       // NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
+        //23b9116bf40190c4815819f6a56184211c8ba2940a9d7fb22bd6a7c05048e35ce
     }
     
     func initElements() {
@@ -498,6 +499,11 @@ extension AppDelegate: NSToolbarDelegate {
         
     }
     
+    func onPublishFailure(){
+        self.infoField.textColor = NSColor(calibratedRed: 1.0, green: 0.0, blue: 0.0, alpha: 0.7)
+        self.infoField.showProgress("Failure exporting to medium.com", progressValue: 0)
+        
+    }
     func postPublish(lastPost : NSDictionary) {
         dispatch_async(dispatch_get_main_queue()) {
             let mediumURL = (lastPost["data"]?["url"] as? String)!

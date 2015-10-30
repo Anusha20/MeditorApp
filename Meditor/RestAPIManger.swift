@@ -30,9 +30,10 @@ class RestAPIManger: NSObject{
         let authId = getAuthId()
         request.addValue("Bearer "+authId, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
-            
+             var msg : String = self.connectionRefusedErrorMsg
             if let _ = error
             {
+                popOverController?.showErrorMessage(msg)
                 // got an error in getting the data, need to handle it
                 print("error calling GETUSERDETAILS on /posts/1 Failure: %@", error!.localizedDescription)
             }
@@ -78,7 +79,7 @@ class RestAPIManger: NSObject{
                     popOverController?.onSuccessFulUpdateUserDetails(sender)
 
                 }else{
-                    var msg : String = self.connectionRefusedErrorMsg
+                   
                     if(responseCode == 401){
                         msg =  self.unAuthorizedErrorMsg
                     }
@@ -112,19 +113,26 @@ class RestAPIManger: NSObject{
         
         
         let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
+           
             if let _ = error
             {
+                app?.onPublishFailure()
                 // got an error in getting the data, need to handle it
                 print("error calling GET on /posts/1")
             }
             else // no error returned by URL request
             {
                 print(response)
+                let responseCode = (response as! NSHTTPURLResponse).statusCode
+                if(responseCode == 200){
                 let lastPost = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                 print("The post is: " + lastPost.description)
                 
                 app!.infoField.showProgress("Published Draft to medium.com", progressValue: 1)
                 app?.postPublish(lastPost)
+                }else{
+                    app?.onPublishFailure()
+                }
             }
         })
         task.resume()
