@@ -90,7 +90,7 @@ class MeditorTextView: NSTextView {
         story.save()
         Stories.sharedInstance.updateStory(Stories.sharedInstance.getCurrentStory(), story: story)
         if let view = app.tableView.viewAtColumn(0, row: Stories.sharedInstance.getCurrentStory(), makeIfNecessary: false) {
-            (view  as! SummaryTextView).string = Stories.sharedInstance.getSummary(Stories.sharedInstance.getCurrentStory())
+            (view.subviews[0]  as! NSTextField).attributedStringValue = Stories.sharedInstance.getAttributedSummary(Stories.sharedInstance.getCurrentStory())
         }
     }
     
@@ -99,7 +99,7 @@ class MeditorTextView: NSTextView {
     func formatMarkdown() {
         
         let attributedText = attributedString().mutableCopy() as! NSMutableAttributedString
-        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,lowAlpha: story.isEmpty() || story.isExported())
+        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,lowAlpha: story.isEmpty() || story.isExported(), isPlaceHolder: story.isEmpty())
         
         let tempRange = selectedRange()
         textStorage!.setAttributedString(attributedText.copy() as! NSAttributedString)

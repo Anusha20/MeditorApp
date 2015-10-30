@@ -24,7 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var tableScrollView: NSScrollView!
     var exportedStoryView: ExportedStoryView!
     var titleTextView: NSTextView!
-    var mediumButton: NSButton!
     var localButton: NSButton!
     var meditorTextView: MeditorTextView!
     var storyView : NSView!
@@ -45,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var titleHeight: CGFloat = 38.0;
     
     var storyListSize : CGFloat = 0.0;
-    var storySummaryHeight : CGFloat = 70.0;
+    var storySummaryHeight : CGFloat = 79.0;
     var storyHeaderHeight : CGFloat = 25.0;
     
     var exportedBarHeight : CGFloat = 65.0;
@@ -127,6 +126,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         tableView.setDataSource(self)
         tableView.addTableColumn(NSTableColumn(identifier: "col1"))
         tableView.headerView = nil
+        //tableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyle.SourceList
+        tableView.intercellSpacing = NSMakeSize(0, 0)
         tableScrollView.documentView = tableView
         
         // Story View
@@ -188,15 +189,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         ]
         exportedStoryView.addSubview(titleTextView)
         
-        mediumButton = NSButton(frame: NSRect(x: currentInsetWidth + 540, y: exportedStoryView.frame.size.height - 50, width: 50, height: 35))
-        mediumButton.title = "Edit"
-        mediumButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
-        mediumButton.target = self
-        mediumButton.action = Selector("mediumClicked:")
-        exportedStoryView.addSubview(mediumButton)
-        
-        localButton = NSButton(frame: NSRect(x: currentInsetWidth + 595, y: exportedStoryView.frame.size.height - 50, width: 100, height: 35))
+        localButton = NSButton(frame: NSRect(x: currentInsetWidth + 595, y: exportedStoryView.frame.size.height - 50, width: 100, height: 30))
         localButton.title = "Make a Copy"
+        localButton.setButtonType(NSButtonType.MomentaryLightButton)
         localButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
         localButton.target = self
         localButton.action = Selector("localClicked:")
@@ -225,7 +220,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         meditorTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
         if(titleTextView != nil) {
             titleTextView.frame.origin.x = currentInsetWidth
-            mediumButton.frame.origin.x = currentInsetWidth + 540
+            //mediumButton.frame.origin.x = currentInsetWidth + 540
             localButton.frame.origin.x = currentInsetWidth + 595
         }
         exportedStoryView.frame.origin.y = storyView.frame.size.height - exportedBarHeight
@@ -332,34 +327,49 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         if(isHeader(row)) {
-            let cellView = tableView.makeViewWithIdentifier("headerView", owner: self)
-            var storyHeader : NSTextView
+            var cellView = tableView.makeViewWithIdentifier("headerView", owner: self)
             if(cellView == nil) {
-                storyHeader = NSTextView()
-                storyHeader.frame.size.height = storyHeaderHeight
+                cellView = NSTableCellView(frame: NSRect(x: 0, y: 0, width: tableView.frame.width, height: storyHeaderHeight))
+                cellView!.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
+                cellView?.identifier = "headerView"
+                
+                let storyHeader = NSTextField(frame: NSRect(x: 10, y: 4, width: cellView!.frame.width - 20, height: cellView!.frame.height - 8))
+                storyHeader.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
                 storyHeader.editable = false
-                storyHeader.backgroundColor = NSColor(CGColor: CGColorCreateGenericRGB(256.0, 256.0, 256.0, 0.1))!
-                storyHeader.textContainerInset = NSSize(width: 10.0, height: 5.0)
-            } else {
-                storyHeader = (cellView as! SummaryTextView)
+                storyHeader.selectable = false
+                storyHeader.drawsBackground = false
+                storyHeader.bordered = false
+                cellView?.addSubview(storyHeader)
             }
             
-            storyHeader.string = Stories.sharedInstance.getSummary(row)
-            return storyHeader
+            (cellView?.subviews[0] as! NSTextField).attributedStringValue = Stories.sharedInstance.getAttributedSummary(row)
+            return cellView
         } else {
-            let cellView = tableView.makeViewWithIdentifier("summaryView", owner: self)
-            var storySummary : SummaryTextView
+            var cellView = tableView.makeViewWithIdentifier("summaryView", owner: self)
             if(cellView == nil) {
-                storySummary = SummaryTextView()
-                storySummary.setup(self)
-                storySummary.frame.size.height = storySummaryHeight
-                storySummary.textContainerInset = NSSize(width: 10.0, height: 10.0)
-            } else {
-                storySummary = (cellView as! SummaryTextView)
+                cellView = NSTableCellView(frame: NSRect(x: 0, y: 0, width: tableView.frame.width, height: storySummaryHeight))
+                cellView!.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
+                cellView?.identifier = "summaryView"
+                
+                let storySummary = NSTextField(frame: NSRect(x: 10, y: 6, width: cellView!.frame.width - 20, height: cellView!.frame.height - 12))
+                storySummary.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
+                storySummary.editable = false
+                storySummary.selectable = false
+                storySummary.drawsBackground = false
+                storySummary.bordered = false
+                cellView?.addSubview(storySummary)
+
+                let bottomBorder = NSView()
+                bottomBorder.frame = CGRectMake(10, 0, cellView!.frame.size.width - 20, 0.3);
+                bottomBorder.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
+                bottomBorder.wantsLayer = true
+                bottomBorder.layer = CALayer()
+                bottomBorder.layer!.backgroundColor = NSColor(red: 0, green: 0, blue: 0, alpha: 0.3).CGColor
+                cellView?.addSubview(bottomBorder)
             }
             
-            storySummary.string = Stories.sharedInstance.getSummary(row)
-            return storySummary
+            (cellView?.subviews[0] as! NSTextField).attributedStringValue = Stories.sharedInstance.getAttributedSummary(row)
+            return cellView
         }
     }
     
@@ -377,6 +387,7 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
         } else {
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         }
+        tableView.scrollRowToVisible(Stories.sharedInstance.getCurrentStory())
     }
     
     func tableView(tableView: NSTableView, isGroupRow row: Int) -> Bool {

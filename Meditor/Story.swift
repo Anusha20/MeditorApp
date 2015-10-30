@@ -50,10 +50,11 @@ class Story: NSObject {
     }
     
     func getSummary() -> [String:AnyObject] {
+        let summary = getTitle() + "\n" + getText()
         if(mediumURL == nil) {
-            return ["id": id, "summary": shorten(body, count: 100)]
+            return ["id": id, "summary": shorten(summary, count: 100), "titleLength": (getTitle().characters.count < 100) ? getTitle().characters.count : 100]
         } else {
-            return ["id": id, "summary": shorten(body, count: 100), "mediumURL" : mediumURL]
+            return ["id": id, "summary": shorten(summary, count: 100), "titleLength": (getTitle().characters.count < 100) ? getTitle().characters.count : 100, "mediumURL" : mediumURL]
         }
     }
     
@@ -69,6 +70,23 @@ class Story: NSObject {
             }
         }
         return title.stringByReplacingOccurrencesOfString("# ", withString: "")
+    }
+    
+    func getText() -> String {
+        var text : String
+        if(isEmpty()) {
+            return ""
+        } else {
+            if((body.rangeOfString("\n")) != nil) {
+                text = (body.substringFromIndex((body.rangeOfString("\n")?.startIndex.advancedBy(1))!))
+            } else {
+                text = ""
+            }
+        }
+        text = text.stringByReplacingOccurrencesOfString("\n", withString: " ")
+        text = text.stringByReplacingOccurrencesOfString("## ", withString: "")
+        text = text.stringByReplacingOccurrencesOfString("# ", withString: "")
+        return text
     }
     
     func wordCount() -> Int {

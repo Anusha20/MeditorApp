@@ -33,13 +33,13 @@ class Stories: NSObject {
         
         // Adding Headings
         draftListheading = 0;
-        list.append(["id": "heading", "summary": "LOCAL DRAFTS"])
+        list.append(["id": "heading", "summary": "Still Working"])
         if let draftList = userDefaults.arrayForKey(keyDraftList) as? [[String:AnyObject]] {
             list.appendContentsOf(draftList)
         }
         
         exportedListheading = list.count;
-        list.append(["id": "heading", "summary": "EXPORTED TO MEDIUM.COM"])
+        list.append(["id": "heading", "summary": "Archive"])
         if let exportedList = userDefaults.arrayForKey(keyExportedList) as? [[String:AnyObject]] {
             list.appendContentsOf(exportedList)
         }
@@ -98,8 +98,12 @@ class Stories: NSObject {
         }
     }
     
-    func getSummary(i: Int) -> String {
-        return (list[i]["summary"] as? String)!
+    func getAttributedSummary(i: Int) -> NSAttributedString {
+        let attrString = NSMutableAttributedString(string: (list[i]["summary"] as? String)!);
+        if let titleLength = list[i]["titleLength"] as? Int {
+            attrString.addAttribute(NSFontAttributeName, value: NSFont.boldSystemFontOfSize(NSFont.systemFontSize() - 1), range: NSMakeRange(0, titleLength))
+        }
+        return attrString
     }
     
     let keyCurrentStory = "currentStoryIndex"
