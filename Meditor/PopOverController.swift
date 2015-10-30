@@ -15,6 +15,9 @@ class PopOverController: NSViewController {
     
     @IBOutlet weak var bearerIdTextField: NSTextField!
     
+    @IBOutlet weak var errorMsg: NSTextField!
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -25,6 +28,7 @@ class PopOverController: NSViewController {
         popover = NSPopover()
         popover.contentViewController = self
         appDelegate = app
+        
     }
 
        
@@ -52,17 +56,46 @@ class PopOverController: NSViewController {
 
 extension PopOverController {
    
+    func updateUserDetails(sender: AnyObject){
+        RestAPIManger.sharedInstance.getUserDetails(self,sender:sender)
+        getName()
+        getUserName()
+        getProfileUrl()
+        getImageUrl()
+    }
+
+    func onSuccessFulUpdateUserDetails(sender: AnyObject){
+            hideErrorMessage()
+            setAuthId(bearerIdTextField.stringValue)
+            print("bearer id:"+getAuthId())
+            closePopover(sender)
+            appDelegate.callPublishAPI()
+        
+    }
+    
+    
+    
+    func showErrorMessage(message:String){
+        self.errorMsg.textColor = NSColor(calibratedRed: 1.0, green: 0.0, blue: 0.0, alpha: 0.7)
+        self.errorMsg.stringValue = message
+        self.errorMsg.hidden = false
+        
+    }
+    func hideErrorMessage(){
+        self.errorMsg.stringValue = ""
+        errorMsg.hidden = true
+        
+    }
    
     @IBAction func saveId(sender: AnyObject) {
-        print("save .....")
-        setAuthId(bearerIdTextField.stringValue)
-        print("bearer id:"+getAuthId())
-        closePopover(sender)
-        appDelegate.callPublishAPI()
+        hideErrorMessage()
+        updateUserDetails(sender)
+        
         
         
     }
     @IBAction func cancel(sender: AnyObject) {
+        hideErrorMessage()
         closePopover(sender)
 
     }

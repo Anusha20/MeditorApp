@@ -53,6 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     override init() {
         super.init()
         initElements()
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
     }
     
     func initElements() {
@@ -469,15 +470,10 @@ extension AppDelegate: NSToolbarDelegate {
     }
     
     func callPublishAPI(){
-        if(!getAuthId().isEmpty){
+        if(!getAuthId().isEmpty && !getAuthorId().isEmpty){
             infoField.showProgress("Exporting to medium.com", progressValue: 0.5)
             /* setUserId("Shiva")
             setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
-            RestAPIManger.sharedInstance.getUserDetails()
-            getName()
-            getUserName()
-            getProfileUrl()
-            getImageUrl()
             
             let authorId = getAuthorId()
             let title = meditorTextView.story.getTitle()

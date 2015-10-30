@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PopOverController" customModule="Meditor" customModuleProvider="target">
             <connections>
                 <outlet property="bearerIdTextField" destination="VPL-xa-TOn" id="6yM-Eo-GCg"/>
+                <outlet property="errorMsg" destination="JcF-kI-i0j" id="Wc1-UY-eaf"/>
                 <outlet property="saveId" destination="P2T-32-FDH" id="dsC-kZ-FOD"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="CM3-0x-fka"/>
             </connections>
@@ -27,7 +28,7 @@
                     </textFieldCell>
                 </textField>
                 <button identifier="save" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2T-32-FDH">
-                    <rect key="frame" x="397" y="13" width="70" height="32"/>
+                    <rect key="frame" x="402" y="13" width="70" height="32"/>
                     <animations/>
                     <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IIi-Va-d5A">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -72,8 +73,20 @@
                     <animations/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MediumLogo" id="3bA-wy-9dg"/>
                 </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" placeholderIntrinsicWidth="48" placeholderIntrinsicHeight="17" translatesAutoresizingMaskIntoConstraints="NO" id="JcF-kI-i0j">
+                    <rect key="frame" x="95" y="24" width="216" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="MhS-eb-cfW">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="D3f-eA-0D9"/>
+                    </connections>
+                </textField>
                 <button identifier="save" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GJS-fV-jPp">
-                    <rect key="frame" x="279" y="13" width="80" height="32"/>
+                    <rect key="frame" x="322" y="13" width="80" height="32"/>
                     <animations/>
                     <buttonCell key="cell" type="push" title="cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DLN-jQ-i8B">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -85,7 +98,7 @@
                 </button>
             </subviews>
             <animations/>
-            <point key="canvasLocation" x="422" y="262.5"/>
+            <point key="canvasLocation" x="211" y="278.5"/>
         </customView>
     </objects>
     <resources>

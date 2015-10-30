@@ -40,7 +40,7 @@ defaults.synchronize()
 //Getting AuthorId
 func getAuthorId()->String{
 let defaults = NSUserDefaults.standardUserDefaults()
-var res = "empty"
+var res = ""
 if let stringOne = defaults.stringForKey(defaultsKeys.authorId+getUserId()) {
     print(stringOne) // Some String Value
     res = stringOne

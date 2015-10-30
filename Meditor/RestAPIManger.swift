@@ -16,11 +16,11 @@ class RestAPIManger: NSObject{
     
     
     let userDetailsEndPoint: String = "https://api.medium.com/v1/me"
+    let unAuthorizedErrorMsg : String  = "Invalid Integration Token"
+    let connectionRefusedErrorMsg :String  = "Connection Refused. Please try Later"
     
     
-    
-    
-    func getUserDetails(){
+    func getUserDetails(popOverController : PopOverController?,sender: AnyObject){
         
         let request = NSMutableURLRequest(URL: NSURL(string: userDetailsEndPoint)!)
         let session = NSURLSession.sharedSession()
@@ -30,56 +30,69 @@ class RestAPIManger: NSObject{
         let authId = getAuthId()
         request.addValue("Bearer "+authId, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
+            
             if let _ = error
             {
                 // got an error in getting the data, need to handle it
-                print("error calling GET on /posts/1")
+                print("error calling GETUSERDETAILS on /posts/1 Failure: %@", error!.localizedDescription)
             }
             else // no error returned by URL request
             {
-                 let get = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-             //   print(get["data"]?["id"])
-                if let authorId = get["data"]?["id"] as? String
-                {
-                    print("The authorId is: " + authorId)
-                    setAuthorId(authorId)
+                let responseCode = (response as! NSHTTPURLResponse).statusCode
+                if(responseCode == 200){
+                    let get = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                    //   print(get["data"]?["id"])
+                    if let authorId = get["data"]?["id"] as? String
+                    {
+                        print("The authorId is: " + authorId)
+                        setAuthorId(authorId)
+                        
+                    }
+                    if let name = get["data"]?["name"] as? String
+                    {
+                        print("The name is: " + name)
+                        setName(name)
+                        
+                    }
                     
-                }
-                if let name = get["data"]?["name"] as? String
-                {
-                    print("The name is: " + name)
-                    setName(name)
+                    if let username = get["data"]?["username"] as? String
+                    {
+                        print("The username is: " + username)
+                        setUserName(username)
+                        
+                    }
                     
-                }
-
-                if let username = get["data"]?["username"] as? String
-                {
-                    print("The username is: " + username)
-                    setUserName(username)
+                    if let url = get["data"]?["url"] as? String
+                    {
+                        print("The url is: " + url)
+                        setProfileUrl(url)
+                        
+                    }
                     
+                    if let imageUrl = get["data"]?["imageUrl"] as? String
+                    {
+                        print("The imageUrl is: " + imageUrl)
+                        setImageUrl(imageUrl)
+                        
+                    }
+                    popOverController?.onSuccessFulUpdateUserDetails(sender)
+
+                }else{
+                    var msg : String = self.connectionRefusedErrorMsg
+                    if(responseCode == 401){
+                        msg =  self.unAuthorizedErrorMsg
+                    }
+                    popOverController?.showErrorMessage(msg)
+                    print(responseCode.description)
                 }
-
-                if let url = get["data"]?["url"] as? String
-                {
-                    print("The url is: " + url)
-                    setProfileUrl(url)
-                    
-                }
-
-                if let imageUrl = get["data"]?["imageUrl"] as? String
-                {
-                    print("The imageUrl is: " + imageUrl)
-                    setImageUrl(imageUrl)
-                    
-                }
-
-
+                
+                
             }
             
         })
         task.resume()
-       
-    
+        
+        
     }
     
     func publishDraft(authorId:String,params:NSDictionary, app : AppDelegate?) {
@@ -98,7 +111,7 @@ class RestAPIManger: NSObject{
         
         
         
-       let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
+        let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
             if let _ = error
             {
                 // got an error in getting the data, need to handle it
