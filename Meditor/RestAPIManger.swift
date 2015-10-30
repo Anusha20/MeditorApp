@@ -124,7 +124,7 @@ class RestAPIManger: NSObject{
             {
                 print(response)
                 let responseCode = (response as! NSHTTPURLResponse).statusCode
-                if(responseCode == 200){
+                if(responseCode == 201){
                 let lastPost = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                 print("The post is: " + lastPost.description)
                 
