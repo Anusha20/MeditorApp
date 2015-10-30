@@ -99,7 +99,7 @@ class MeditorTextView: NSTextView {
     func formatMarkdown() {
         
         let attributedText = attributedString().mutableCopy() as! NSMutableAttributedString
-        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,lowAlpha: story.isEmpty() || story.isExported(), isPlaceHolder: story.isEmpty())
+        MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,lowAlpha: story.isEmpty() || story.isExported())
         
         let tempRange = selectedRange()
         textStorage!.setAttributedString(attributedText.copy() as! NSAttributedString)

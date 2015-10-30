@@ -122,7 +122,7 @@ class MarkDownFormatter : NSObject{
         
     }
     func formatMarkDownSyntax(attributedText:NSMutableAttributedString,range : NSRange){
-        attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.07), range: range)
+        attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2), range: range)
     }
     
     func getDefaultParagrahStyle() -> NSMutableParagraphStyle{
@@ -155,7 +155,7 @@ class MarkDownFormatter : NSObject{
     
     
     
-    func formatText( attributedText:NSMutableAttributedString!,format : Attribute, string : String?,lowAlpha:Bool, isPlaceHolder:Bool) -> Bool  {
+    func formatText( attributedText:NSMutableAttributedString!,format : Attribute, string : String?,lowAlpha:Bool) -> Bool  {
         var matched:Bool = false
         let range = NSMakeRange(0, (string?.characters.count)!)
         let matches = format.regex.matchesInString(string!, options: [], range: range)
@@ -172,24 +172,22 @@ class MarkDownFormatter : NSObject{
             } else {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: format.color, range: matchRange)
             }
-            if(!isPlaceHolder) {
-                for index in format.syntaxRangeIndex{
-                    formatMarkDownSyntax(attributedText,range: match.rangeAtIndex(index))
-                }
+            for index in format.syntaxRangeIndex{
+                formatMarkDownSyntax(attributedText,range: match.rangeAtIndex(index))
             }
         }
         return matched;
     }
     
-        func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,lowAlpha:Bool, isPlaceHolder:Bool) {
+        func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,lowAlpha:Bool) {
         
-        formatText(attributedText,format:h1,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
-        formatText(attributedText,format:h2,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
-        formatText(attributedText,format:emphasis,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
-        formatText(attributedText,format:strongemphasis,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
-        formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
-        formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
-        formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha, isPlaceHolder: isPlaceHolder)
+        formatText(attributedText,format:h1,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:h2,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:emphasis,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:strongemphasis,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha)
         
         
     }
