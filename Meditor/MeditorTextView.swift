@@ -12,7 +12,7 @@ class MeditorTextView: NSTextView {
     
     var story : Story!
     var app : AppDelegate!
-    
+    var isLastKeyDelete = false
     
     let placeholder = "# Title\nTell your story...";
     
@@ -60,7 +60,7 @@ class MeditorTextView: NSTextView {
         }
         formatMarkdown();
     }
-
+    
     func storyChanged() {
         setSelectedRange(NSRange(location: 0,length: 0))
         textChanged()
@@ -73,7 +73,7 @@ class MeditorTextView: NSTextView {
             selectable = true
             backgroundColor = NSColor.clearColor()
         }
-
+        
     }
     
     func refreshInfo(message : String) {
@@ -94,10 +94,66 @@ class MeditorTextView: NSTextView {
         }
     }
     
+    func addAutoAddtion(){
+        var isordered = false
+        var regex:NSRegularExpression = try! NSRegularExpression(pattern: "(\\n|^)(\\s*)(\\*|-|\\+)\\s(.*)\\n$", options: [])
+        let range = NSMakeRange(0, (string?.characters.count)!)
+        var matches = regex.matchesInString(string!, options: [], range: range)
+        let index:Int  = 3
+        if(matches.isEmpty){
+            regex = try! NSRegularExpression(pattern: "(\\n|^)(([0-9]+)\\.)\\s(.*)\\n$", options: [])
+            
+            isordered = true
+        }
+        matches = regex.matchesInString(string!, options: [], range: range)
+        
+        for match in matches{
+            if(!isLastKeyDelete){
+                let r:NSRange = match.rangeAtIndex(index)
+                let range:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end: string!.startIndex.advancedBy(r.location+r.length))
+                let char = string!.substringWithRange(range)
+                let endLocation:Int = match.range.location + match.range.length
+                if(endLocation == string?.characters.count && string?.characters.last == "\n"){
+                    if(!isordered){
+                        string?.appendContentsOf(char + " ")
+                    }else{
+                        var num = Int(char)
+                        num = num! + 1
+                        let str = String(num!) + ". "
+                        string?.appendContentsOf(str)
+                        
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
+    override func keyDown(theEvent: NSEvent) {
+        func intToString(x : Int) -> String {
+            return String(UnicodeScalar(x))
+        }
+        
+        switch theEvent.keyCode {
+            
+        case 51:
+            isLastKeyDelete = true
+            break
+        default:
+            isLastKeyDelete = false
+
+        }
+        super.keyDown(theEvent)
+
+        
+       
+    }
+    
     // Markdown
     
     func formatMarkdown() {
-        
+        addAutoAddtion()
         let attributedText = attributedString().mutableCopy() as! NSMutableAttributedString
         MarkDownFormatter.sharedInstance.formatMarkdown(attributedText,string:string,lowAlpha: story.isEmpty() || story.isExported())
         
@@ -111,6 +167,7 @@ class MeditorTextView: NSTextView {
 extension MeditorTextView: NSTextViewDelegate {
     
     func textDidChange(notification: NSNotification) {
+        
         updateStory()
         textChanged()
     }

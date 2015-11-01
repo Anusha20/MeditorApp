@@ -84,7 +84,7 @@ class RestAPIManger: NSObject{
                         msg =  self.unAuthorizedErrorMsg
                     }
                     popOverController?.showErrorMessage(msg)
-                    print(responseCode.description)
+                    print(response)
                 }
                 
                 

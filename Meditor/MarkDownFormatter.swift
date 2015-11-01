@@ -42,18 +42,18 @@ class MarkDownFormatter : NSObject{
     func  H1init(){
         h1 = Attribute()
         h1.font = NSFont(name: "HelveticaNeue-Bold", size: 36)!
-        h1.regex = try! NSRegularExpression(pattern: "((\\n|^)# +)(.*)", options: [])
+        h1.regex = try! NSRegularExpression(pattern: "((\\n|^)# *)(.*)", options: [])
         h1.syntaxRangeIndex = [1]
-        h1.para = getDefaultParagrahStyle()
+        h1.para = getHeaderParagrahStyle()
     }
     
     
     func  H2Init(){
         h2 = Attribute()
         h2.font = NSFont(name: "HelveticaNeue-Bold", size: 30)!
-        h2.regex = try! NSRegularExpression(pattern: "((\\n|^)## +)(.*)", options: [])
+        h2.regex = try! NSRegularExpression(pattern: "((\\n|^)## *)(.*)", options: [])
         h2.syntaxRangeIndex = [1]
-        h2.para = getDefaultParagrahStyle()
+        h2.para = getHeaderParagrahStyle()
         
     }
     
@@ -62,6 +62,7 @@ class MarkDownFormatter : NSObject{
         strongemphasis.font = NSFont(name: "Charter-Bold", size: 20.5)!
         strongemphasis.regex = try! NSRegularExpression(pattern: "(\\*\\*|__)(.*?)(\\*\\*|__)", options: [])
         strongemphasis.syntaxRangeIndex = [1,3]
+        strongemphasis.para = getDefaultParagraphStyle()
         
         
         
@@ -73,6 +74,7 @@ class MarkDownFormatter : NSObject{
         emphasis.regex = try! NSRegularExpression(pattern: "(\\*|_)(.*?)(\\*|_)", options: [])
         emphasis.syntaxRangeIndex = [1,3]
         emphasis.italics = 0.20
+        emphasis.para = getDefaultParagraphStyle()
         
     }
     
@@ -125,7 +127,7 @@ class MarkDownFormatter : NSObject{
         attributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2), range: range)
     }
     
-    func getDefaultParagrahStyle() -> NSMutableParagraphStyle{
+    func getHeaderParagrahStyle() -> NSMutableParagraphStyle{
         let style = NSMutableParagraphStyle();
         style.lineSpacing = -10;
         style.lineHeightMultiple = 1.2
@@ -134,24 +136,40 @@ class MarkDownFormatter : NSObject{
         return style
     }
     
+    func getDefaultParagraphStyle() -> NSMutableParagraphStyle{
+        let style = NSMutableParagraphStyle();
+        style.lineHeightMultiple = 1.3
+        style.lineSpacing = 0;
+        style.paragraphSpacing = 30
+        style.paragraphSpacingBefore = 0
+        return style
+    }
+    
     func getListParagraphStyle() -> NSMutableParagraphStyle {
-        //let tabs:NSTextTab = NSTextTab.init(textAlignment: NSTextAlignment.Left,location:1.0, options:[:])
+       // let tabs:NSTextTab = NSTextTab.init(textAlignment: NSTextAlignment.Left,location:5.0, options:[:])
         let paraStyle = NSMutableParagraphStyle()
-        //  paraStyle.setTabStops
-        paraStyle.defaultTabInterval = 5.0
-        paraStyle.firstLineHeadIndent = 0.0
-        //[para setHeaderLevel:0];
-        paraStyle.headIndent = 1.0
-        paraStyle.paragraphSpacing = 1
-        paraStyle.paragraphSpacingBefore = 1.5
-        paraStyle.lineSpacing = -5;
-        paraStyle.lineHeightMultiple = 1.2
+        //paraStyle.addTabStop(tabs)
+        //paraStyle.defaultTabInterval = 2.0//5.0
+        paraStyle.firstLineHeadIndent = 30
+    //    paraStyle.headerLevel = 0
+      //  paraStyle.headIndent = 7.0
+        paraStyle.paragraphSpacing = 0
+        paraStyle.paragraphSpacingBefore = 1.5//30//1.5
+        paraStyle.lineSpacing = 5;
+        paraStyle.lineHeightMultiple = 1.3
         
         return paraStyle
     }
     
     
-   
+    func getBulletIntend(match:NSTextCheckingResult!,attributedText:NSMutableAttributedString!,index:Int ){
+  /*     var temp = match.rangeAtIndex[index]
+        
+        NSStringFromRange(temp)
+        print(totalSpace)
+        print(totalSpace.length)*/
+        
+    }
     
     
     
@@ -164,9 +182,20 @@ class MarkDownFormatter : NSObject{
             let matchRange = match.range
             attributedText.addAttribute(NSFontAttributeName, value: format.font, range: matchRange)
             attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
-            if(format.para != nil){
-                attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
+            if(format.isBullet){
+               /* let ind :Int = 3
+                let r = match.rangeAtIndex(ind);
+                let index:Range<String.Index> = Range<String.Index>(r.location,r.location+r.length)
+                
+                let space:String  = string!.substringWithRange(index)                print(space+"1")
+                let level = space.characters.count
+                var mul:CGFloat = CGFloat(level)
+                format.para.lineSpacing.advancedBy(mul)
+                print(format.para.lineSpacing.description)*/
+                
             }
+            
+              attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
             if(lowAlpha) {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: lowAlphaColor, range: matchRange)
             } else {
@@ -179,18 +208,19 @@ class MarkDownFormatter : NSObject{
         return matched;
     }
     
-        func formatMarkdown(attributedText:NSMutableAttributedString!,string : String?,lowAlpha:Bool) {
+    func formatMarkdown(attributedText:NSMutableAttributedString!,var string : String?,lowAlpha:Bool) {
         
         formatText(attributedText,format:h1,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:h2,string : string,lowAlpha:lowAlpha)
+        var ul = formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
+        var ol = formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:emphasis,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:strongemphasis,string : string,lowAlpha:lowAlpha)
-        formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
-        formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
-        formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha)
-        
         
     }
+    
+   
     
     
 }
