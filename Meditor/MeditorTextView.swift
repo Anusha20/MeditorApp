@@ -106,6 +106,11 @@ class MeditorTextView: NSTextView {
         setSelectedRange(tempRange)
     }
     
+    override func cancelOperation(sender: AnyObject?) {
+        app.window.makeFirstResponder(app.tableView)
+    }
+
+    
 }
 
 extension MeditorTextView: NSTextViewDelegate {

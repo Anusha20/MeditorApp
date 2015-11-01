@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var infoField: InfoTextField!
     var publishButton: NSButton!
     var splitView:NSSplitView!
-    var tableView: NSTableView!
+    var tableView: StoryTableView!
     var scrollView: NSScrollView!
     var tableScrollView: NSScrollView!
     var exportedStoryView: ExportedStoryView!
@@ -121,7 +121,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         splitView.addSubview(tableScrollView)
         
         // Table View
-        tableView = NSTableView(frame: tableScrollView.frame)
+        tableView = StoryTableView(frame: tableScrollView.frame)
         tableView.setDelegate(self)
         tableView.setDataSource(self)
         tableView.addTableColumn(NSTableColumn(identifier: "col1"))
