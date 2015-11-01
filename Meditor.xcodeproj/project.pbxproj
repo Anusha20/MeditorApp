@@ -20,6 +20,7 @@
 		6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56891BD089D20024D09F /* Tagger.swift */; };
 		6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */; };
 		6BCD56931BD08A7A0024D09F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56911BD08A7A0024D09F /* Store.swift */; };
+		6BFD8D6B1BE57CD900FF4F92 /* StoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFD8D6A1BE57CD900FF4F92 /* StoryTableView.swift */; };
 		885DABE71BDEEA6800CAE17B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE61BDEEA6800CAE17B /* Story.swift */; };
 		885DABE91BDEEA9900CAE17B /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE81BDEEA9900CAE17B /* Stories.swift */; };
 		885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */; };
@@ -43,6 +44,7 @@
 		6BCD56891BD089D20024D09F /* Tagger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagger.swift; sourceTree = "<group>"; };
 		6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManger.swift; sourceTree = "<group>"; };
 		6BCD56911BD08A7A0024D09F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		6BFD8D6A1BE57CD900FF4F92 /* StoryTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableView.swift; sourceTree = "<group>"; };
 		885DABE61BDEEA6800CAE17B /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		885DABE81BDEEA9900CAE17B /* Stories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stories.swift; sourceTree = "<group>"; };
 		885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkDownFormatter.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				88B855FA1BDDD16A00455C0D /* PopOverController.swift */,
 				88B855FB1BDDD16A00455C0D /* PopOverController.xib */,
 				6B11189A1BDB9DA50007EE4E /* SummaryTextView.swift */,
+				6BFD8D6A1BE57CD900FF4F92 /* StoryTableView.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				6BCD56931BD08A7A0024D09F /* Store.swift in Sources */,
 				885DABE91BDEEA9900CAE17B /* Stories.swift in Sources */,
 				6BBA2D3A1BD6E5B500AB7FEF /* InfoTextField.swift in Sources */,
+				6BFD8D6B1BE57CD900FF4F92 /* StoryTableView.swift in Sources */,
 				6B11189B1BDB9DA50007EE4E /* SummaryTextView.swift in Sources */,
 				6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */,
 				6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */,
