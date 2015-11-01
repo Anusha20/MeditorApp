@@ -20,14 +20,16 @@ class RestAPIManger: NSObject{
     let connectionRefusedErrorMsg :String  = "Connection Refused. Please try Later"
     
     
-    func getUserDetails(popOverController : PopOverController?,sender: AnyObject){
+    func getUserDetails(popOverController : PopOverController?,sender: AnyObject,var authId:String){
         
         let request = NSMutableURLRequest(URL: NSURL(string: userDetailsEndPoint)!)
         let session = NSURLSession.sharedSession()
         request.HTTPMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let authId = getAuthId()
+        if(authId.isEmpty){
+            authId = getAuthId()
+        }
         request.addValue("Bearer "+authId, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
              var msg : String = self.connectionRefusedErrorMsg
