@@ -145,9 +145,6 @@ class MeditorTextView: NSTextView {
 
         }
         super.keyDown(theEvent)
-
-        
-       
     }
     
     // Markdown
@@ -164,6 +161,7 @@ class MeditorTextView: NSTextView {
     
     override func cancelOperation(sender: AnyObject?) {
         app.window.makeFirstResponder(app.tableView)
+        super.cancelOperation(sender)
     }
 
     
@@ -172,7 +170,6 @@ class MeditorTextView: NSTextView {
 extension MeditorTextView: NSTextViewDelegate {
     
     func textDidChange(notification: NSNotification) {
-        
         updateStory()
         textChanged()
     }

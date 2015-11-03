@@ -30,9 +30,9 @@ class MenuDelegate: NSMenu {
                 NSMenuItem.separatorItem(),
                 NSMenuItem(title: "Cut",  action: "cut:", keyEquivalent:"x"),
                 NSMenuItem(title: "Copy",  action: "copy:", keyEquivalent:"c"),
-                NSMenuItem(title: "Paste",  action: "paste:", keyEquivalent:"v"),
+                NSMenuItem(title: "Paste",  action: "pasteAsPlainText:", keyEquivalent:"v"),
                 NSMenuItem.separatorItem(),
-                NSMenuItem(title: "Select All",  action: "selectall:", keyEquivalent:"a"),
+                NSMenuItem(title: "Select All",  action: "selectAll:", keyEquivalent:"a"),
             ],
         ]
 

@@ -154,6 +154,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         meditorTextView.horizontallyResizable = false
         meditorTextView.textContainer!.widthTracksTextView = true
         meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
+        meditorTextView.allowsUndo = true
         meditorTextView.delegate = meditorTextView
         scrollView.documentView = meditorTextView
         
