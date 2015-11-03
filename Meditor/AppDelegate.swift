@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var tableScrollView: NSScrollView!
     var exportedStoryView: ExportedStoryView!
     var titleTextView: NSTextView!
-    var localButton: NSButton!
+    var copyButton: NSButton!
     var meditorTextView: MeditorTextView!
     var storyView : NSView!
     var toolbar:NSToolbar!
@@ -190,13 +190,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         ]
         exportedStoryView.addSubview(titleTextView)
         
-        localButton = NSButton(frame: NSRect(x: currentInsetWidth + 595, y: exportedStoryView.frame.size.height - 50, width: 100, height: 30))
-        localButton.title = "Make a Copy"
-        localButton.setButtonType(NSButtonType.MomentaryLightButton)
-        localButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
-        localButton.target = self
-        localButton.action = Selector("localClicked:")
-        exportedStoryView.addSubview(localButton)
+        copyButton = NSButton(frame: NSRect(x: currentInsetWidth + 595, y: exportedStoryView.frame.size.height - 50, width: 100, height: 30))
+        copyButton.title = "Make a Copy"
+        copyButton.setButtonType(NSButtonType.MomentaryLightButton)
+        copyButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
+        copyButton.target = self
+        copyButton.action = Selector("copyClicked:")
+        exportedStoryView.addSubview(copyButton)
         
         if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
             meditorTextView.setup(self, story: story)
@@ -222,7 +222,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if(titleTextView != nil) {
             titleTextView.frame.origin.x = currentInsetWidth
             //mediumButton.frame.origin.x = currentInsetWidth + 540
-            localButton.frame.origin.x = currentInsetWidth + 595
+            copyButton.frame.origin.x = currentInsetWidth + 595
         }
         exportedStoryView.frame.origin.y = storyView.frame.size.height - exportedBarHeight
         exportedStoryView.frame.size.height = exportedBarHeight
@@ -271,6 +271,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
     
+    func about(sender: NSMenuItem) {
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://meditorapp.com")!)
+    }
+    
+
+    func newDocument(sender: NSMenuItem) {
+        createNew()
+    }
+
+    func copyDocument(sender: NSMenuItem) {
+        clone()
+    }
+    
+    func exportDocument(sender: NSMenuItem) {
+        publish()
+    }
+
+    func collapseList(sender: NSMenuItem) {
+        collapse()
+    }
+
 }
 
 extension AppDelegate: NSSplitViewDelegate {
@@ -437,15 +458,24 @@ extension AppDelegate: NSToolbarDelegate {
         return splitView.isSubviewCollapsed(tableScrollView)
     }
     
-    func collapseClicked(sender: NSButton){
-        if(isStoryListCollapsed()) {
-            splitView.setPosition(storyListSize, ofDividerAtIndex: 0)
-        } else {
-            splitView.setPosition(0.0, ofDividerAtIndex: 0)
-        }
+
+    func newClicked(sender: NSButton){
+        createNew()
+    }
+
+    func copyClicked(sender: NSButton) {
+        clone()
     }
     
-    func newClicked(sender: NSButton){
+    func publishClicked(sender: NSButton){
+        publish()
+    }
+    
+    func collapseClicked(sender: NSButton){
+        collapse()
+    }
+
+    func createNew(){
         let newStory = Story()
         newStory.save()
         Stories.sharedInstance.addStory(newStory)
@@ -454,7 +484,7 @@ extension AppDelegate: NSToolbarDelegate {
         window.makeFirstResponder(meditorTextView)
     }
 
-    func localClicked(sender: NSButton) {
+    func clone() {
         let newStory = Story()
         newStory.body = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory())!.body
         newStory.save()
@@ -464,23 +494,19 @@ extension AppDelegate: NSToolbarDelegate {
         window.makeFirstResponder(meditorTextView)
     }
 
-    func mediumClicked(sender: NSButton) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory())!.mediumURL + "/edit")!)
-    }
-    
-    func dialogOKCancel(question: String, text: String) -> Bool {
-        let myPopup: NSAlert = NSAlert()
-        myPopup.messageText = question
-        myPopup.informativeText = text
-        myPopup.alertStyle = NSAlertStyle.InformationalAlertStyle
-        myPopup.addButtonWithTitle("OK")
-        myPopup.addButtonWithTitle("Cancel")
-        let res = myPopup.runModal()
-        if res == NSAlertFirstButtonReturn {
-            return true
-        }
-        return false
-    }
+//    func dialogOKCancel(question: String, text: String) -> Bool {
+//        let myPopup: NSAlert = NSAlert()
+//        myPopup.messageText = question
+//        myPopup.informativeText = text
+//        myPopup.alertStyle = NSAlertStyle.InformationalAlertStyle
+//        myPopup.addButtonWithTitle("OK")
+//        myPopup.addButtonWithTitle("Cancel")
+//        let res = myPopup.runModal()
+//        if res == NSAlertFirstButtonReturn {
+//            return true
+//        }
+//        return false
+//    }
     
     func callPublishAPI(){
         if(!getAuthId().isEmpty && !getAuthorId().isEmpty){
@@ -500,15 +526,12 @@ extension AppDelegate: NSToolbarDelegate {
         }
     }
     
-    
-    @IBAction func publishClicked(sender: NSButton){
+    func publish() {
         if(getAuthId().isEmpty){
-            popOverController.showPopover(sender)
+            popOverController.showPopover(publishButton)
         }else{
             callPublishAPI()
         }
-        
-        
     }
     
     func onPublishFailure(){
@@ -532,6 +555,13 @@ extension AppDelegate: NSToolbarDelegate {
         return text.stringByReplacingOccurrencesOfString("\n", withString: "\n\n")
     }
     
+    func collapse() {
+        if(isStoryListCollapsed()) {
+            splitView.setPosition(storyListSize, ofDividerAtIndex: 0)
+        } else {
+            splitView.setPosition(0.0, ofDividerAtIndex: 0)
+        }
+    }
     
     func toolbarDefaultItemIdentifiers(toolbar: NSToolbar) -> [String]
     {

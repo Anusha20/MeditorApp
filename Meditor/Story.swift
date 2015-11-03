@@ -69,7 +69,11 @@ class Story: NSObject {
                 title = body
             }
         }
-        return title.stringByReplacingOccurrencesOfString("# ", withString: "")
+        title = title.stringByReplacingOccurrencesOfString("## ", withString: "")
+        title = title.stringByReplacingOccurrencesOfString("##", withString: "")
+        title = title.stringByReplacingOccurrencesOfString("# ", withString: "")
+        title = title.stringByReplacingOccurrencesOfString("#", withString: "")
+        return title
     }
     
     func getText() -> String {
@@ -85,7 +89,9 @@ class Story: NSObject {
         }
         text = text.stringByReplacingOccurrencesOfString("\n", withString: " ")
         text = text.stringByReplacingOccurrencesOfString("## ", withString: "")
+        text = text.stringByReplacingOccurrencesOfString("##", withString: "")
         text = text.stringByReplacingOccurrencesOfString("# ", withString: "")
+        text = text.stringByReplacingOccurrencesOfString("#", withString: "")
         return text
     }
     
