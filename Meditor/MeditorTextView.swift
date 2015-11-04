@@ -96,35 +96,70 @@ class MeditorTextView: NSTextView {
     
     func addAutoAddtion(){
         var isordered = false
-        var regex:NSRegularExpression = try! NSRegularExpression(pattern: "(\\n|^)(\\s*)(\\*|-|\\+)\\s(.*)\\n$", options: [])
+        var regex:NSRegularExpression = try! NSRegularExpression(pattern: "(\\n|^)(\\s*)(\\*|-|\\+)\\s(.+)\\n$", options: [NSRegularExpressionOptions.AnchorsMatchLines])
         let range = NSMakeRange(0, (string?.characters.count)!)
         var matches = regex.matchesInString(string!, options: [], range: range)
         let index:Int  = 3
         if(matches.isEmpty){
-            regex = try! NSRegularExpression(pattern: "(\\n|^)(([0-9]+)\\.)\\s(.*)\\n$", options: [])
-            
-            isordered = true
+            regex = try! NSRegularExpression(pattern: "(\\n|^)(([0-9]+)\\.)\\s(.+)\\n$", options: [NSRegularExpressionOptions.AnchorsMatchLines])
+            matches = regex.matchesInString(string!, options: [], range: range)
+            if(!matches.isEmpty){
+                isordered = true
+            }
         }
-        matches = regex.matchesInString(string!, options: [], range: range)
+        
+        
+        var tempRange = selectedRange()
         
         for match in matches{
             if(!isLastKeyDelete){
                 let r:NSRange = match.rangeAtIndex(index)
-                let range:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end: string!.startIndex.advancedBy(r.location+r.length))
+                let endIndex = string!.startIndex.advancedBy(r.location+r.length)
+                let range:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end:endIndex )
                 let char = string!.substringWithRange(range)
                 let endLocation:Int = match.range.location + match.range.length
-                if(endLocation == string?.characters.count && string?.characters.last == "\n"){
+                             //   if(endLocation == string?.characters.count && string?.characters.last == "\n"){
                     if(!isordered){
-                        string?.appendContentsOf(char + " ")
+                        let ele = "\n"+char + " "
+                        let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(endLocation-1),end: string!.startIndex.advancedBy(endLocation))
+                        string?.replaceRange(replaceRange, with: ele)
+                        tempRange.location = tempRange.location + ele.characters.count-1
+                        
+                    
                     }else{
                         var num = Int(char)
                         num = num! + 1
-                        let str = String(num!) + ". "
-                        string?.appendContentsOf(str)
+                        let str = "\n"+String(num!) + ". "
+                        let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(endLocation-1),end: string!.startIndex.advancedBy(endLocation))
+                        string?.replaceRange(replaceRange, with: str)
+                        
+                        tempRange.location = tempRange.location + str.characters.count-1
+                        
                         
                     }
+                setSelectedRange(tempRange)
+               // }
+            }
+            
+        }
+        if(matches.isEmpty){
+            regex = try! NSRegularExpression(pattern: "(\\s*)(\\*|-|\\+)\\s\\n$", options: [NSRegularExpressionOptions.AnchorsMatchLines])
+            matches = regex.matchesInString(string!, options: [], range: range)
+            if(matches.isEmpty){
+                regex = try! NSRegularExpression(pattern: "(([0-9]+)\\.)\\s\\n$", options: [NSRegularExpressionOptions.AnchorsMatchLines])
+                matches = regex.matchesInString(string!, options: [], range: range)
+                if(!matches.isEmpty){
+                    isordered = true
                 }
             }
+                for match in matches{
+                    let r : NSRange = match.range;
+                    let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end: string!.startIndex.advancedBy(r.location + r.length))
+                    string?.replaceRange(replaceRange, with: "\n")
+                    tempRange.location = tempRange.location - r.length + 1
+                }
+            
+
             
         }
         
