@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PopOverController" customModule="Meditor" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="PopOverController" customModule="Stories" customModuleProvider="target">
             <connections>
                 <outlet property="bearerIdTextField" destination="VPL-xa-TOn" id="6yM-Eo-GCg"/>
                 <outlet property="errorMsg" destination="JcF-kI-i0j" id="Wc1-UY-eaf"/>
@@ -85,7 +85,7 @@
                         <outlet property="delegate" destination="-2" id="D3f-eA-0D9"/>
                     </connections>
                 </textField>
-                <button identifier="save" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GJS-fV-jPp">
+                <button identifier="cancel" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GJS-fV-jPp">
                     <rect key="frame" x="322" y="13" width="80" height="32"/>
                     <animations/>
                     <buttonCell key="cell" type="push" title="cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DLN-jQ-i8B">

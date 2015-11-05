@@ -204,12 +204,12 @@ class MarkDownFormatter : NSObject{
         return matched;
     }
     
-    func formatMarkdown(attributedText:NSMutableAttributedString!,var string : String?,lowAlpha:Bool) {
+    func formatMarkdown(attributedText:NSMutableAttributedString!, string : String?,lowAlpha:Bool) {
         
         formatText(attributedText,format:h1,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:h2,string : string,lowAlpha:lowAlpha)
-        var ul = formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
-        var ol = formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:emphasis,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:strongemphasis,string : string,lowAlpha:lowAlpha)
