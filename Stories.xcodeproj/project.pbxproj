@@ -68,7 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				885DABED1BE07EC000CAE17B /* AppKit.framework */,
-				6BCD566D1BCC52BB0024D09F /* Meditor */,
+				6BCD566D1BCC52BB0024D09F /* Stories */,
 				6BCD566C1BCC52BB0024D09F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,7 +81,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6BCD566D1BCC52BB0024D09F /* Meditor */ = {
+		6BCD566D1BCC52BB0024D09F /* Stories */ = {
 			isa = PBXGroup;
 			children = (
 				6BCD56871BD089AF0024D09F /* API */,
@@ -91,6 +91,7 @@
 				6BA4E14B1BD334E0004CE715 /* MainMenu.xib */,
 				6BCD56751BCC52BB0024D09F /* Info.plist */,
 			);
+			name = Stories;
 			path = Meditor;
 			sourceTree = "<group>";
 		};
