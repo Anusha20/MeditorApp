@@ -36,7 +36,7 @@
 		6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 		6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextField.swift; sourceTree = "<group>"; };
 		6BBB94801BE13BAC00F224F7 /* ExportedStoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportedStoryView.swift; sourceTree = "<group>"; };
-		6BCD566B1BCC52BB0024D09F /* Meditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BCD566B1BCC52BB0024D09F /* Stories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BCD56701BCC52BB0024D09F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BCD56751BCC52BB0024D09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,7 +49,6 @@
 		885DABE81BDEEA9900CAE17B /* Stories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stories.swift; sourceTree = "<group>"; };
 		885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkDownFormatter.swift; sourceTree = "<group>"; };
 		885DABED1BE07EC000CAE17B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Meditor.xcodeproj; sourceTree = "<group>"; };
 		88B855FA1BDDD16A00455C0D /* PopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverController.swift; sourceTree = "<group>"; };
 		88B855FB1BDDD16A00455C0D /* PopOverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				885DABED1BE07EC000CAE17B /* AppKit.framework */,
-				885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */,
 				6BCD566D1BCC52BB0024D09F /* Meditor */,
 				6BCD566C1BCC52BB0024D09F /* Products */,
 			);
@@ -78,7 +76,7 @@
 		6BCD566C1BCC52BB0024D09F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6BCD566B1BCC52BB0024D09F /* Meditor.app */,
+				6BCD566B1BCC52BB0024D09F /* Stories.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,17 +132,12 @@
 			name = API;
 			sourceTree = "<group>";
 		};
-		885E1BC51BD8137300C8A043 /* Products */ = {
-			isa = PBXGroup;
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6BCD566A1BCC52BB0024D09F /* Meditor */ = {
+		6BCD566A1BCC52BB0024D09F /* Stories */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BCD56781BCC52BB0024D09F /* Build configuration list for PBXNativeTarget "Meditor" */;
+			buildConfigurationList = 6BCD56781BCC52BB0024D09F /* Build configuration list for PBXNativeTarget "Stories" */;
 			buildPhases = (
 				6BCD56671BCC52BB0024D09F /* Sources */,
 				6BCD56681BCC52BB0024D09F /* Frameworks */,
@@ -154,9 +147,9 @@
 			);
 			dependencies = (
 			);
-			name = Meditor;
+			name = Stories;
 			productName = Meditor;
-			productReference = 6BCD566B1BCC52BB0024D09F /* Meditor.app */;
+			productReference = 6BCD566B1BCC52BB0024D09F /* Stories.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -175,7 +168,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Meditor" */;
+			buildConfigurationList = 6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Stories" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -186,15 +179,9 @@
 			mainGroup = 6BCD56621BCC52BB0024D09F;
 			productRefGroup = 6BCD566C1BCC52BB0024D09F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 885E1BC51BD8137300C8A043 /* Products */;
-					ProjectRef = 885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				6BCD566A1BCC52BB0024D09F /* Meditor */,
+				6BCD566A1BCC52BB0024D09F /* Stories */,
 			);
 		};
 /* End PBXProject section */
@@ -330,7 +317,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Stories;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -348,7 +335,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Stories;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
@@ -357,7 +344,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Meditor" */ = {
+		6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Stories" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BCD56761BCC52BB0024D09F /* Debug */,
@@ -366,7 +353,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BCD56781BCC52BB0024D09F /* Build configuration list for PBXNativeTarget "Meditor" */ = {
+		6BCD56781BCC52BB0024D09F /* Build configuration list for PBXNativeTarget "Stories" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BCD56791BCC52BB0024D09F /* Debug */,

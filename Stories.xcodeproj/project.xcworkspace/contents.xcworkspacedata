@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Meditor.xcodeproj">
+      location = "self:/Users/sivragav/value/trystories/StoriesApp/Stories.xcodeproj">
    </FileRef>
 </Workspace>

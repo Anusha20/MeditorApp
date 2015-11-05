@@ -1,9 +1,5 @@
 //
 //  RestAPIManger.swift
-//  Meditor
-//
-//  Created by Sivaprakash Ragavan on 10/9/15.
-//  Copyright © 2015 Sivaprakash Ragavan. All rights reserved.
 //
 
 import Foundation
