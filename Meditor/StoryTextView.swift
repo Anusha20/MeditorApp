@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class MeditorTextView: NSTextView {
+class StoryTextView: NSTextView {
     
     var story : Story!
     var app : AppDelegate!
@@ -198,7 +198,7 @@ class MeditorTextView: NSTextView {
     
 }
 
-extension MeditorTextView: NSTextViewDelegate {
+extension StoryTextView: NSTextViewDelegate {
     
     func textDidChange(notification: NSNotification) {
         updateStory()

@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var exportedStoryView: ExportedStoryView!
     var titleTextView: NSTextView!
     var copyButton: NSButton!
-    var meditorTextView: MeditorTextView!
+    var storyTextView: StoryTextView!
     var storyView : NSView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
@@ -145,14 +145,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         storyView.addSubview(scrollView)
         
         // Text View
-        meditorTextView = MeditorTextView(frame: scrollView.frame)
-        meditorTextView.verticallyResizable = true
-        meditorTextView.horizontallyResizable = false
-        meditorTextView.textContainer!.widthTracksTextView = true
-        meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
-        meditorTextView.allowsUndo = true
-        meditorTextView.delegate = meditorTextView
-        scrollView.documentView = meditorTextView
+        storyTextView = StoryTextView(frame: scrollView.frame)
+        storyTextView.verticallyResizable = true
+        storyTextView.horizontallyResizable = false
+        storyTextView.textContainer!.widthTracksTextView = true
+        storyTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
+        storyTextView.allowsUndo = true
+        storyTextView.delegate = storyTextView
+        scrollView.documentView = storyTextView
         
     }
     
@@ -195,7 +195,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         exportedStoryView.addSubview(copyButton)
         
         if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
-            meditorTextView.setup(self, story: story)
+            storyTextView.setup(self, story: story)
             setExportedView(story)
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         }
@@ -204,17 +204,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // Toolbar
         toolbarTabsIdentifierArray =  ["CollapseIdentifier", "NewIdentifier", NSToolbarFlexibleSpaceItemIdentifier, "InfoBarIdentifier", NSToolbarFlexibleSpaceItemIdentifier, "PublishButtonIdentifier"]
-        toolbar = NSToolbar(identifier:"MeditorToolbarIdentifier")
+        toolbar = NSToolbar(identifier:"StoriesToolbarIdentifier")
         toolbar.allowsUserCustomization = true
         toolbar.delegate = self
         window.toolbar = toolbar
         window.makeKeyAndOrderFront(nil);
-        window.makeFirstResponder(meditorTextView)
+        window.makeFirstResponder(storyTextView)
     }
     
     func reposition() {
         currentInsetWidth = (scrollView.contentSize.width - minTextWidth) / 2
-        meditorTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
+        storyTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
         if(titleTextView != nil) {
             titleTextView.frame.origin.x = currentInsetWidth
             //mediumButton.frame.origin.x = currentInsetWidth + 540
@@ -268,7 +268,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func about(sender: NSMenuItem) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://meditorapp.com")!)
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://trystories.com")!)
     }
     
 
@@ -399,8 +399,8 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
             } else {
                 scrollView.frame.size.height = storyView.frame.size.height
             }
-            meditorTextView.story = story
-            meditorTextView.storyChanged()
+            storyTextView.story = story
+            storyTextView.storyChanged()
             setExportedView(story)
         } else {
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
@@ -477,7 +477,7 @@ extension AppDelegate: NSToolbarDelegate {
         Stories.sharedInstance.addStory(newStory)
         tableView.reloadData()
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-        window.makeFirstResponder(meditorTextView)
+        window.makeFirstResponder(storyTextView)
     }
 
     func clone() {
@@ -487,7 +487,7 @@ extension AppDelegate: NSToolbarDelegate {
         Stories.sharedInstance.addStory(newStory)
         tableView.reloadData()
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-        window.makeFirstResponder(meditorTextView)
+        window.makeFirstResponder(storyTextView)
     }
 
 //    func dialogOKCancel(question: String, text: String) -> Bool {
@@ -511,8 +511,8 @@ extension AppDelegate: NSToolbarDelegate {
             setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
             
             let authorId = getAuthorId()
-            let title = meditorTextView.story.getTitle()
-            let content = prepareContent(meditorTextView.string!)
+            let title = storyTextView.story.getTitle()
+            let content = prepareContent(storyTextView.string!)
             let tags:[String] = []
             let contentFormat = "markdown"
             let publishStat = "draft"
@@ -543,7 +543,7 @@ extension AppDelegate: NSToolbarDelegate {
             Stories.sharedInstance.markCurrentPublished(mediumURL)
             self.tableView.reloadData()
             self.tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-            self.window.makeFirstResponder(self.meditorTextView)
+            self.window.makeFirstResponder(self.storyTextView)
         }
     }
     

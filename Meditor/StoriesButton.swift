@@ -1,10 +1,9 @@
 //
-//  MeditorButton.swift
 //
 
 import Cocoa
 
-class MeditorButton: NSButton {
+class StoriesButton: NSButton {
 
     var app : AppDelegate?
     

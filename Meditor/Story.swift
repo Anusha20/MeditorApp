@@ -1,5 +1,4 @@
 //
-//  MeditorDoc.swift
 //
 
 import Foundation

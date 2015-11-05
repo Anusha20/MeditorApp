@@ -316,7 +316,7 @@
 				INFOPLIST_FILE = Meditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trystories.Stories;
 				PRODUCT_NAME = Stories;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -334,7 +334,7 @@
 				INFOPLIST_FILE = Meditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trystories.Stories;
 				PRODUCT_NAME = Stories;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

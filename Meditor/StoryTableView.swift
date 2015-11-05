@@ -21,11 +21,11 @@ class StoryTableView: NSTableView {
             
         case intToString(NSCarriageReturnCharacter) :
             let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.window.makeFirstResponder(appDelegate.meditorTextView)
+            appDelegate.window.makeFirstResponder(appDelegate.storyTextView)
             break
         case intToString(NSRightArrowFunctionKey) :
             let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.window.makeFirstResponder(appDelegate.meditorTextView)
+            appDelegate.window.makeFirstResponder(appDelegate.storyTextView)
             break
         default:
             super.keyDown(theEvent)
