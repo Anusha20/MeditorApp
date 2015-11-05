@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B11189B1BDB9DA50007EE4E /* SummaryTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B11189A1BDB9DA50007EE4E /* SummaryTextView.swift */; };
-		6B6C42B41BD7EB030003C47A /* MeditorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C42B31BD7EB030003C47A /* MeditorButton.swift */; };
+		6B6C42B41BD7EB030003C47A /* StoriesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C42B31BD7EB030003C47A /* StoriesButton.swift */; };
 		6BA4E14A1BD3318B004CE715 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E1491BD3318B004CE715 /* main.swift */; };
 		6BA4E14C1BD334E0004CE715 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA4E14B1BD334E0004CE715 /* MainMenu.xib */; };
 		6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */; };
@@ -16,7 +16,7 @@
 		6BBB94811BE13BAC00F224F7 /* ExportedStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBB94801BE13BAC00F224F7 /* ExportedStoryView.swift */; };
 		6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */; };
 		6BCD56711BCC52BB0024D09F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BCD56701BCC52BB0024D09F /* Assets.xcassets */; };
-		6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */; };
+		6BCD56811BCC53FB0024D09F /* StoryTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD567F1BCC53FB0024D09F /* StoryTextView.swift */; };
 		6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56891BD089D20024D09F /* Tagger.swift */; };
 		6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */; };
 		6BCD56931BD08A7A0024D09F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD56911BD08A7A0024D09F /* Store.swift */; };
@@ -30,7 +30,7 @@
 
 /* Begin PBXFileReference section */
 		6B11189A1BDB9DA50007EE4E /* SummaryTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryTextView.swift; sourceTree = "<group>"; };
-		6B6C42B31BD7EB030003C47A /* MeditorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorButton.swift; sourceTree = "<group>"; };
+		6B6C42B31BD7EB030003C47A /* StoriesButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesButton.swift; sourceTree = "<group>"; };
 		6BA4E1491BD3318B004CE715 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6BA4E14B1BD334E0004CE715 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BCD56701BCC52BB0024D09F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BCD56751BCC52BB0024D09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeditorTextView.swift; sourceTree = "<group>"; };
+		6BCD567F1BCC53FB0024D09F /* StoryTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTextView.swift; sourceTree = "<group>"; };
 		6BCD56891BD089D20024D09F /* Tagger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagger.swift; sourceTree = "<group>"; };
 		6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManger.swift; sourceTree = "<group>"; };
 		6BCD56911BD08A7A0024D09F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -97,13 +97,13 @@
 		6BCD56831BCC56310024D09F /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6BCD567F1BCC53FB0024D09F /* MeditorTextView.swift */,
+				6BCD567F1BCC53FB0024D09F /* StoryTextView.swift */,
 				6BBB94801BE13BAC00F224F7 /* ExportedStoryView.swift */,
 				6BCD566E1BCC52BB0024D09F /* AppDelegate.swift */,
 				6BA4E14D1BD33E44004CE715 /* MenuDelegate.swift */,
 				6BA4E1491BD3318B004CE715 /* main.swift */,
 				6BBA2D391BD6E5B500AB7FEF /* InfoTextField.swift */,
-				6B6C42B31BD7EB030003C47A /* MeditorButton.swift */,
+				6B6C42B31BD7EB030003C47A /* StoriesButton.swift */,
 				88B855FA1BDDD16A00455C0D /* PopOverController.swift */,
 				88B855FB1BDDD16A00455C0D /* PopOverController.xib */,
 				6B11189A1BDB9DA50007EE4E /* SummaryTextView.swift */,
@@ -212,11 +212,11 @@
 				6BCD56921BD08A7A0024D09F /* RestAPIManger.swift in Sources */,
 				6BA4E14E1BD33E44004CE715 /* MenuDelegate.swift in Sources */,
 				6BA4E14A1BD3318B004CE715 /* main.swift in Sources */,
-				6B6C42B41BD7EB030003C47A /* MeditorButton.swift in Sources */,
+				6B6C42B41BD7EB030003C47A /* StoriesButton.swift in Sources */,
 				885DABE71BDEEA6800CAE17B /* Story.swift in Sources */,
 				6BCD568D1BD089D20024D09F /* Tagger.swift in Sources */,
 				885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */,
-				6BCD56811BCC53FB0024D09F /* MeditorTextView.swift in Sources */,
+				6BCD56811BCC53FB0024D09F /* StoryTextView.swift in Sources */,
 				6BCD566F1BCC52BB0024D09F /* AppDelegate.swift in Sources */,
 				6BBB94811BE13BAC00F224F7 /* ExportedStoryView.swift in Sources */,
 				88B855FC1BDDD16A00455C0D /* PopOverController.swift in Sources */,
