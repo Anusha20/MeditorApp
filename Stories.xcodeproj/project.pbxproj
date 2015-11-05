@@ -91,8 +91,7 @@
 				6BA4E14B1BD334E0004CE715 /* MainMenu.xib */,
 				6BCD56751BCC52BB0024D09F /* Info.plist */,
 			);
-			name = Stories;
-			path = Meditor;
+			path = Stories;
 			sourceTree = "<group>";
 		};
 		6BCD56831BCC56310024D09F /* UI */ = {
@@ -314,7 +313,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Meditor/Info.plist;
+				INFOPLIST_FILE = Stories/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.trystories.Stories;
@@ -332,7 +331,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Meditor/Info.plist;
+				INFOPLIST_FILE = Stories/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.trystories.Stories;
