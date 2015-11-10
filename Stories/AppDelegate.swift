@@ -268,7 +268,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func about(sender: NSMenuItem) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://trystories.com")!)
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://storieshq.com")!)
     }
     
 
