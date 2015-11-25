@@ -13,13 +13,14 @@ class MeditorTextView: NSTextView {
     var story : Story!
     var app : AppDelegate!
     var isLastKeyDelete = false
+    var oldString :String!
     
     let placeholder = "# Title\nTell your story...";
     
     func setup(app : AppDelegate, story: Story) {
         self.story = story
         self.app = app
-        
+        self.oldString = ""
         continuousSpellCheckingEnabled = false;
         storyChanged()
     }
@@ -205,8 +206,19 @@ class MeditorTextView: NSTextView {
 extension MeditorTextView: NSTextViewDelegate {
     
     func textDidChange(notification: NSNotification) {
+        writeStory()
+        undoManager?.prepareWithInvocationTarget(self).replaceOldTExt(oldString)
+        oldString = string!
+    }
+    
+    func writeStory(){
         updateStory()
         textChanged()
+    }
+    
+    func replaceOldTExt(text:String){
+        self.string! = oldString
+        writeStory()
     }
     
     func textViewDidChangeSelection(notification: NSNotification) {
