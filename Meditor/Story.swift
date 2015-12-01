@@ -26,7 +26,12 @@ class Story: NSObject {
     init(id: String) {
         self.id = id
 
-        let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+        var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+        documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
+        if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
+            try! NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
+        }
+
         let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
         self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
     }
@@ -39,12 +44,20 @@ class Story: NSObject {
     func save(){
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+            do{
+            var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+            documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
+            if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
+                try NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
+            }
             let fileUrl = documentsUrl.URLByAppendingPathComponent(self.id+".md")
             try! self.body.writeToURL(fileUrl, atomically: true, encoding: NSUTF8StringEncoding)
             
             dispatch_async(dispatch_get_main_queue()) {
                 // update some UI
+            }
+            }catch let error as NSError {
+                print(error.description)
             }
         }
     }
