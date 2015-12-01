@@ -64,6 +64,7 @@ class MeditorTextView: NSTextView {
     
     func storyChanged() {
         setSelectedRange(NSRange(location: 0,length: 0))
+      //  undoManager?.removeAllActionsWithTarget(self)
         textChanged()
         if(story.isExported()) {
             editable = false
@@ -73,6 +74,10 @@ class MeditorTextView: NSTextView {
             editable = true
             selectable = true
             backgroundColor = NSColor.clearColor()
+            oldString = ""
+            undoManager?.removeAllActions()
+          //  undoManager?.removeAllActionsWithTarget(self)
+       
         }
         
     }
@@ -212,8 +217,10 @@ extension MeditorTextView: NSTextViewDelegate {
     }
     
     func writeStory(){
+        undoManager?.beginUndoGrouping()
         updateStory()
         textChanged()
+        undoManager?.endUndoGrouping()
     }
     
     func replaceOldTExt(text:String){
