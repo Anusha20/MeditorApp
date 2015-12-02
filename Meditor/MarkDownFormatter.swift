@@ -24,6 +24,7 @@ class MarkDownFormatter : NSObject{
     var UnOrderedList:Attribute!
     var OrderedList:Attribute!
     var link:Attribute!
+    var blockQ:Attribute!
     
 
     
@@ -106,6 +107,18 @@ class MarkDownFormatter : NSObject{
         
     }
     
+    // Big font, italics, 0.7
+    func blockQuoteInit(){
+        blockQ = Attribute()
+        blockQ.font = NSFont(name: "Charter", size: 30)!
+        blockQ.regex = try! NSRegularExpression(pattern: "(\\>)(.*)", options: [NSRegularExpressionOptions.AnchorsMatchLines])
+        blockQ.syntaxRangeIndex = [1]
+        blockQ.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        blockQ.italics = 0.20
+        blockQ.para = getBQParagrahStyle()
+        blockQ.para.alignment = NSTextAlignment.Center
+    }
+    
     //\[([^\[]+)\]\(([^\)]+)\)
     //((\n|^)\s*([0-9]+\.)\s)(.*)
     
@@ -120,6 +133,7 @@ class MarkDownFormatter : NSObject{
         emphasisInit()
         UnOrderedListInit()
         OrderedListInit()
+        blockQuoteInit()
         linkInit()
         
     }
@@ -135,6 +149,16 @@ class MarkDownFormatter : NSObject{
         style.paragraphSpacingBefore = 30
         return style
     }
+    
+    func getBQParagrahStyle() -> NSMutableParagraphStyle{
+        let style = NSMutableParagraphStyle();
+        style.lineSpacing = -10;
+        style.lineHeightMultiple = 1.2
+        style.paragraphSpacing = 30
+        style.paragraphSpacingBefore = 30
+        return style
+    }
+
     
     func getDefaultParagraphStyle() -> NSMutableParagraphStyle{
         let style = NSMutableParagraphStyle();
@@ -215,6 +239,7 @@ class MarkDownFormatter : NSObject{
         formatText(attributedText,format:UnOrderedList,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:OrderedList,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:link,string : string,lowAlpha:lowAlpha)
+        formatText(attributedText,format:blockQ,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:emphasis,string : string,lowAlpha:lowAlpha)
         formatText(attributedText,format:strongemphasis,string : string,lowAlpha:lowAlpha)
         
