@@ -24,6 +24,9 @@
 		885DABE71BDEEA6800CAE17B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE61BDEEA6800CAE17B /* Story.swift */; };
 		885DABE91BDEEA9900CAE17B /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE81BDEEA9900CAE17B /* Stories.swift */; };
 		885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */; };
+		88AC9A641C0F6529004917A1 /* MyriadPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A631C0F6529004917A1 /* MyriadPro-Bold.otf */; settings = {ASSET_TAGS = (); }; };
+		88AC9A661C133AF9004917A1 /* MyriadPro-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A651C133AF9004917A1 /* MyriadPro-Semibold.otf */; settings = {ASSET_TAGS = (); }; };
+		88AC9A681C133B94004917A1 /* MyriadPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A671C133B94004917A1 /* MyriadPro-Regular.otf */; settings = {ASSET_TAGS = (); }; };
 		88B855FC1BDDD16A00455C0D /* PopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B855FA1BDDD16A00455C0D /* PopOverController.swift */; };
 		88B855FD1BDDD16A00455C0D /* PopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88B855FB1BDDD16A00455C0D /* PopOverController.xib */; };
 /* End PBXBuildFile section */
@@ -50,6 +53,9 @@
 		885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkDownFormatter.swift; sourceTree = "<group>"; };
 		885DABED1BE07EC000CAE17B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		885E1BC41BD8137300C8A043 /* Meditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Meditor.xcodeproj; sourceTree = "<group>"; };
+		88AC9A631C0F6529004917A1 /* MyriadPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Bold.otf"; sourceTree = "<group>"; };
+		88AC9A651C133AF9004917A1 /* MyriadPro-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Semibold.otf"; sourceTree = "<group>"; };
+		88AC9A671C133B94004917A1 /* MyriadPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Regular.otf"; sourceTree = "<group>"; };
 		88B855FA1BDDD16A00455C0D /* PopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverController.swift; sourceTree = "<group>"; };
 		88B855FB1BDDD16A00455C0D /* PopOverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +97,9 @@
 				6BCD56831BCC56310024D09F /* UI */,
 				6BCD56701BCC52BB0024D09F /* Assets.xcassets */,
 				6BA4E14B1BD334E0004CE715 /* MainMenu.xib */,
+				88AC9A651C133AF9004917A1 /* MyriadPro-Semibold.otf */,
+				88AC9A631C0F6529004917A1 /* MyriadPro-Bold.otf */,
+				88AC9A671C133B94004917A1 /* MyriadPro-Regular.otf */,
 				6BCD56751BCC52BB0024D09F /* Info.plist */,
 			);
 			path = Meditor;
@@ -171,7 +180,7 @@
 				TargetAttributes = {
 					6BCD566A1BCC52BB0024D09F = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 7S2WW76HXL;
+						DevelopmentTeam = UF6882ZPQV;
 					};
 				};
 			};
@@ -204,8 +213,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88AC9A681C133B94004917A1 /* MyriadPro-Regular.otf in Resources */,
 				6BCD56711BCC52BB0024D09F /* Assets.xcassets in Resources */,
 				88B855FD1BDDD16A00455C0D /* PopOverController.xib in Resources */,
+				88AC9A661C133AF9004917A1 /* MyriadPro-Semibold.otf in Resources */,
+				88AC9A641C0F6529004917A1 /* MyriadPro-Bold.otf in Resources */,
 				6BA4E14C1BD334E0004CE715 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,13 +336,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Meditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -342,13 +356,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Meditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};

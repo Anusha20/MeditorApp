@@ -36,25 +36,31 @@ class MarkDownFormatter : NSObject{
         var italics: NSNumber = 0
         var color: NSColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
         var isBullet:Bool = false
+        var letterSpacing : NSNumber = 0
         
         
     }
     
     func  H1init(){
         h1 = Attribute()
-        h1.font = NSFont(name: "HelveticaNeue-Bold", size: 36)!
+        h1.font = NSFont(name: "MyriadPro-SemiBold", size: 36)!
         h1.regex = try! NSRegularExpression(pattern: "(# )(.*)", options: [NSRegularExpressionOptions.AnchorsMatchLines])
         h1.syntaxRangeIndex = [1]
         h1.para = getHeaderParagrahStyle()
+        h1.letterSpacing = -0.5
+        
     }
     
     
     func  H2Init(){
         h2 = Attribute()
-        h2.font = NSFont(name: "HelveticaNeue-Bold", size: 30)!
+        h2.font = NSFont(name: "MyriadPro-Regular", size: 28)
         h2.regex = try! NSRegularExpression(pattern: "((\\n|^)## *)(.*)", options: [])
         h2.syntaxRangeIndex = [1]
         h2.para = getHeaderParagrahStyle()
+        h2.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+        h2.letterSpacing = 0
+
         
     }
     
@@ -71,10 +77,9 @@ class MarkDownFormatter : NSObject{
     
     func emphasisInit(){
         emphasis = Attribute()
-        emphasis.font = NSFont(name: "Charter", size: 20.5)!
+        emphasis.font = NSFont(name: "Charter-Italic", size: 20.5)!
         emphasis.regex = try! NSRegularExpression(pattern: "(\\*|_)(.*?)(\\*|_)", options: [])
         emphasis.syntaxRangeIndex = [1,3]
-        emphasis.italics = 0.20
         emphasis.para = getDefaultParagraphStyle()
         
     }
@@ -109,12 +114,13 @@ class MarkDownFormatter : NSObject{
     
     // Big font, italics, 0.7
     func blockQuoteInit(){
+        NSFontManager.sharedFontManager().availableFonts
         blockQ = Attribute()
-        blockQ.font = NSFont(name: "Charter", size: 30)!
+        blockQ.font = NSFont(name: "Charter-Italic", size: 28)!
         blockQ.regex = try! NSRegularExpression(pattern: "(\\>)(.*)", options: [NSRegularExpressionOptions.AnchorsMatchLines])
         blockQ.syntaxRangeIndex = [1]
-        blockQ.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        blockQ.italics = 0.20
+        blockQ.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.439216)
+        //blockQ.italics = 0.30
         blockQ.para = getBQParagrahStyle()
         blockQ.para.alignment = NSTextAlignment.Center
     }
@@ -205,7 +211,7 @@ class MarkDownFormatter : NSObject{
             matched = true
             let matchRange = match.range
             attributedText.addAttribute(NSFontAttributeName, value: format.font, range: matchRange)
-            attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
+//            attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
             if(format.isBullet){
                /* let ind :Int = 3
                 let r = match.rangeAtIndex(ind);
@@ -220,6 +226,10 @@ class MarkDownFormatter : NSObject{
             }
             
               attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
+            if(format.letterSpacing != 0){
+                attributedText.addAttribute(NSKernAttributeName, value: format.letterSpacing, range: matchRange)
+
+            }
             if(lowAlpha) {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: lowAlphaColor, range: matchRange)
             } else {

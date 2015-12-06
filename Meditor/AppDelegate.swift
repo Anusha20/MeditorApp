@@ -158,6 +158,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         meditorTextView.delegate = meditorTextView
         scrollView.documentView = meditorTextView
         
+        collapse()
+        
     }
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
