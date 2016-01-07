@@ -48,6 +48,7 @@
 		6BCD56901BD08A7A0024D09F /* RestAPIManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPIManger.swift; sourceTree = "<group>"; };
 		6BCD56911BD08A7A0024D09F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		6BFD8D6A1BE57CD900FF4F92 /* StoryTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableView.swift; sourceTree = "<group>"; };
+		884DD38D1C388FFD008162B3 /* Meditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Meditor.entitlements; sourceTree = "<group>"; };
 		885DABE61BDEEA6800CAE17B /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		885DABE81BDEEA9900CAE17B /* Stories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stories.swift; sourceTree = "<group>"; };
 		885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkDownFormatter.swift; sourceTree = "<group>"; };
@@ -92,6 +93,7 @@
 		6BCD566D1BCC52BB0024D09F /* Meditor */ = {
 			isa = PBXGroup;
 			children = (
+				884DD38D1C388FFD008162B3 /* Meditor.entitlements */,
 				6BCD56871BD089AF0024D09F /* API */,
 				6BCD56841BCC57680024D09F /* Models */,
 				6BCD56831BCC56310024D09F /* UI */,
@@ -181,6 +183,14 @@
 					6BCD566A1BCC52BB0024D09F = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = UF6882ZPQV;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -336,13 +346,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Meditor/Meditor.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Meditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.storieshq.Meditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -356,13 +367,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Meditor/Meditor.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Meditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.meditorapp.Meditor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.storieshq.Meditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
