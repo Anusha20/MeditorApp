@@ -23,28 +23,52 @@ class Story: NSObject {
         self.id = NSUUID().UUIDString
     }
     
-    init(id: String) {
+    convenience init(id: String) {
+        self.init()
         self.id = id
+        var url = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+        url = url.URLByAppendingPathComponent("meditor", isDirectory: true)
+        url = url.URLByAppendingPathComponent(id + ".md")
 
-        var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
-        documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
-        if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
-            try! NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
+        if(NSFileManager.defaultManager().fileExistsAtPath(url.path!)){
+            load(url)
+        }else{
+            self.body = String()
+
         }
-
-        let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
-        self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
     }
-    
     convenience init(id: String, mediumURL: String) {
         self.init(id: id)
         self.mediumURL = mediumURL
+    }
+    
+    func load(url:NSURL){
+        
+        do{
+            var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+            documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
+            if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
+                try! NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
+                let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
+                if(NSFileManager.defaultManager().fileExistsAtPath(fileUrl.path!)){
+                    self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
+                }
+                
+            }
+            
+            
+        }catch let error as NSError {
+            print(error.description)
+        }
+        
+
     }
  
     func save(){
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             do{
+               
             var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
             documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
             if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
