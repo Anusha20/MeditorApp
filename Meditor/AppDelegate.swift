@@ -218,6 +218,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.makeFirstResponder(meditorTextView)
     }
     
+    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool{
+        return true
+    }
+    
     func reposition() {
         currentInsetWidth = (scrollView.contentSize.width - minTextWidth) / 2
         meditorTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
@@ -245,7 +249,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func windowDidMove(notification: NSNotification) {
         reposition()
     }
-    
+       
     
     func screenResolution() -> NSSize {
         var screenRect = NSSize()
@@ -579,4 +583,5 @@ extension AppDelegate: NSToolbarDelegate {
     {
         return self.toolbarDefaultItemIdentifiers(toolbar)
     }
+    
 }

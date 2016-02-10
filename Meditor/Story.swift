@@ -49,11 +49,10 @@ class Story: NSObject {
             documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
             if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
                 try! NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
-                let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
-                if(NSFileManager.defaultManager().fileExistsAtPath(fileUrl.path!)){
-                    self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
                 }
-                
+            let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
+            if(NSFileManager.defaultManager().fileExistsAtPath(fileUrl.path!)){
+                self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
             }
             
             
