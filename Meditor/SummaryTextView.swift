@@ -9,7 +9,7 @@
 import Cocoa
 
 class SummaryTextView: NSTextView {
-
+    
     var app : AppDelegate!
     
     func setup(app: AppDelegate) {

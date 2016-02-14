@@ -26,7 +26,7 @@ class MarkDownFormatter : NSObject{
     var link:Attribute!
     var blockQ:Attribute!
     
-
+    
     
     class Attribute{
         var font:NSFont!
@@ -60,7 +60,7 @@ class MarkDownFormatter : NSObject{
         h2.para = getHeaderParagrahStyle()
         h2.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
         h2.letterSpacing = 0
-
+        
         
     }
     
@@ -164,7 +164,7 @@ class MarkDownFormatter : NSObject{
         style.paragraphSpacingBefore = 30
         return style
     }
-
+    
     
     func getDefaultParagraphStyle() -> NSMutableParagraphStyle{
         let style = NSMutableParagraphStyle();
@@ -176,13 +176,13 @@ class MarkDownFormatter : NSObject{
     }
     
     func getListParagraphStyle() -> NSMutableParagraphStyle {
-       // let tabs:NSTextTab = NSTextTab.init(textAlignment: NSTextAlignment.Left,location:5.0, options:[:])
+        // let tabs:NSTextTab = NSTextTab.init(textAlignment: NSTextAlignment.Left,location:5.0, options:[:])
         let paraStyle = NSMutableParagraphStyle()
         //paraStyle.addTabStop(tabs)
         //paraStyle.defaultTabInterval = 2.0//5.0
         paraStyle.firstLineHeadIndent = 30
-    //    paraStyle.headerLevel = 0
-      //  paraStyle.headIndent = 7.0
+        //    paraStyle.headerLevel = 0
+        //  paraStyle.headIndent = 7.0
         paraStyle.paragraphSpacing = 0
         paraStyle.paragraphSpacingBefore = 1.5//30//1.5
         paraStyle.lineSpacing = 5;
@@ -193,7 +193,7 @@ class MarkDownFormatter : NSObject{
     
     
     func getBulletIntend(match:NSTextCheckingResult!,attributedText:NSMutableAttributedString!,index:Int ){
-  /*     var temp = match.rangeAtIndex[index]
+        /*     var temp = match.rangeAtIndex[index]
         
         NSStringFromRange(temp)
         print(totalSpace)
@@ -211,9 +211,9 @@ class MarkDownFormatter : NSObject{
             matched = true
             let matchRange = match.range
             attributedText.addAttribute(NSFontAttributeName, value: format.font, range: matchRange)
-//            attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
+            //            attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
             if(format.isBullet){
-               /* let ind :Int = 3
+                /* let ind :Int = 3
                 let r = match.rangeAtIndex(ind);
                 let index:Range<String.Index> = Range<String.Index>(r.location,r.location+r.length)
                 
@@ -225,10 +225,10 @@ class MarkDownFormatter : NSObject{
                 
             }
             
-              attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
+            attributedText.addAttribute(NSParagraphStyleAttributeName, value: format.para, range: matchRange)
             if(format.letterSpacing != 0){
                 attributedText.addAttribute(NSKernAttributeName, value: format.letterSpacing, range: matchRange)
-
+                
             }
             if(lowAlpha) {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: lowAlphaColor, range: matchRange)
@@ -255,7 +255,7 @@ class MarkDownFormatter : NSObject{
         
     }
     
-   
+    
     
     
 }

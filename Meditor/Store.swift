@@ -10,7 +10,7 @@ import Foundation
 
 struct defaultsKeys {
     static let authorId = "authorId"
-  //  static let keyTwo = "secondStringKey"
+    //  static let keyTwo = "secondStringKey"
     static let authId = "authId"
     
     static let userId = "userId"
@@ -31,22 +31,22 @@ struct defaultsKeys {
 //Setting AuthorId
 
 func setAuthorId( value:String){
-let defaults = NSUserDefaults.standardUserDefaults()
-
-defaults.setValue(value, forKey: defaultsKeys.authorId+getUserId())
-
-defaults.synchronize()
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
+    defaults.setValue(value, forKey: defaultsKeys.authorId+getUserId())
+    
+    defaults.synchronize()
 }
 //Getting AuthorId
 func getAuthorId()->String{
-let defaults = NSUserDefaults.standardUserDefaults()
-var res = ""
-if let stringOne = defaults.stringForKey(defaultsKeys.authorId+getUserId()) {
-    print(stringOne) // Some String Value
-    res = stringOne
-}
-return res
-
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var res = ""
+    if let stringOne = defaults.stringForKey(defaultsKeys.authorId+getUserId()) {
+        print(stringOne) // Some String Value
+        res = stringOne
+    }
+    return res
+    
 }
 
 func setAuthId( value:String){
@@ -77,13 +77,13 @@ func setUserId( value:String){
 }
 //Getting AuthorId
 func getUserId()->String{
-   /* let defaults = NSUserDefaults.standardUserDefaults()
+    /* let defaults = NSUserDefaults.standardUserDefaults()
     var res = "empty"
     if let stringOne = defaults.stringForKey(defaultsKeys.userId) {
-        print("UserId:"+stringOne) // Some String Value
-        res = stringOne
+    print("UserId:"+stringOne) // Some String Value
+    res = stringOne
     }*/
-   return   NSHost.currentHost().localizedName!
+    return   NSHost.currentHost().localizedName!
     
 }
 

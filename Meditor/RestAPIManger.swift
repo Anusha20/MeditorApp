@@ -32,7 +32,7 @@ class RestAPIManger: NSObject{
         }
         request.addValue("Bearer "+authId, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
-             var msg : String = self.connectionRefusedErrorMsg
+            var msg : String = self.connectionRefusedErrorMsg
             if let _ = error
             {
                 popOverController?.showErrorMessage(msg)
@@ -79,9 +79,9 @@ class RestAPIManger: NSObject{
                         
                     }
                     popOverController?.onSuccessFulUpdateUserDetails(sender)
-
+                    
                 }else{
-                   
+                    
                     if(responseCode == 401){
                         msg =  self.unAuthorizedErrorMsg
                     }
@@ -115,7 +115,7 @@ class RestAPIManger: NSObject{
         
         
         let task = session.dataTaskWithRequest(request, completionHandler:{(data:NSData?,response:NSURLResponse?, error:NSError?) -> Void in
-           
+            
             if let _ = error
             {
                 app?.onPublishFailure()
@@ -127,11 +127,11 @@ class RestAPIManger: NSObject{
                 print(response)
                 let responseCode = (response as! NSHTTPURLResponse).statusCode
                 if(responseCode == 201){
-                let lastPost = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                print("The post is: " + lastPost.description)
-                
-                app!.infoField.showProgress("Published Draft to medium.com", progressValue: 1)
-                app?.postPublish(lastPost)
+                    let lastPost = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                    print("The post is: " + lastPost.description)
+                    
+                    app!.infoField.showProgress("Published Draft to medium.com", progressValue: 1)
+                    app?.postPublish(lastPost)
                 }else{
                     app?.onPublishFailure()
                 }

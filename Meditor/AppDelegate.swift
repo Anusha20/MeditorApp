@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     override init() {
         super.init()
         initElements()
-       // NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
+        // NSUserDefaults.standardUserDefaults().removeObjectForKey(defaultsKeys.authId+getUserId())
         //23b9116bf40190c4815819f6a56184211c8ba2940a9d7fb22bd6a7c05048e35ce
     }
     
@@ -205,7 +205,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             setExportedView(story)
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         }
-
+        
         reposition()
         
         // Toolbar
@@ -249,7 +249,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func windowDidMove(notification: NSNotification) {
         reposition()
     }
-       
+    
     
     func screenResolution() -> NSSize {
         var screenRect = NSSize()
@@ -281,11 +281,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://meditorapp.com")!)
     }
     
-
+    
     func newDocument(sender: NSMenuItem) {
         createNew()
     }
-
+    
     func copyDocument(sender: NSMenuItem) {
         clone()
     }
@@ -293,11 +293,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func exportDocument(sender: NSMenuItem) {
         publish()
     }
-
+    
     func collapseList(sender: NSMenuItem) {
         collapse()
     }
-
+    
 }
 
 extension AppDelegate: NSSplitViewDelegate {
@@ -386,7 +386,7 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
                 storySummary.drawsBackground = false
                 storySummary.bordered = false
                 cellView?.addSubview(storySummary)
-
+                
                 let bottomBorder = NSView()
                 bottomBorder.frame = CGRectMake(10, 0, cellView!.frame.size.width - 20, 0.3);
                 bottomBorder.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue)
@@ -464,11 +464,11 @@ extension AppDelegate: NSToolbarDelegate {
         return splitView.isSubviewCollapsed(tableScrollView)
     }
     
-
+    
     func newClicked(sender: NSButton){
         createNew()
     }
-
+    
     func copyClicked(sender: NSButton) {
         clone()
     }
@@ -480,7 +480,7 @@ extension AppDelegate: NSToolbarDelegate {
     func collapseClicked(sender: NSButton){
         collapse()
     }
-
+    
     func createNew(){
         let newStory = Story()
         newStory.save()
@@ -489,7 +489,7 @@ extension AppDelegate: NSToolbarDelegate {
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         window.makeFirstResponder(meditorTextView)
     }
-
+    
     func clone() {
         let newStory = Story()
         newStory.body = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory())!.body
@@ -499,20 +499,20 @@ extension AppDelegate: NSToolbarDelegate {
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         window.makeFirstResponder(meditorTextView)
     }
-
-//    func dialogOKCancel(question: String, text: String) -> Bool {
-//        let myPopup: NSAlert = NSAlert()
-//        myPopup.messageText = question
-//        myPopup.informativeText = text
-//        myPopup.alertStyle = NSAlertStyle.InformationalAlertStyle
-//        myPopup.addButtonWithTitle("OK")
-//        myPopup.addButtonWithTitle("Cancel")
-//        let res = myPopup.runModal()
-//        if res == NSAlertFirstButtonReturn {
-//            return true
-//        }
-//        return false
-//    }
+    
+    //    func dialogOKCancel(question: String, text: String) -> Bool {
+    //        let myPopup: NSAlert = NSAlert()
+    //        myPopup.messageText = question
+    //        myPopup.informativeText = text
+    //        myPopup.alertStyle = NSAlertStyle.InformationalAlertStyle
+    //        myPopup.addButtonWithTitle("OK")
+    //        myPopup.addButtonWithTitle("Cancel")
+    //        let res = myPopup.runModal()
+    //        if res == NSAlertFirstButtonReturn {
+    //            return true
+    //        }
+    //        return false
+    //    }
     
     func callPublishAPI(){
         if(!getAuthId().isEmpty && !getAuthorId().isEmpty){

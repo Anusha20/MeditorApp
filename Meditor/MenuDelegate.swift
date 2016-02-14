@@ -9,12 +9,12 @@
 import Cocoa
 
 class MenuDelegate: NSMenu {
-
+    
     override init(title aTitle: String) {
         super.init(title: aTitle)
         setup()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -55,7 +55,7 @@ class MenuDelegate: NSMenu {
                 NSMenuItem(title: "Meditor Help",  action: "about:", keyEquivalent:"?"),
             ],
         ]
-
+        
         addMenu("Meditor", items: tree["Meditor"]!)
         addMenu("File", items: tree["File"]!)
         addMenu("Edit", items: tree["Edit"]!)

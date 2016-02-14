@@ -64,7 +64,7 @@ class MeditorTextView: NSTextView {
     
     func storyChanged() {
         setSelectedRange(NSRange(location: 0,length: 0))
-      //  undoManager?.removeAllActionsWithTarget(self)
+        //  undoManager?.removeAllActionsWithTarget(self)
         textChanged()
         if(story.isExported()) {
             editable = false
@@ -76,8 +76,8 @@ class MeditorTextView: NSTextView {
             backgroundColor = NSColor.clearColor()
             oldString = ""
             undoManager?.removeAllActions()
-          //  undoManager?.removeAllActionsWithTarget(self)
-       
+            //  undoManager?.removeAllActionsWithTarget(self)
+            
         }
         
     }
@@ -124,27 +124,27 @@ class MeditorTextView: NSTextView {
                 let range:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end:endIndex )
                 let char = string!.substringWithRange(range)
                 let endLocation:Int = match.range.location + match.range.length
-                             //   if(endLocation == string?.characters.count && string?.characters.last == "\n"){
-                    if(!isordered){
-                        let ele = "\n"+char + " "
-                        let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(endLocation-1),end: string!.startIndex.advancedBy(endLocation))
-                        string?.replaceRange(replaceRange, with: ele)
-                        tempRange.location = tempRange.location + ele.characters.count-1
-                        
+                //   if(endLocation == string?.characters.count && string?.characters.last == "\n"){
+                if(!isordered){
+                    let ele = "\n"+char + " "
+                    let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(endLocation-1),end: string!.startIndex.advancedBy(endLocation))
+                    string?.replaceRange(replaceRange, with: ele)
+                    tempRange.location = tempRange.location + ele.characters.count-1
                     
-                    }else{
-                        var num = Int(char)
-                        num = num! + 1
-                        let str = "\n"+String(num!) + ". "
-                        let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(endLocation-1),end: string!.startIndex.advancedBy(endLocation))
-                        string?.replaceRange(replaceRange, with: str)
-                        
-                        tempRange.location = tempRange.location + str.characters.count-1
-                        
-                        
-                    }
+                    
+                }else{
+                    var num = Int(char)
+                    num = num! + 1
+                    let str = "\n"+String(num!) + ". "
+                    let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(endLocation-1),end: string!.startIndex.advancedBy(endLocation))
+                    string?.replaceRange(replaceRange, with: str)
+                    
+                    tempRange.location = tempRange.location + str.characters.count-1
+                    
+                    
+                }
                 setSelectedRange(tempRange)
-               // }
+                // }
             }
             
         }
@@ -158,14 +158,14 @@ class MeditorTextView: NSTextView {
                     isordered = true
                 }
             }
-                for match in matches{
-                    let r : NSRange = match.range;
-                    let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end: string!.startIndex.advancedBy(r.location + r.length))
-                    string?.replaceRange(replaceRange, with: "\n")
-                    tempRange.location = tempRange.location - r.length + 1
-                }
+            for match in matches{
+                let r : NSRange = match.range;
+                let replaceRange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(r.location),end: string!.startIndex.advancedBy(r.location + r.length))
+                string?.replaceRange(replaceRange, with: "\n")
+                tempRange.location = tempRange.location - r.length + 1
+            }
             
-
+            
             
         }
         
@@ -183,7 +183,7 @@ class MeditorTextView: NSTextView {
             break
         default:
             isLastKeyDelete = false
-
+            
         }
         super.keyDown(theEvent)
     }
@@ -204,7 +204,7 @@ class MeditorTextView: NSTextView {
         app.window.makeFirstResponder(app.tableView)
         super.cancelOperation(sender)
     }
-
+    
     
 }
 

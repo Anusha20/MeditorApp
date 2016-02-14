@@ -18,7 +18,7 @@ class Stories: NSObject {
     let keyDraftList = "draftList"
     let keyExportedList = "exportedList"
     var list:[[String:AnyObject]] = []
-
+    
     var draftListheading = 0;
     var exportedListheading = 1;
     var headingsCount = 2;
@@ -27,9 +27,9 @@ class Stories: NSObject {
         super.init()
         
         // Cleaning lists
-//        userDefaults.removeObjectForKey(keyDraftList)
-//        userDefaults.removeObjectForKey(keyExportedList)
-//        userDefaults.removeObjectForKey(keyCurrentStory)
+        //        userDefaults.removeObjectForKey(keyDraftList)
+        //        userDefaults.removeObjectForKey(keyExportedList)
+        //        userDefaults.removeObjectForKey(keyCurrentStory)
         
         // Adding Headings
         draftListheading = 0;
@@ -49,11 +49,11 @@ class Stories: NSObject {
             newStory.save()
             addStory(newStory)
         }
-
+        
     }
     
     func save() {
-
+        
         var draftList = list
         draftList.removeRange(exportedListheading..<list.count)
         draftList.removeAtIndex(draftListheading)
@@ -62,7 +62,7 @@ class Stories: NSObject {
         var exportedList = list
         exportedList.removeRange(0..<(exportedListheading + 1))
         userDefaults.setObject(exportedList, forKey: keyExportedList)
-
+        
         userDefaults.synchronize()
     }
     

@@ -1,7 +1,11 @@
-**/xcuserdata/
+xcuserdata/
+Meditor.xcodeproj/project.xcworkspace/xcuserdata/*
+Meditor.xcodeproj/project.xcworkspace/xcuserdata/sivragav.xcuserdatad/UserInterfaceState.xcuserstate
+Meditor.xcodeproj/xcuserdata/sivragav.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 **/DerivedData/
 **/build/
 .DS_Store
 .Trashes
 *.swp
 *.lock
+

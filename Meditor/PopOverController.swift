@@ -9,14 +9,14 @@
 import Cocoa
 
 class PopOverController: NSViewController {
-
+    
     var popover:NSPopover!
     var appDelegate:AppDelegate!
     
     @IBOutlet weak var bearerIdTextField: NSTextField!
     
     @IBOutlet weak var errorMsg: NSTextField!
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,8 @@ class PopOverController: NSViewController {
         appDelegate = app
         
     }
-
-       
+    
+    
     func showPopover(sender: AnyObject?) {
         if let button = sender {
             let pushButton = button as! NSButton
@@ -55,7 +55,7 @@ class PopOverController: NSViewController {
 
 
 extension PopOverController {
-   
+    
     func updateUserDetails(sender: AnyObject){
         RestAPIManger.sharedInstance.getUserDetails(self,sender:sender,authId:bearerIdTextField.stringValue)
         getName()
@@ -63,13 +63,13 @@ extension PopOverController {
         getProfileUrl()
         getImageUrl()
     }
-
+    
     func onSuccessFulUpdateUserDetails(sender: AnyObject){
-            hideErrorMessage()
-            setAuthId(bearerIdTextField.stringValue)
-            print("bearer id:"+getAuthId())
-            closePopover(sender)
-            appDelegate.callPublishAPI()
+        hideErrorMessage()
+        setAuthId(bearerIdTextField.stringValue)
+        print("bearer id:"+getAuthId())
+        closePopover(sender)
+        appDelegate.callPublishAPI()
         
     }
     
@@ -86,7 +86,7 @@ extension PopOverController {
         errorMsg.hidden = true
         
     }
-   
+    
     @IBAction func saveId(sender: AnyObject) {
         hideErrorMessage()
         updateUserDetails(sender)
@@ -97,8 +97,8 @@ extension PopOverController {
     @IBAction func cancel(sender: AnyObject) {
         hideErrorMessage()
         closePopover(sender)
-
+        
     }
     
     
-    }
+}

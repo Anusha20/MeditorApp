@@ -11,13 +11,13 @@ import AppKit
 import Cocoa
 
 class Story: NSObject {
-
+    
     var body: String
     var id : String
     var mediumURL : String!
     
     let titleLength = 40
-        
+    
     override init() {
         self.body = String()
         self.id = NSUUID().UUIDString
@@ -29,12 +29,12 @@ class Story: NSObject {
         var url = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
         url = url.URLByAppendingPathComponent("meditor", isDirectory: true)
         url = url.URLByAppendingPathComponent(id + ".md")
-
+        
         if(NSFileManager.defaultManager().fileExistsAtPath(url.path!)){
             load(url)
         }else{
             self.body = String()
-
+            
         }
     }
     convenience init(id: String, mediumURL: String) {
@@ -49,36 +49,33 @@ class Story: NSObject {
             documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
             if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
                 try! NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
-                }
+            }
             let fileUrl = documentsUrl.URLByAppendingPathComponent(id + ".md")
             if(NSFileManager.defaultManager().fileExistsAtPath(fileUrl.path!)){
                 self.body = try! String(contentsOfURL: fileUrl, encoding: NSUTF8StringEncoding)
             }
             
-            
-        }catch let error as NSError {
-            print(error.description)
         }
         
-
+        
     }
- 
+    
     func save(){
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             do{
-               
-            var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
-            documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
-            if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
-                try NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
-            }
-            let fileUrl = documentsUrl.URLByAppendingPathComponent(self.id+".md")
-            try! self.body.writeToURL(fileUrl, atomically: true, encoding: NSUTF8StringEncoding)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                // update some UI
-            }
+                
+                var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+                documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
+                if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
+                    try NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
+                }
+                let fileUrl = documentsUrl.URLByAppendingPathComponent(self.id+".md")
+                try! self.body.writeToURL(fileUrl, atomically: true, encoding: NSUTF8StringEncoding)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    // update some UI
+                }
             }catch let error as NSError {
                 print(error.description)
             }
@@ -152,11 +149,11 @@ class Story: NSObject {
             return text.substringToIndex(text.startIndex.advancedBy(count)) + "..."
         }
     }
-
+    
     func minsCount(wordCount : Int) -> Int {
         return Int(round(Double(wordCount) / 220.0))
     }
 }
 
-    
+
 

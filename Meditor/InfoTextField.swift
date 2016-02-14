@@ -9,18 +9,18 @@
 import Cocoa
 
 class InfoTextField: NSTextField {
-
+    
     var progress : CGFloat = 0;
     var idleTitle = ""
     var idleWords = 0
     var idleMins = 0
     var idleMessage = ""
-
+    
     var lastMessage = ""
     var lastProgress : CGFloat = 0
     
     override func drawRect(dirtyRect: NSRect) {
-
+        
         super.drawRect(dirtyRect)
         
         var progressRect = bounds;
@@ -32,7 +32,7 @@ class InfoTextField: NSTextField {
         
         NSColor(calibratedRed: 0.0, green: 0.0, blue: 1.0, alpha: 0.6 ).set()
         NSRectFillUsingOperation(progressRect, NSCompositingOperation.CompositeSourceOver);
-
+        
     }
     
     func showTooltip(tooltip : String) {
@@ -47,7 +47,7 @@ class InfoTextField: NSTextField {
         progress = progressValue
         saveLast()
     }
-
+    
     func showIdle(title: String, words : Int, mins : Int, message : String) {
         idleTitle = title
         idleWords = words

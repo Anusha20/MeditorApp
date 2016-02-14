@@ -24,9 +24,9 @@
 		885DABE71BDEEA6800CAE17B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE61BDEEA6800CAE17B /* Story.swift */; };
 		885DABE91BDEEA9900CAE17B /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABE81BDEEA9900CAE17B /* Stories.swift */; };
 		885DABEC1BE0337200CAE17B /* MarkDownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885DABEB1BE0337200CAE17B /* MarkDownFormatter.swift */; };
-		88AC9A641C0F6529004917A1 /* MyriadPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A631C0F6529004917A1 /* MyriadPro-Bold.otf */; settings = {ASSET_TAGS = (); }; };
-		88AC9A661C133AF9004917A1 /* MyriadPro-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A651C133AF9004917A1 /* MyriadPro-Semibold.otf */; settings = {ASSET_TAGS = (); }; };
-		88AC9A681C133B94004917A1 /* MyriadPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A671C133B94004917A1 /* MyriadPro-Regular.otf */; settings = {ASSET_TAGS = (); }; };
+		88AC9A641C0F6529004917A1 /* MyriadPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A631C0F6529004917A1 /* MyriadPro-Bold.otf */; };
+		88AC9A661C133AF9004917A1 /* MyriadPro-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A651C133AF9004917A1 /* MyriadPro-Semibold.otf */; };
+		88AC9A681C133B94004917A1 /* MyriadPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88AC9A671C133B94004917A1 /* MyriadPro-Regular.otf */; };
 		88B855FC1BDDD16A00455C0D /* PopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B855FA1BDDD16A00455C0D /* PopOverController.swift */; };
 		88B855FD1BDDD16A00455C0D /* PopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88B855FB1BDDD16A00455C0D /* PopOverController.xib */; };
 /* End PBXBuildFile section */

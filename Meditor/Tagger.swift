@@ -60,14 +60,14 @@ func updateProperNouns() {
         let token = (inputTextViewLocal as NSString).substringWithRange(tokenRange)
         
         results += "\(token): \(tag)\n"
-      //  print(token+":"+tag)
+        //  print(token+":"+tag)
         if [NSLinguisticTagPersonalName, NSLinguisticTagPlaceName, NSLinguisticTagOrganizationName,NSLinguisticTagNoun].contains(tag) {
             properNouns.append(token)
             updateFrequency(token,tag:tag)
-           // print(token)
+            // print(token)
         }
         
-       
+        
         
     }
     
