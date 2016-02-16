@@ -37,6 +37,7 @@ class MarkDownFormatter : NSObject{
         var color: NSColor = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
         var isBullet:Bool = false
         var letterSpacing : NSNumber = 0
+        var isLink: Bool = false
         
         
     }
@@ -106,8 +107,11 @@ class MarkDownFormatter : NSObject{
         link = Attribute()
         link.font = NSFont(name: "Charter", size: 20.5)!
         link.regex = try! NSRegularExpression(pattern: "(\\[)([^\\[]+)(\\]\\()([^\\)]+)(\\))", options: [])
-        link.syntaxRangeIndex = [1,3,5]
+        link.syntaxRangeIndex = [1,3,4,5]
         link.color = NSColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.9)
+        link.para = getDefaultParagraphStyle()
+        link.isLink = true
+        
         
         
     }
@@ -211,6 +215,14 @@ class MarkDownFormatter : NSObject{
             matched = true
             let matchRange = match.range
             attributedText.addAttribute(NSFontAttributeName, value: format.font, range: matchRange)
+            if(format.isLink){
+              /*  let trimmedString =
+                    format.regex.stringByReplacingMatchesInString( string!, options:NSRegularExpressionOptions, range:matchRange, withTemplate:"$4")*/
+                let linkIndex = match.rangeAtIndex(4)
+                let linkrange:Range<String.Index> = Range<String.Index>(start: string!.startIndex.advancedBy(linkIndex.location),end: string!.startIndex.advancedBy(linkIndex.location+linkIndex.length))
+                let linkValue = string!.substringWithRange(linkrange)
+                attributedText.addAttribute(NSLinkAttributeName, value:linkValue , range:match.rangeAtIndex(2))
+            }
             //            attributedText.addAttribute(NSObliquenessAttributeName, value: format.italics, range: matchRange)
             if(format.isBullet){
                 /* let ind :Int = 3
