@@ -1,0 +1,325 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		885DABED1BE07EC000CAE17B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		88A231AF1C7BF57800E30133 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Stories/Info.plist; sourceTree = "<group>"; };
+		88A231B01C7BF57800E30133 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Stories/MainMenu.xib; sourceTree = "<group>"; };
+		88A231B21C7BF57800E30133 /* MyriadPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MyriadPro-Bold.otf"; path = "Stories/MyriadPro-Bold.otf"; sourceTree = "<group>"; };
+		88A231B31C7BF57800E30133 /* MyriadPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MyriadPro-Regular.otf"; path = "Stories/MyriadPro-Regular.otf"; sourceTree = "<group>"; };
+		88A231B41C7BF57800E30133 /* MyriadPro-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MyriadPro-Semibold.otf"; path = "Stories/MyriadPro-Semibold.otf"; sourceTree = "<group>"; };
+		88A231B51C7BF57800E30133 /* PopOverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopOverController.xib; path = Stories/PopOverController.xib; sourceTree = "<group>"; };
+		88A231B61C7BF57800E30133 /* Stories.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Stories.entitlements; path = Stories/Stories.entitlements; sourceTree = "<group>"; };
+		88A231C01C7BF5BE00E30133 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Stories/AppDelegate.swift; sourceTree = "<group>"; };
+		88A231C11C7BF5BE00E30133 /* ExportedStoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExportedStoryView.swift; path = Stories/ExportedStoryView.swift; sourceTree = "<group>"; };
+		88A231C31C7BF5BE00E30133 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuDelegate.swift; path = Stories/MenuDelegate.swift; sourceTree = "<group>"; };
+		88A231C41C7BF5BE00E30133 /* PopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopOverController.swift; path = Stories/PopOverController.swift; sourceTree = "<group>"; };
+		88A231C51C7BF5BE00E30133 /* RestAPIManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestAPIManger.swift; path = Stories/RestAPIManger.swift; sourceTree = "<group>"; };
+		88A231C61C7BF5BE00E30133 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Store.swift; path = Stories/Store.swift; sourceTree = "<group>"; };
+		88A231C71C7BF5BE00E30133 /* Stories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stories.swift; path = Stories/Stories.swift; sourceTree = "<group>"; };
+		88A231C81C7BF5BE00E30133 /* SummaryTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SummaryTextView.swift; path = Stories/SummaryTextView.swift; sourceTree = "<group>"; };
+		88A231C91C7BF5BE00E30133 /* Tagger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tagger.swift; path = Stories/Tagger.swift; sourceTree = "<group>"; };
+		88A231CA1C7BF5BE00E30133 /* StoryTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryTableView.swift; path = Stories/StoryTableView.swift; sourceTree = "<group>"; };
+		88A231CB1C7BF5BE00E30133 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Story.swift; path = Stories/Story.swift; sourceTree = "<group>"; };
+		88A231CD1C7BF5BE00E30133 /* MarkDownFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkDownFormatter.swift; path = Stories/MarkDownFormatter.swift; sourceTree = "<group>"; };
+		88A231CE1C7BF5BE00E30133 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Stories/main.swift; sourceTree = "<group>"; };
+		88A231CF1C7BF5BE00E30133 /* InfoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoTextField.swift; path = Stories/InfoTextField.swift; sourceTree = "<group>"; };
+		88A231D01C7BF5BE00E30133 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Stories/Assets.xcassets; sourceTree = "<group>"; };
+		88A231E21C7BF61300E30133 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTextView.swift; path = Stories/CustomTextView.swift; sourceTree = "<group>"; };
+		88A231E31C7BF61300E30133 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Stories/CustomButton.swift; sourceTree = "<group>"; };
+		88E7CDF31C7BF8EA00351ADC /* Stories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stories.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		88E7CDF01C7BF8EA00351ADC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6BCD56621BCC52BB0024D09F = {
+			isa = PBXGroup;
+			children = (
+				88A231A11C7BF40800E30133 /* Stories */,
+				885DABED1BE07EC000CAE17B /* AppKit.framework */,
+				6BCD566C1BCC52BB0024D09F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6BCD566C1BCC52BB0024D09F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88E7CDF31C7BF8EA00351ADC /* Stories.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88A231A11C7BF40800E30133 /* Stories */ = {
+			isa = PBXGroup;
+			children = (
+				88A231E61C7BF63800E30133 /* Models */,
+				88A231E71C7BF65700E30133 /* UI */,
+				88A231CE1C7BF5BE00E30133 /* main.swift */,
+				88A231D01C7BF5BE00E30133 /* Assets.xcassets */,
+				88A231AF1C7BF57800E30133 /* Info.plist */,
+				88A231B01C7BF57800E30133 /* MainMenu.xib */,
+				88A231B21C7BF57800E30133 /* MyriadPro-Bold.otf */,
+				88A231B31C7BF57800E30133 /* MyriadPro-Regular.otf */,
+				88A231B41C7BF57800E30133 /* MyriadPro-Semibold.otf */,
+				88A231B51C7BF57800E30133 /* PopOverController.xib */,
+				88A231B61C7BF57800E30133 /* Stories.entitlements */,
+			);
+			name = Stories;
+			sourceTree = "<group>";
+		};
+		88A231E61C7BF63800E30133 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				88A231C51C7BF5BE00E30133 /* RestAPIManger.swift */,
+				88A231C61C7BF5BE00E30133 /* Store.swift */,
+				88A231C71C7BF5BE00E30133 /* Stories.swift */,
+				88A231C91C7BF5BE00E30133 /* Tagger.swift */,
+				88A231CB1C7BF5BE00E30133 /* Story.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		88A231E71C7BF65700E30133 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				88A231C01C7BF5BE00E30133 /* AppDelegate.swift */,
+				88A231C31C7BF5BE00E30133 /* MenuDelegate.swift */,
+				88A231E21C7BF61300E30133 /* CustomTextView.swift */,
+				88A231E31C7BF61300E30133 /* CustomButton.swift */,
+				88A231C11C7BF5BE00E30133 /* ExportedStoryView.swift */,
+				88A231C41C7BF5BE00E30133 /* PopOverController.swift */,
+				88A231C81C7BF5BE00E30133 /* SummaryTextView.swift */,
+				88A231CA1C7BF5BE00E30133 /* StoryTableView.swift */,
+				88A231CD1C7BF5BE00E30133 /* MarkDownFormatter.swift */,
+				88A231CF1C7BF5BE00E30133 /* InfoTextField.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88E7CDF21C7BF8EA00351ADC /* Stories */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88E7CDFD1C7BF8EA00351ADC /* Build configuration list for PBXNativeTarget "Stories" */;
+			buildPhases = (
+				88E7CDEF1C7BF8EA00351ADC /* Sources */,
+				88E7CDF01C7BF8EA00351ADC /* Frameworks */,
+				88E7CDF11C7BF8EA00351ADC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Stories;
+			productName = Stories;
+			productReference = 88E7CDF31C7BF8EA00351ADC /* Stories.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6BCD56631BCC52BB0024D09F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Meditor;
+				TargetAttributes = {
+					88E7CDF21C7BF8EA00351ADC = {
+						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 6B2K238VSG;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Stories" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6BCD56621BCC52BB0024D09F;
+			productRefGroup = 6BCD566C1BCC52BB0024D09F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				88E7CDF21C7BF8EA00351ADC /* Stories */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		88E7CDF11C7BF8EA00351ADC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		88E7CDEF1C7BF8EA00351ADC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6BCD56761BCC52BB0024D09F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6BCD56771BCC52BB0024D09F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		88E7CDFE1C7BF8EA00351ADC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Stories/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.storieshq.Stories;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		88E7CDFF1C7BF8EA00351ADC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Stories/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.storieshq.Stories;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6BCD56661BCC52BB0024D09F /* Build configuration list for PBXProject "Stories" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BCD56761BCC52BB0024D09F /* Debug */,
+				6BCD56771BCC52BB0024D09F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88E7CDFD1C7BF8EA00351ADC /* Build configuration list for PBXNativeTarget "Stories" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88E7CDFE1C7BF8EA00351ADC /* Debug */,
+				88E7CDFF1C7BF8EA00351ADC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6BCD56631BCC52BB0024D09F /* Project object */;
+}
