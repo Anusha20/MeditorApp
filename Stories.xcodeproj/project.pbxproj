@@ -9,7 +9,6 @@
 /* Begin PBXFileReference section */
 		885DABED1BE07EC000CAE17B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		88A231AF1C7BF57800E30133 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Stories/Info.plist; sourceTree = "<group>"; };
-		88A231B01C7BF57800E30133 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Stories/MainMenu.xib; sourceTree = "<group>"; };
 		88A231B21C7BF57800E30133 /* MyriadPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MyriadPro-Bold.otf"; path = "Stories/MyriadPro-Bold.otf"; sourceTree = "<group>"; };
 		88A231B31C7BF57800E30133 /* MyriadPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MyriadPro-Regular.otf"; path = "Stories/MyriadPro-Regular.otf"; sourceTree = "<group>"; };
 		88A231B41C7BF57800E30133 /* MyriadPro-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MyriadPro-Semibold.otf"; path = "Stories/MyriadPro-Semibold.otf"; sourceTree = "<group>"; };
@@ -71,11 +70,9 @@
 				88A231CE1C7BF5BE00E30133 /* main.swift */,
 				88A231D01C7BF5BE00E30133 /* Assets.xcassets */,
 				88A231AF1C7BF57800E30133 /* Info.plist */,
-				88A231B01C7BF57800E30133 /* MainMenu.xib */,
 				88A231B21C7BF57800E30133 /* MyriadPro-Bold.otf */,
 				88A231B31C7BF57800E30133 /* MyriadPro-Regular.otf */,
 				88A231B41C7BF57800E30133 /* MyriadPro-Semibold.otf */,
-				88A231B51C7BF57800E30133 /* PopOverController.xib */,
 				88A231B61C7BF57800E30133 /* Stories.entitlements */,
 			);
 			name = Stories;
@@ -102,6 +99,7 @@
 				88A231E31C7BF61300E30133 /* CustomButton.swift */,
 				88A231C11C7BF5BE00E30133 /* ExportedStoryView.swift */,
 				88A231C41C7BF5BE00E30133 /* PopOverController.swift */,
+				88A231B51C7BF57800E30133 /* PopOverController.xib */,
 				88A231C81C7BF5BE00E30133 /* SummaryTextView.swift */,
 				88A231CA1C7BF5BE00E30133 /* StoryTableView.swift */,
 				88A231CD1C7BF5BE00E30133 /* MarkDownFormatter.swift */,
