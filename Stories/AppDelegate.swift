@@ -142,7 +142,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         storyView.addSubview(scrollView)
         
         // Text View
-        customTextView = customTextView(frame: scrollView.frame)
+        customTextView = CustomTextView(frame: scrollView.frame)
         customTextView.verticallyResizable = true
         customTextView.horizontallyResizable = false
         customTextView.textContainer!.widthTracksTextView = true

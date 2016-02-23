@@ -6,6 +6,31 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		88C323981C7C021700201F5C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C323971C7C021700201F5C /* MainMenu.xib */; settings = {ASSET_TAGS = (); }; };
+		88F858B11C7C06B40063C6C1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CE1C7BF5BE00E30133 /* main.swift */; };
+		88F858B21C7C06B40063C6C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C01C7BF5BE00E30133 /* AppDelegate.swift */; };
+		88F858B31C7C06B40063C6C1 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C31C7BF5BE00E30133 /* MenuDelegate.swift */; };
+		88F858B41C7C06B40063C6C1 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231E21C7BF61300E30133 /* CustomTextView.swift */; };
+		88F858B51C7C06B40063C6C1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231E31C7BF61300E30133 /* CustomButton.swift */; };
+		88F858B61C7C06B40063C6C1 /* ExportedStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C11C7BF5BE00E30133 /* ExportedStoryView.swift */; };
+		88F858B71C7C06B40063C6C1 /* PopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C41C7BF5BE00E30133 /* PopOverController.swift */; };
+		88F858B91C7C06B40063C6C1 /* SummaryTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C81C7BF5BE00E30133 /* SummaryTextView.swift */; };
+		88F858BA1C7C06B40063C6C1 /* StoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CA1C7BF5BE00E30133 /* StoryTableView.swift */; };
+		88F858BB1C7C06B40063C6C1 /* MarkDownFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CD1C7BF5BE00E30133 /* MarkDownFormatter.swift */; };
+		88F858BC1C7C06B40063C6C1 /* InfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CF1C7BF5BE00E30133 /* InfoTextField.swift */; };
+		88F858BD1C7C06BB0063C6C1 /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C51C7BF5BE00E30133 /* RestAPIManger.swift */; };
+		88F858BE1C7C06BB0063C6C1 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C61C7BF5BE00E30133 /* Store.swift */; };
+		88F858BF1C7C06BB0063C6C1 /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C71C7BF5BE00E30133 /* Stories.swift */; };
+		88F858C01C7C06BB0063C6C1 /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C91C7BF5BE00E30133 /* Tagger.swift */; };
+		88F858C11C7C06BB0063C6C1 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CB1C7BF5BE00E30133 /* Story.swift */; };
+		88F858C21C7C06D40063C6C1 /* PopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A231B51C7BF57800E30133 /* PopOverController.xib */; };
+		88F858C31C7C06D40063C6C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88A231D01C7BF5BE00E30133 /* Assets.xcassets */; };
+		88F858C41C7C06D40063C6C1 /* MyriadPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88A231B21C7BF57800E30133 /* MyriadPro-Bold.otf */; };
+		88F858C51C7C06D40063C6C1 /* MyriadPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88A231B31C7BF57800E30133 /* MyriadPro-Regular.otf */; };
+		88F858C61C7C06D40063C6C1 /* MyriadPro-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88A231B41C7BF57800E30133 /* MyriadPro-Semibold.otf */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		885DABED1BE07EC000CAE17B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		88A231AF1C7BF57800E30133 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Stories/Info.plist; sourceTree = "<group>"; };
@@ -31,6 +56,7 @@
 		88A231D01C7BF5BE00E30133 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Stories/Assets.xcassets; sourceTree = "<group>"; };
 		88A231E21C7BF61300E30133 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTextView.swift; path = Stories/CustomTextView.swift; sourceTree = "<group>"; };
 		88A231E31C7BF61300E30133 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Stories/CustomButton.swift; sourceTree = "<group>"; };
+		88C323971C7C021700201F5C /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Stories/MainMenu.xib; sourceTree = "<group>"; };
 		88E7CDF31C7BF8EA00351ADC /* Stories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -48,8 +74,8 @@
 		6BCD56621BCC52BB0024D09F = {
 			isa = PBXGroup;
 			children = (
-				88A231A11C7BF40800E30133 /* Stories */,
 				885DABED1BE07EC000CAE17B /* AppKit.framework */,
+				88A231A11C7BF40800E30133 /* Stories */,
 				6BCD566C1BCC52BB0024D09F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,13 +93,13 @@
 			children = (
 				88A231E61C7BF63800E30133 /* Models */,
 				88A231E71C7BF65700E30133 /* UI */,
-				88A231CE1C7BF5BE00E30133 /* main.swift */,
 				88A231D01C7BF5BE00E30133 /* Assets.xcassets */,
 				88A231AF1C7BF57800E30133 /* Info.plist */,
 				88A231B21C7BF57800E30133 /* MyriadPro-Bold.otf */,
 				88A231B31C7BF57800E30133 /* MyriadPro-Regular.otf */,
 				88A231B41C7BF57800E30133 /* MyriadPro-Semibold.otf */,
 				88A231B61C7BF57800E30133 /* Stories.entitlements */,
+				88C323971C7C021700201F5C /* MainMenu.xib */,
 			);
 			name = Stories;
 			sourceTree = "<group>";
@@ -93,6 +119,7 @@
 		88A231E71C7BF65700E30133 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				88A231CE1C7BF5BE00E30133 /* main.swift */,
 				88A231C01C7BF5BE00E30133 /* AppDelegate.swift */,
 				88A231C31C7BF5BE00E30133 /* MenuDelegate.swift */,
 				88A231E21C7BF61300E30133 /* CustomTextView.swift */,
@@ -172,6 +199,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88F858C21C7C06D40063C6C1 /* PopOverController.xib in Resources */,
+				88F858C31C7C06D40063C6C1 /* Assets.xcassets in Resources */,
+				88F858C41C7C06D40063C6C1 /* MyriadPro-Bold.otf in Resources */,
+				88F858C51C7C06D40063C6C1 /* MyriadPro-Regular.otf in Resources */,
+				88F858C61C7C06D40063C6C1 /* MyriadPro-Semibold.otf in Resources */,
+				88C323981C7C021700201F5C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +215,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88F858BD1C7C06BB0063C6C1 /* RestAPIManger.swift in Sources */,
+				88F858BE1C7C06BB0063C6C1 /* Store.swift in Sources */,
+				88F858BF1C7C06BB0063C6C1 /* Stories.swift in Sources */,
+				88F858C01C7C06BB0063C6C1 /* Tagger.swift in Sources */,
+				88F858C11C7C06BB0063C6C1 /* Story.swift in Sources */,
+				88F858B11C7C06B40063C6C1 /* main.swift in Sources */,
+				88F858B21C7C06B40063C6C1 /* AppDelegate.swift in Sources */,
+				88F858B31C7C06B40063C6C1 /* MenuDelegate.swift in Sources */,
+				88F858B41C7C06B40063C6C1 /* CustomTextView.swift in Sources */,
+				88F858B51C7C06B40063C6C1 /* CustomButton.swift in Sources */,
+				88F858B61C7C06B40063C6C1 /* ExportedStoryView.swift in Sources */,
+				88F858B71C7C06B40063C6C1 /* PopOverController.swift in Sources */,
+				88F858B91C7C06B40063C6C1 /* SummaryTextView.swift in Sources */,
+				88F858BA1C7C06B40063C6C1 /* StoryTableView.swift in Sources */,
+				88F858BB1C7C06B40063C6C1 /* MarkDownFormatter.swift in Sources */,
+				88F858BC1C7C06B40063C6C1 /* InfoTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
