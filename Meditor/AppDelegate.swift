@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Meditor
-//
-//  Created by Sivaprakash Ragavan on 10/12/15.
-//  Copyright © 2015 Meditor. All rights reserved.
-//
 
 import Cocoa
 
@@ -25,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var exportedStoryView: ExportedStoryView!
     var titleTextView: NSTextView!
     var copyButton: NSButton!
-    var meditorTextView: MeditorTextView!
+    var customTextView: CustomTextView!
     var storyView : NSView!
     var toolbar:NSToolbar!
     var toolbarTabsIdentifierArray:[String] = []
@@ -149,14 +142,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         storyView.addSubview(scrollView)
         
         // Text View
-        meditorTextView = MeditorTextView(frame: scrollView.frame)
-        meditorTextView.verticallyResizable = true
-        meditorTextView.horizontallyResizable = false
-        meditorTextView.textContainer!.widthTracksTextView = true
-        meditorTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
-        meditorTextView.allowsUndo = true
-        meditorTextView.delegate = meditorTextView
-        scrollView.documentView = meditorTextView
+        customTextView = CustomTextView(frame: scrollView.frame)
+        customTextView.verticallyResizable = true
+        customTextView.horizontallyResizable = false
+        customTextView.textContainer!.widthTracksTextView = true
+        customTextView.autoresizingMask = NSAutoresizingMaskOptions(rawValue: NSAutoresizingMaskOptions.ViewWidthSizable.rawValue | NSAutoresizingMaskOptions.ViewHeightSizable.rawValue)
+        customTextView.allowsUndo = true
+        customTextView.delegate = customTextView
+        scrollView.documentView = customTextView
         
         collapse()
         
@@ -201,7 +194,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         exportedStoryView.addSubview(copyButton)
         
         if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
-            meditorTextView.setup(self, story: story)
+            customTextView.setup(self, story: story)
             setExportedView(story)
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
         }
@@ -210,12 +203,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // Toolbar
         toolbarTabsIdentifierArray =  ["CollapseIdentifier", "NewIdentifier", NSToolbarFlexibleSpaceItemIdentifier, "InfoBarIdentifier", NSToolbarFlexibleSpaceItemIdentifier, "PublishButtonIdentifier"]
-        toolbar = NSToolbar(identifier:"MeditorToolbarIdentifier")
+        toolbar = NSToolbar(identifier:"StoriesToolbarIdentifier")
         toolbar.allowsUserCustomization = true
         toolbar.delegate = self
         window.toolbar = toolbar
         window.makeKeyAndOrderFront(nil);
-        window.makeFirstResponder(meditorTextView)
+        window.makeFirstResponder(customTextView)
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool{
@@ -224,7 +217,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func reposition() {
         currentInsetWidth = (scrollView.contentSize.width - minTextWidth) / 2
-        meditorTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
+        customTextView.textContainerInset = NSSize(width: currentInsetWidth, height: minInsetHeight)
         if(titleTextView != nil) {
             titleTextView.frame.origin.x = currentInsetWidth
             //mediumButton.frame.origin.x = currentInsetWidth + 540
@@ -278,7 +271,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func about(sender: NSMenuItem) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://meditorapp.com")!)
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://storieshq.com/mac")!)
     }
     
     
@@ -409,8 +402,8 @@ extension AppDelegate: NSTableViewDelegate, NSTableViewDataSource {
             } else {
                 scrollView.frame.size.height = storyView.frame.size.height
             }
-            meditorTextView.story = story
-            meditorTextView.storyChanged()
+            customTextView.story = story
+            customTextView.storyChanged()
             setExportedView(story)
         } else {
             tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
@@ -487,7 +480,7 @@ extension AppDelegate: NSToolbarDelegate {
         Stories.sharedInstance.addStory(newStory)
         tableView.reloadData()
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-        window.makeFirstResponder(meditorTextView)
+        window.makeFirstResponder(customTextView)
     }
     
     func clone() {
@@ -497,7 +490,7 @@ extension AppDelegate: NSToolbarDelegate {
         Stories.sharedInstance.addStory(newStory)
         tableView.reloadData()
         tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-        window.makeFirstResponder(meditorTextView)
+        window.makeFirstResponder(customTextView)
     }
     
     //    func dialogOKCancel(question: String, text: String) -> Bool {
@@ -521,8 +514,8 @@ extension AppDelegate: NSToolbarDelegate {
             setAuthId("11b2c0dd55970d2b3987d03a2ca75a6df");*/
             
             let authorId = getAuthorId()
-            let title = meditorTextView.story.getTitle()
-            let content = prepareContent(meditorTextView.string!)
+            let title = customTextView.story.getTitle()
+            let content = prepareContent(customTextView.string!)
             let tags:[String] = []
             let contentFormat = "markdown"
             let publishStat = "draft"
@@ -553,7 +546,7 @@ extension AppDelegate: NSToolbarDelegate {
             Stories.sharedInstance.markCurrentPublished(mediumURL)
             self.tableView.reloadData()
             self.tableView.selectRowIndexes(NSIndexSet(index: Stories.sharedInstance.getCurrentStory()), byExtendingSelection: false)
-            self.window.makeFirstResponder(self.meditorTextView)
+            self.window.makeFirstResponder(self.customTextView)
         }
     }
     

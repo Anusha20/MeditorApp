@@ -1,14 +1,7 @@
-//
-//  MasterViewController.swift
-//  Meditor
-//
-//  Created by Sivaprakash Ragavan on 10/12/15.
-//  Copyright © 2015 Meditor. All rights reserved.
-//
 
 import Cocoa
 
-class MeditorTextView: NSTextView {
+class CustomTextView: NSTextView {
     
     var story : Story!
     var app : AppDelegate!
@@ -208,7 +201,7 @@ class MeditorTextView: NSTextView {
     
 }
 
-extension MeditorTextView: NSTextViewDelegate {
+extension CustomTextView: NSTextViewDelegate {
     
     func textDidChange(notification: NSNotification) {
         writeStory()

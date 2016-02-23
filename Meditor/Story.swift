@@ -1,10 +1,3 @@
-//
-//  MeditorDoc.swift
-//  Meditor
-//
-//  Created by Sivaprakash Ragavan on 10/12/15.
-//  Copyright © 2015 Meditor. All rights reserved.
-//
 
 import Foundation
 import AppKit
@@ -27,7 +20,7 @@ class Story: NSObject {
         self.init()
         self.id = id
         var url = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
-        url = url.URLByAppendingPathComponent("meditor", isDirectory: true)
+        url = url.URLByAppendingPathComponent("stories", isDirectory: true)
         url = url.URLByAppendingPathComponent(id + ".md")
         
         if(NSFileManager.defaultManager().fileExistsAtPath(url.path!)){
@@ -46,7 +39,7 @@ class Story: NSObject {
         
         do{
             var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
-            documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
+            documentsUrl = documentsUrl.URLByAppendingPathComponent("stories", isDirectory: true)
             if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
                 try! NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
             }
@@ -66,7 +59,7 @@ class Story: NSObject {
             do{
                 
                 var documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
-                documentsUrl = documentsUrl.URLByAppendingPathComponent("meditor", isDirectory: true)
+                documentsUrl = documentsUrl.URLByAppendingPathComponent("stories", isDirectory: true)
                 if(!NSFileManager.defaultManager().fileExistsAtPath(documentsUrl.path!)){
                     try NSFileManager().createDirectoryAtURL(documentsUrl, withIntermediateDirectories: false, attributes: nil)
                 }

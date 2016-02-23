@@ -1,10 +1,3 @@
-//
-//  MenuDelegate.swift
-//  Meditor
-//
-//  Created by Sivaprakash Ragavan on 10/17/15.
-//  Copyright © 2015 Meditor. All rights reserved.
-//
 
 import Cocoa
 
@@ -21,10 +14,10 @@ class MenuDelegate: NSMenu {
     
     func setup() {
         let tree = [
-            "Meditor": [
-                NSMenuItem(title: "About Meditor",  action: "orderFrontStandardAboutPanel:", keyEquivalent:""),
+            "Stories": [
+                NSMenuItem(title: "About Stories",  action: "orderFrontStandardAboutPanel:", keyEquivalent:""),
                 NSMenuItem.separatorItem(),
-                NSMenuItem(title: "Quit Meditor",  action: "terminate:", keyEquivalent:"q"),
+                NSMenuItem(title: "Quit Stories",  action: "terminate:", keyEquivalent:"q"),
             ],
             "File": [
                 NSMenuItem(title: "New Story",  action: "newDocument:", keyEquivalent:"n"),
@@ -52,11 +45,11 @@ class MenuDelegate: NSMenu {
                 NSMenuItem(title: "Bring All to Front",  action: "arrangeInFront:", keyEquivalent:""),
             ],
             "Help": [
-                NSMenuItem(title: "Meditor Help",  action: "about:", keyEquivalent:"?"),
+                NSMenuItem(title: "Stories Help",  action: "about:", keyEquivalent:"?"),
             ],
         ]
         
-        addMenu("Meditor", items: tree["Meditor"]!)
+        addMenu("Stories", items: tree["Stories"]!)
         addMenu("File", items: tree["File"]!)
         addMenu("Edit", items: tree["Edit"]!)
         addMenu("View", items: tree["View"]!)

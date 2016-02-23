@@ -1,10 +1,3 @@
-//
-//  StoryTableView.swift
-//  Meditor
-//
-//  Created by Sivaprakash Ragavan on 10/31/15.
-//  Copyright © 2015 Meditor. All rights reserved.
-//
 
 import Cocoa
 
@@ -25,11 +18,11 @@ class StoryTableView: NSTableView {
             
         case intToString(NSCarriageReturnCharacter) :
             let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.window.makeFirstResponder(appDelegate.meditorTextView)
+            appDelegate.window.makeFirstResponder(appDelegate.customTextView)
             break
         case intToString(NSRightArrowFunctionKey) :
             let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.window.makeFirstResponder(appDelegate.meditorTextView)
+            appDelegate.window.makeFirstResponder(appDelegate.customTextView)
             break
         default:
             super.keyDown(theEvent)
