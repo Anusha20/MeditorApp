@@ -45,7 +45,10 @@ class MenuDelegate: NSMenu {
                 NSMenuItem(title: "Bring All to Front",  action: "arrangeInFront:", keyEquivalent:""),
             ],
             "Help": [
-                NSMenuItem(title: "Stories Help",  action: "about:", keyEquivalent:"?"),
+                NSMenuItem(title: "Contact Support",  action: "support:", keyEquivalent:""),
+                NSMenuItem(title: "Send Feedback",  action: "feedback:", keyEquivalent:""),
+                NSMenuItem.separatorItem(),
+                NSMenuItem(title: "Stories Website",  action: "about:", keyEquivalent:"?"),
             ],
         ]
         

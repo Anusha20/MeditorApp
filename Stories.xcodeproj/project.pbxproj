@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		88C323981C7C021700201F5C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C323971C7C021700201F5C /* MainMenu.xib */; settings = {ASSET_TAGS = (); }; };
+		88C323981C7C021700201F5C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C323971C7C021700201F5C /* MainMenu.xib */; };
 		88F858B11C7C06B40063C6C1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CE1C7BF5BE00E30133 /* main.swift */; };
 		88F858B21C7C06B40063C6C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C01C7BF5BE00E30133 /* AppDelegate.swift */; };
 		88F858B31C7C06B40063C6C1 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C31C7BF5BE00E30133 /* MenuDelegate.swift */; };
@@ -22,7 +22,6 @@
 		88F858BD1C7C06BB0063C6C1 /* RestAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C51C7BF5BE00E30133 /* RestAPIManger.swift */; };
 		88F858BE1C7C06BB0063C6C1 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C61C7BF5BE00E30133 /* Store.swift */; };
 		88F858BF1C7C06BB0063C6C1 /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C71C7BF5BE00E30133 /* Stories.swift */; };
-		88F858C01C7C06BB0063C6C1 /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231C91C7BF5BE00E30133 /* Tagger.swift */; };
 		88F858C11C7C06BB0063C6C1 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A231CB1C7BF5BE00E30133 /* Story.swift */; };
 		88F858C21C7C06D40063C6C1 /* PopOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A231B51C7BF57800E30133 /* PopOverController.xib */; };
 		88F858C31C7C06D40063C6C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88A231D01C7BF5BE00E30133 /* Assets.xcassets */; };
@@ -47,7 +46,6 @@
 		88A231C61C7BF5BE00E30133 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Store.swift; path = Stories/Store.swift; sourceTree = "<group>"; };
 		88A231C71C7BF5BE00E30133 /* Stories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stories.swift; path = Stories/Stories.swift; sourceTree = "<group>"; };
 		88A231C81C7BF5BE00E30133 /* SummaryTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SummaryTextView.swift; path = Stories/SummaryTextView.swift; sourceTree = "<group>"; };
-		88A231C91C7BF5BE00E30133 /* Tagger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tagger.swift; path = Stories/Tagger.swift; sourceTree = "<group>"; };
 		88A231CA1C7BF5BE00E30133 /* StoryTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryTableView.swift; path = Stories/StoryTableView.swift; sourceTree = "<group>"; };
 		88A231CB1C7BF5BE00E30133 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Story.swift; path = Stories/Story.swift; sourceTree = "<group>"; };
 		88A231CD1C7BF5BE00E30133 /* MarkDownFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkDownFormatter.swift; path = Stories/MarkDownFormatter.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 				88A231C51C7BF5BE00E30133 /* RestAPIManger.swift */,
 				88A231C61C7BF5BE00E30133 /* Store.swift */,
 				88A231C71C7BF5BE00E30133 /* Stories.swift */,
-				88A231C91C7BF5BE00E30133 /* Tagger.swift */,
 				88A231CB1C7BF5BE00E30133 /* Story.swift */,
 			);
 			name = Models;
@@ -167,7 +164,6 @@
 				TargetAttributes = {
 					88E7CDF21C7BF8EA00351ADC = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 6B2K238VSG;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -218,7 +214,6 @@
 				88F858BD1C7C06BB0063C6C1 /* RestAPIManger.swift in Sources */,
 				88F858BE1C7C06BB0063C6C1 /* Store.swift in Sources */,
 				88F858BF1C7C06BB0063C6C1 /* Stories.swift in Sources */,
-				88F858C01C7C06BB0063C6C1 /* Tagger.swift in Sources */,
 				88F858C11C7C06BB0063C6C1 /* Story.swift in Sources */,
 				88F858B11C7C06B40063C6C1 /* main.swift in Sources */,
 				88F858B21C7C06B40063C6C1 /* AppDelegate.swift in Sources */,

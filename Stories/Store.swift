@@ -3,91 +3,54 @@ import Foundation
 
 struct defaultsKeys {
     static let authorId = "authorId"
-    //  static let keyTwo = "secondStringKey"
     static let authId = "authId"
-    
     static let userId = "userId"
-    
     static let userName = "userName"
-    
     static let name = "name"
-    
     static let imageUrl = "imageUrl"
-    
     static let profileUrl = "profileUrl"
-    
-    
 }
 
+let defaults = NSUserDefaults.standardUserDefaults()
 
-
-//Setting AuthorId
-
-func setAuthorId( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
+func setAuthorId(value:String) {
     defaults.setValue(value, forKey: defaultsKeys.authorId+getUserId())
-    
     defaults.synchronize()
 }
-//Getting AuthorId
-func getAuthorId()->String{
-    let defaults = NSUserDefaults.standardUserDefaults()
-    var res = ""
+
+func getAuthorId()->String {
     if let stringOne = defaults.stringForKey(defaultsKeys.authorId+getUserId()) {
-        print(stringOne) // Some String Value
-        res = stringOne
+        return stringOne
     }
-    return res
-    
+    return ""
 }
 
 func setAuthId( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
     defaults.setValue(value, forKey: defaultsKeys.authId+getUserId())
-    
     defaults.synchronize()
 }
-//Getting AuthorId
+
 func getAuthId()->String{
-    let defaults = NSUserDefaults.standardUserDefaults()
-    var res = ""
     if let stringOne = defaults.stringForKey(defaultsKeys.authId+getUserId()) {
-        print(stringOne) // Some String Value
-        res = stringOne
+        return stringOne
     }
-    return res
-    
+    return ""
 }
 
 func setUserId( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
     defaults.setValue(value, forKey: defaultsKeys.userId)
-    
     defaults.synchronize()
 }
-//Getting AuthorId
+
 func getUserId()->String{
-    /* let defaults = NSUserDefaults.standardUserDefaults()
-    var res = "empty"
-    if let stringOne = defaults.stringForKey(defaultsKeys.userId) {
-    print("UserId:"+stringOne) // Some String Value
-    res = stringOne
-    }*/
     return   NSHost.currentHost().localizedName!
-    
 }
 
 func setUserName( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
     defaults.setValue(value, forKey: defaultsKeys.userName+defaultsKeys.userId)
-    
     defaults.synchronize()
 }
-//Getting AuthorId
+
 func getUserName()->String{
     let defaults = NSUserDefaults.standardUserDefaults()
     var res = "empty"
@@ -96,18 +59,14 @@ func getUserName()->String{
         res = stringOne
     }
     return res
-    
 }
 
 
 func setImageUrl( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
     defaults.setValue(value, forKey: defaultsKeys.imageUrl+defaultsKeys.userId)
-    
     defaults.synchronize()
 }
-//Getting AuthorId
+
 func getImageUrl()->String{
     let defaults = NSUserDefaults.standardUserDefaults()
     var res = "empty"
@@ -116,17 +75,13 @@ func getImageUrl()->String{
         res = stringOne
     }
     return res
-    
 }
 
 func setProfileUrl( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
     defaults.setValue(value, forKey: defaultsKeys.profileUrl+defaultsKeys.userId)
-    
     defaults.synchronize()
 }
-//Getting AuthorId
+
 func getProfileUrl()->String{
     let defaults = NSUserDefaults.standardUserDefaults()
     var res = "empty"
@@ -135,17 +90,13 @@ func getProfileUrl()->String{
         res = stringOne
     }
     return res
-    
 }
 
 func setName( value:String){
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
     defaults.setValue(value, forKey: defaultsKeys.name+defaultsKeys.userId)
-    
     defaults.synchronize()
 }
-//Getting AuthorId
+
 func getName()->String{
     let defaults = NSUserDefaults.standardUserDefaults()
     var res = "empty"
@@ -154,13 +105,4 @@ func getName()->String{
         res = stringOne
     }
     return res
-    
 }
-
-
-
-
-
-
-
-

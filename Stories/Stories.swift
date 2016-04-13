@@ -20,9 +20,9 @@ class Stories: NSObject {
         super.init()
         
         // Cleaning lists
-        //        userDefaults.removeObjectForKey(keyDraftList)
-        //        userDefaults.removeObjectForKey(keyExportedList)
-        //        userDefaults.removeObjectForKey(keyCurrentStory)
+        // userDefaults.removeObjectForKey(keyDraftList)
+        // userDefaults.removeObjectForKey(keyExportedList)
+        // userDefaults.removeObjectForKey(keyCurrentStory)
         
         // Adding Headings
         draftListheading = 0;
@@ -61,7 +61,7 @@ class Stories: NSObject {
     
     func addStory(story: Story) {
         list.insert(story.getSummary(), atIndex: draftListheading + 1)
-        exportedListheading++;
+        exportedListheading += 1;
         setCurrentStory(draftListheading + 1)
         save()
     }
@@ -69,7 +69,7 @@ class Stories: NSObject {
     func markCurrentPublished(mediumURL: String) {
         let story = getStory(getCurrentStory())
         story?.mediumURL = mediumURL
-        exportedListheading--;
+        exportedListheading -= 1;
         list.removeAtIndex(getCurrentStory())
         list.insert((story?.getSummary())!, atIndex: exportedListheading + 1)
         save()

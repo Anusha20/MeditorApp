@@ -50,7 +50,7 @@ class PopOverController: NSViewController {
 extension PopOverController {
     
     func updateUserDetails(sender: AnyObject){
-        RestAPIManger.sharedInstance.getUserDetails(self,sender:sender,authId:bearerIdTextField.stringValue)
+        RestAPIManger.sharedInstance.getUserDetails(self,sender:sender,authIdSrc:bearerIdTextField.stringValue)
         getName()
         getUserName()
         getProfileUrl()

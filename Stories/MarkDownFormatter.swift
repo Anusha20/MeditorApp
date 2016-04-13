@@ -232,7 +232,8 @@ class MarkDownFormatter : NSObject{
     
     func formatText( attributedText:NSMutableAttributedString!,format : Attribute, string : String?,lowAlpha:Bool) -> Bool  {
         var matched:Bool = false
-        let range = NSMakeRange(0, (string?.characters.count)!)
+       // let range = NSMakeRange(0, (string?.characters.count)!)
+        let range = NSRange(location: 0, length: (string! as NSString).length)
         let matches = format.regex.matchesInString(string!, options: [], range: range)
         for match in matches {
             matched = true

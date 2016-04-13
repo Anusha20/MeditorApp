@@ -53,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         MarkDownFormatter.sharedInstance.setup()
         // Window
         let screenSize = screenResolution()
-        window = NSWindow(contentRect: NSMakeRect(100, 100, screenSize.width - 200, screenSize.height - 200), styleMask: NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask | NSFullSizeContentViewWindowMask, backing: NSBackingStoreType.Buffered, `defer`: false)
+        window = NSWindow(contentRect: NSMakeRect(100, 100, screenSize.width - 200, screenSize.height - 200), styleMask: NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask | NSFullSizeContentViewWindowMask, backing: NSBackingStoreType.Buffered, defer: false)
         window.minSize = NSMakeSize(minTableWidth + minTextWidth + (minInsetWidth * 2), minTextHeight)
         window.opaque = false;
         window.backgroundColor = NSColor.whiteColor();
@@ -67,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         collapseButton.setButtonType(NSButtonType.MomentaryLightButton)
         collapseButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         collapseButton.target = self
-        collapseButton.action = Selector("collapseClicked:")
+        collapseButton.action = #selector(AppDelegate.collapseClicked(_:))
         
         // New Button
         newButton = NSButton(frame: NSRect(x:0, y:0, width: 75, height: 35))
@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         newButton.setButtonType(NSButtonType.MomentaryLightButton)
         newButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         newButton.target = self
-        newButton.action = Selector("newClicked:")
+        newButton.action = #selector(AppDelegate.newClicked(_:))
         
         // Info Field
         infoField = InfoTextField(frame: NSRect(x:0, y:0, width: 450, height: 25))
@@ -90,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         publishButton.setButtonType(NSButtonType.MomentaryLightButton)
         publishButton.bezelStyle = NSBezelStyle.TexturedRoundedBezelStyle
         publishButton.target = self
-        publishButton.action = Selector("publishClicked:")
+        publishButton.action = #selector(AppDelegate.publishClicked(_:))
         
         // Split View
         splitView = NSSplitView()
@@ -190,7 +190,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         copyButton.setButtonType(NSButtonType.MomentaryLightButton)
         copyButton.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
         copyButton.target = self
-        copyButton.action = Selector("copyClicked:")
+        copyButton.action = #selector(AppDelegate.copyClicked(_:))
         exportedStoryView.addSubview(copyButton)
         
         if let story = Stories.sharedInstance.getStory(Stories.sharedInstance.getCurrentStory()) {
@@ -271,10 +271,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func about(sender: NSMenuItem) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://storieshq.com/mac")!)
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "http://storieshq.com")!)
     }
-    
-    
+
+    func feedback(sender: NSMenuItem) {
+        let os = NSProcessInfo().operatingSystemVersion
+        let osString = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+        let dictionary = NSBundle.mainBundle().infoDictionary!
+        let version = dictionary["CFBundleShortVersionString"] as! String
+        let build = dictionary["CFBundleVersion"] as! String
+
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "mailto:contact@storieshq.com?subject=Stories%20for%20Mac:%20Feedback&body=%0D%0A%0D%0A%0D%0AStories%20for%20Mac%20Version%20\(version)%20(Build%20\(build))%0D%0AMac%20OS%20Version%20\(osString)")!)
+    }
+
+    func support(sender: NSMenuItem) {
+        let os = NSProcessInfo().operatingSystemVersion
+        let osString = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+        let dictionary = NSBundle.mainBundle().infoDictionary!
+        let version = dictionary["CFBundleShortVersionString"] as! String
+        let build = dictionary["CFBundleVersion"] as! String
+
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "mailto:contact@storieshq.com?subject=Stories%20for%20Mac:%20Support%20Request&body=%0D%0A%0D%0A%0D%0AStories%20for%20Mac%20Version%20\(version)%20(Build%20\(build))%0D%0AMac%20OS%20Version%20\(osString)")!)
+    }
+
     func newDocument(sender: NSMenuItem) {
         createNew()
     }
